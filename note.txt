@@ -1,0 +1,4 @@
+admin 12345
+rdu1 rdu1
+frontend1 frontend1
+frontend2 frontend2
