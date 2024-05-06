@@ -68,7 +68,6 @@ if(isset($_POST['click_edit_user'])){
             echo"<h6>"."<b>Current Email: </b>".$row['email']."</h6>";
             echo"<label for='new_email'>New Email: </label><br/>
             <input type='email' id='new_email' name='new_email' style='width: 100px; !important;' required ><br />";
-            echo"<h6>"."<b>Current Password: </b> ".$row['password']."%"."</h6>";
             echo"<label for='new_pass'>New Password: </label><br />
             <input type='password' id='new_pass' name='new_pass' style='width: 100px;' required ><br/>";
             echo"<input type='hidden' name='id' value='$id'><br/>";

@@ -58,7 +58,7 @@
                                                             <td scope='col' class='date'> ".$row['date_transacted']."</td>
                                                             <td scope='col' class = 'time'> ".$row['time_transacted']."</td>
                                                             <td scope='col' class='payment_mode'> ".$row['payment_mode']."</td>
-                                                            <td scope='col' class=''> "."<a href='#' class='btn btn-info view_details'>View Details</a>"."</td>
+                                                            <td scope='col' class=''> "."<a href='#' class='btn btn-info view_details'>🔍View Details</a>"."</td>
                                                         </tr>";
                                                     
                      }
@@ -86,6 +86,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="viewDetailsModalLabel">View Details</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
       </div>
       <div class="modal-body">
         <div class="view_form">
@@ -148,6 +151,9 @@ $(document).ready(function(){
             $('#viewDetailsModal').modal('show');
         }
     });
+  });
+   $('.close').click(function(){
+    $('#viewDetailsModal').modal('hide');
   });
 });
 </script>

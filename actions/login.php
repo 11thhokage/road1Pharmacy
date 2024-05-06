@@ -41,57 +41,83 @@ if(isset($_POST['submit'])){
 
           if($_SESSION['role_as'] == 1){
               $_SESSION['admin_name'] = $row['username'];
-            //   header('location:');
-              echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
-           <div class='content'>
-               <script>
-               Swal.fire({
-                   title: 'Success!',
-                   text: 'Welcome ".$_SESSION['admin_name'];
-                   echo"',
-                   icon: 'success',
-                   confirmButtonText: 'Ok'
-               }).then(() =>{window.location.href = '../pages/admin/admin_page.php';});
-               </script>
-           </div>
-       </main>";
+              header('location:../pages/admin/admin_page.php');
+    //           echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
+    //        <div class='content'>
+    //            <script>
+    //            Swal.fire({
+    //                title: 'Success!',
+    //                text: 'Welcome ".$_SESSION['admin_name'];
+    //                echo"',
+    //                icon: 'success',
+    //                confirmButtonText: 'Ok'
+    //            }).then(() =>{window.location.href = '../pages/admin/admin_page.php';});
+    //            </script>
+    //        </div>
+    //    </main>";
           } elseif ($_SESSION['role_as'] == 2) {
               $_SESSION['user_name'] = $row['username'];
-            //   header('location:');
-              echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
-           <div class='content'>
-               <script>
-               Swal.fire({
-                   title: 'Success!',
-                   text: 'Welcome ".$_SESSION['user_name'];
-                   echo"',
-                   icon: 'success',
-                   confirmButtonText: 'Ok'
-               }).then(() =>{window.location.href = '../pages/user/user_frontend.php';});
-               </script>
-           </div>
-       </main>";
+              header('location:../pages/user/user_frontend.php');
+    //           echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
+    //        <div class='content'>
+    //            <script>
+    //            Swal.fire({
+    //                title: 'Success!',
+    //                text: 'Welcome ".$_SESSION['user_name'];
+    //                echo"',
+    //                icon: 'success',
+    //                confirmButtonText: 'Ok'
+    //            }).then(() =>{window.location.href = '../pages/user/user_frontend.php';});
+    //            </script>
+    //        </div>
+    //    </main>";
           } elseif ($_SESSION['role_as'] == 3) {
               $_SESSION['user_name'] = $row['username'];
-            //   header('location:');
+              header('location:../pages/user/user_rdu.php');
+    //           echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
+    //        <div class='content'>
+    //            <script>
+    //            Swal.fire({
+    //                title: 'Success!',
+    //                text: 'Welcome ".$_SESSION['user_name'];
+    //                echo"',
+    //                icon: 'success',
+    //                confirmButtonText: 'Ok'
+    //            }).then(() =>{window.location.href = '../pages/user/user_rdu.php';});
+    //            </script>
+    //        </div>
+    //    </main>";
+          } else {
+              $error[] = 'not an admin/staff';
               echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
            <div class='content'>
                <script>
                Swal.fire({
-                   title: 'Success!',
-                   text: 'Welcome ".$_SESSION['user_name'];
+                   title: 'Error!',
+                   text: 'Oops! ".$error[0];
                    echo"',
-                   icon: 'success',
+                   icon: 'error',
                    confirmButtonText: 'Ok'
-               }).then(() =>{window.location.href = '../pages/user/user_rdu.php';});
+               }).then(() =>{window.location.href = '../pages/index.php';});
                </script>
            </div>
        </main>";
-          } else {
-              $error[] = 'not an admin/staff';
           }
       } else {
           $error[] = 'Incorrect username or password!';
+              echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
+           <div class='content'>
+               <script>
+               Swal.fire({
+                   title: 'Error!',
+                   text: 'Oops! ".$error[0];
+                   echo"',
+                   icon: 'error',
+                   confirmButtonText: 'Ok'
+               }).then(() =>{window.location.href = '../pages/index.php';});
+               </script>
+           </div>
+       </main>";
       }
    }
 }

@@ -48,7 +48,7 @@ if(mysqli_num_rows($result)> 0){
                                             echo"<td class ='id'>". $receipt_trans_number."</td>";
                                             echo "<td class = 'date'>".$date_received."</td>";
                                             echo "<td  class ='total'>" . $total . "</td>";
-                                            echo"<td><a href='#'class='btn btn-info view_details'>View Details</a></td>";
+                                            echo"<td><a href='#'class='btn btn-info view_details'>🔍View Details</a></td>";
                                             echo "</tr>";
 
         
@@ -89,6 +89,9 @@ if(mysqli_num_rows($result)> 0){
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="viewDetailsModalLabel">View Details</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+</button>
       </div>
       <div class="modal-body">
         <div class="view_form">
@@ -144,5 +147,8 @@ $(document).ready(function(){
         }
     });
   });
+  $('.close').click(function(){
+      $('#viewDetailsModal').modal('hide');
+    });
 });
 </script>

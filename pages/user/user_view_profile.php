@@ -53,7 +53,7 @@ if ($result !== false) {
                         <img src='../../img/<?=$_SESSION['picture'];?>' class='card-img-top' alt='Profile Picture'>
                         <div class='card-body'>
                             <p class='card-text'>ID:<?=$_SESSION['id'];?></p>
-                            <p class='card-text'>Password:<?=$_SESSION['password'];?><a href="edit_password.php" class="btn btn-primary">ChangePassword</a></p>
+                            <p class='card-text'><a href="edit_password.php" class="btn btn-primary">📝ChangePassword</a></p>
                             <p class='card-text'>Email: <?=$_SESSION['email'];?></p>
                            
             </div>

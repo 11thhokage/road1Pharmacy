@@ -1,13 +1,7 @@
 <?php
-include 'user_ham.php';
+include '../../database/config.php';
 ?>
 <?php
-// Include the database configuration and session check files
-include '../../database/config.php';
-
-// Start the session at the beginning of the script if it's not already started
-
-
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if all fields are filled out
@@ -103,3 +97,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <button type="submit" class="btn btn-primary mt-2">Submit</button>
     </form>
 </div>
+

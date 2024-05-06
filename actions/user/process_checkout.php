@@ -37,7 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['items']) && isset($_PO
         $date_transact = date('Y-m-d');
         $time_transacted = date('H:i:s');
 
-        $all_items_valid_zero = true;
         $invalid_items = []; // Initialize an array to keep track of invalid items
 
 foreach ($items as $item) {
@@ -58,7 +57,6 @@ foreach ($items as $item) {
 }
 
 if (!empty($invalid_items)) {
-    $all_items_valid_zero = false;
     // There are invalid items, so we'll display the error messages for all of them
     foreach ($invalid_items as $invalid_item) {
         echo "<script>
@@ -77,7 +75,6 @@ if (!empty($invalid_items)) {
 } else {
     // All items are valid, proceed with the rest of the code
     // ... [The rest of your code for handling the successful case]
-if($all_items_inserted_zero){
                      $insert = "INSERT INTO transactions (amount, tender_amount, date_transacted, time_transacted, payment_mode, transact_by)
                    VALUES ('$total', '$amount_tendered', '$date_transact','$time_transacted', '$mode_of_payment', '$curr_user')";
 
@@ -233,7 +230,7 @@ if ($all_items_inserted) {
 } else {
     echo "Error: " . $insert . "<br>" . $conn->error;
 }
-}
+
 
     }
     } else {

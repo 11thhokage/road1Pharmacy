@@ -188,7 +188,7 @@ if(isset($_POST['submit'])){
                 </div>
                 <div class="col-md-6 mb-3 text-end">
                     <br/>
-                    <button type="submit" name="add_item" class="btn btn-primary">Add Item</button>
+                    <button type="submit" name="add_item" class="btn btn-primary">➕Add Item</button>
                 </div>
                 
             </div>
@@ -249,7 +249,7 @@ if(isset($_POST['submit'])){
                                                     
                                                     <td scope='col' id = 'expiry_date'><?= $item['expiry_date'];?></td>
                                                     <td scope='col'>
-                                                        <a href="../../actions/user/order_void.php?index=<?= $key; ?>" class="btn btn-danger">Void</a>
+                                                        <a href="../../actions/user/order_void.php?index=<?= $key; ?>" class="btn btn-danger">🗑️Void</a>
                                                     </td>
                                                 </tr>
                                                 <?php endforeach; ?>

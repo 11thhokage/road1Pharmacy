@@ -5,14 +5,13 @@ include '../../database/config.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "user_ham.php"; ?>
-    <h2><center>Push Order/Report Items</center></h2>
+    <?php include 'user_ham.php'; ?>
 </head>
+<h2><center>Push Order/Report Items</center></h2>
 <body id="main">
    
         <!-- Push Order Form -->
         <select name="form" id="formSelector">
-            <option value="">Select Form</option>
             <option value="order">Push Order</option>
             <option value="report">Report Item</option>
         </select>
@@ -23,36 +22,49 @@ include '../../database/config.php';
         </div>
     
 <script>
-    document.getElementById('formSelector').addEventListener('change', function() {
-        var selectedForm = this.value;
+    document.addEventListener('DOMContentLoaded', function() {
+        var formSelector = document.getElementById('formSelector');
         var formContentDiv = document.getElementById('formContent');
 
         // Clear the current content
         formContentDiv.innerHTML = '';
 
-        // Use AJAX to request the server to include the appropriate form
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'include_form.php?form=' + selectedForm, true); // Correct path to include_form.php
-        xhr.onload = function() {
-            if (this.status == 200) {
-                formContentDiv.innerHTML = this.responseText;
-            } else {
+        // Function to handle the change event
+        function handleFormChange() {
+            var selectedForm = formSelector.value;
+
+            // Use AJAX to request the server to include the appropriate form
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'include_form.php?form=' + selectedForm, true); // Correct path to include_form.php
+            xhr.onload = function() {
+                if (this.status == 200) {
+                    formContentDiv.innerHTML = this.responseText;
+                } else {
+                    formContentDiv.innerHTML = 'Error loading form.';
+                }
+            };
+            xhr.onerror = function() {
                 formContentDiv.innerHTML = 'Error loading form.';
-            }
-        };
-        xhr.onerror = function() {
-            formContentDiv.innerHTML = 'Error loading form.';
-        };
-        xhr.send();
+            };
+            xhr.send();
+        }
+
+        // Trigger the initial form change
+        handleFormChange();
+
+        // Listen for the change event on the form selector
+        formSelector.addEventListener('change', handleFormChange);
     });
 </script>
     
 
     <!-- Existing scripts -->
-    <script src="user_ham.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+    <!-- Optional JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="user_ham.js"></script>
 </body>
 </html>
 

@@ -4,6 +4,15 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 
+include "../../database/config.php";
+
+$usn = $_SESSION['user_name'];
+$sql = "SELECT picture FROM accounts WHERE username = '$usn'";
+$result = mysqli_query($conn, $sql);
+if ($result->num_rows > 0) {   // output data of each row
+$row = $result->fetch_assoc();
+$picture_name = $row["picture"];
+}
 
 ?>
 <meta charset="UTF-8">
@@ -69,6 +78,10 @@ if (session_status() == PHP_SESSION_NONE) {
     <body id='body-pd'>
     <header class='header' id='header'>
         <div class='header_toggle'> <i class='bx bx-menu' id='header-toggle' style='color:black !important;'></i> </div>
+        <div class='header_time'>
+            <h3><b><span id='current_datetime'></span></b></h3>
+        </div>
+        <div class='header_img'><img src='../../img/$picture_name' alt=''></div>
     </header>
     <div class='l-navbar' id='nav-bar'style = 'background-color:black!important;' >
         <nav class='nav' >
@@ -84,6 +97,7 @@ if (session_status() == PHP_SESSION_NONE) {
         </nav>
     </div>
     ";
+    
  }
  if($_SESSION['role_as'] == '3') {
     echo"
@@ -91,6 +105,10 @@ if (session_status() == PHP_SESSION_NONE) {
     <body id='body-pd'>
     <header class='header' id='header'>
         <div class='header_toggle'> <i class='bx bx-menu' id='header-toggle' style='color:#FFD700 !important;'></i> </div>
+        <div class='header_time'>
+            <h3><b><span id='current_datetime'></span></b></h3>
+        </div>
+        <div class='header_img'><img src='../../img/$picture_name' alt=''></div>
     </header>
     <div class='l-navbar' id='nav-bar' style = 'background-color:yellow !important;' >
         <nav class='nav' >
@@ -111,5 +129,12 @@ if (session_status() == PHP_SESSION_NONE) {
     ";
  }
 ?>
-
-
+<script>
+    function updateDateTime() {
+        var now = new Date();
+        var options = { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+        var dateTime = now.toLocaleDateString(undefined, options);
+        document.getElementById("current_datetime").innerHTML = dateTime;
+    }
+    setInterval(updateDateTime, 1000);
+</script>

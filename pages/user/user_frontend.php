@@ -66,7 +66,7 @@ session_start();
                         </div>
                         <div class="col-md-3 mb-3 text-end">
                             <br/>
-                            <button type="submit" name="add_order" class="btn btn-primary">Add Order</button>
+                            <button type="submit" name="add_order" class="btn btn-primary">➕Add Order</button>
                         </div>
                     </div>
                 </form>
@@ -124,7 +124,7 @@ session_start();
                                                     </td>  
                                                     <td scope='col' id = 'order_subtotal'><?= $item['price'] * $item['quantity'];?></td>
                                                     <td scope='col'>
-                                                        <a href="../../actions/user/order_void.php?index=<?= $key; ?>" class="btn btn-danger">Void</a>
+                                                        <a href="../../actions/user/order_void.php?index=<?= $key; ?>" class="btn btn-danger">🗑️Void</a>
                                                     </td>
                                                 </tr>
                                                 <?php endforeach; ?>
