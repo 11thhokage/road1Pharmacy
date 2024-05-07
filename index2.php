@@ -25,9 +25,9 @@
     <div class="frontpage-container">
         <nav class="nav-bar navbar navbar-expand-md navbar-dark" style="position:fixed">
             <div class="container-fluid">
-                <a class="title" href="index.php">
+                <div class="title">
                     <img src="img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">Road 1 Pharmacy
-                </a>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -77,7 +77,8 @@
         </nav>
         <div class="frontpage-section">
             <div class="section-1">
-                <p class="quote ">Your One Stop <br> Healthcare <br> Pharmacy</p>
+                <h1 class="frontpage-h1">Road 1 Pharmacy</h1>
+                <h2 class="quote">Your One Stop <br> Healthcare <br> Pharmacy</h2>
                 <!--<div class="section-button">
                     <a class="darkblue-button sec-button">About Us</a>
                 </div> -->
@@ -87,7 +88,7 @@
             </div>
         </div>
         <div class="trending-topics">
-            <h2 class="topics">Trending Topics</h2>
+            <h3 class="topics">Trending Topics</h3>
             <div class="square-button">
                 <button class="box">VITAMINS<img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/4887/4887988.png" alt=""></button>
                 <button class="box">FLU REMEDIES <img class="img-topics" src="https://static.vecteezy.com/system/resources/thumbnails/014/604/165/small/girl-sick-face-cartoon-cute-png.png" alt=""></button>

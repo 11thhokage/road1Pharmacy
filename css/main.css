@@ -237,28 +237,28 @@ form{
     flex-direction: column;
     width: 50%;
     height: 100%;
-    padding-top: 200px;
-    justify-content: space-around;
+    padding-top: 250px;
     z-index: 1;
   
 }
-
-
-.quote{
-    color: black;
-    padding-left: 50px;
-    font-size: 50px;
-    text-align: left;
+.frontpage-h1{
     font-weight: bold;
+    padding-left: 50px;
     animation: h1move 5s;
     animation-timing-function: linear;  
     animation-iteration-count: infinite; 
     animation-direction: alternate;
 }
+.quote{
+    color: black;
+    padding-left: 50px;
+    text-align: left;
+    font-weight: bold;
+}
 
 @keyframes h1move {
-    0%   {color:#9FFFCB; }
-  50%  {color:#25A18E; }
+    0%  {color:#25A18E; }
+    50%   {color:#9FFFCB; }
   100%  {color:#7AE582; }
 }
 
