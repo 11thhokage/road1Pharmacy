@@ -48,13 +48,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
+
 
 }
 
 .logo{
     display: flex;
     align-self: center;
+    margin-top: 250px;
 }
 
 form{
@@ -149,7 +150,7 @@ form{
 
 
 .frontpage-background{
-    background-color: #004E64;
+    background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.unsplash.com/photo-1642055514517-7b52288890ec?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHBoYXJtYWN5fGVufDB8fDB8fHww);
     background-repeat: no-repeat; 
     background-size: 100%;
     background-attachment: fixed;
@@ -162,7 +163,8 @@ form{
     height: 100%;
 }
 .frontpage-container{
-    background-color:#E3EAF0;
+    background-color: #587c84;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 1);
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -170,7 +172,7 @@ form{
 
 .nav-bar{
     z-index: 2;
-    background-color: #25A18E;
+    background-color: #587c84;
     width: 100%;
     height: 10%;
     position: fixed;
@@ -181,14 +183,14 @@ form{
     
 }
 .navbar-nav{
-    background-color: #25A18E;
+    background-color: #587c84;
     border-radius: 10px;
-    width: 300px;
 }
 .nav-item{
     margin-left: 10px;
 }
 .title{
+  
     text-decoration: none;
     color: white;
 }
@@ -203,7 +205,7 @@ form{
 .trending-topics{
     width: 100%;
     height: 300px;
-    margin-top: 10px;
+    margin-top: 200px;
   
 }   
 .h1{
@@ -211,7 +213,8 @@ form{
 }
 
 .navbar-button{
-    background-color: #25A18E;
+    
+    background-color: #282444;
     border-radius: 10px;
     margin-right: 20px;
     padding: 5px;
@@ -225,10 +228,15 @@ form{
 
 }
 
+.navbar-button:hover,
+.sec-button:hover{
+    background-color: transparent;
+    border: solid #282444;
+    color: #282444;
+}
 
 .navbar-dropdown{
-    width: 500px;
-    margin-left: 75%;
+    margin-left: 30%;
 }
 
 .section-1{
@@ -245,30 +253,21 @@ form{
 
 
 .quote{
-    color: black;
-    padding-left: 50px;
+    
+    padding-left: 10px;
     font-size: 50px;
     text-align: left;
     font-weight: bold;
-    animation: h1move 5s;
-    animation-timing-function: linear;  
-    animation-iteration-count: infinite; 
-    animation-direction: alternate;
+   
+   
+    
 }
-
-@keyframes h1move {
-    0%   {color:#9FFFCB; }
-  50%  {color:#25A18E; }
-  100%  {color:#7AE582; }
-}
-
-
 .section-button{
     position: absolute;
-    background-color: #25A18E;
+    background-color: #587c84;
     text-decoration: none;
     color: white;
-    width: 100px;
+    width: 50%;
     height: 20px;
     border: none;
     border-radius: 5px;
@@ -277,7 +276,7 @@ form{
     margin-right: 10px;
     margin-bottom: 10px;
     text-align:center;
-    font-size: 10px;
+    
     
 }
 
@@ -297,10 +296,8 @@ form{
     bottom: 0;
     z-index: 0;
 }
-
-
 .topics{
-    color: black;
+  
     margin-left: 10px;
 }
 
@@ -312,10 +309,10 @@ form{
     padding: 0;
 }
 .box{
-    background-color: #25A18E;
+    background-color: #d0d4dc;
     border: none;
     border-radius: 10px;
-    color:black;
+    color:darkblue;
     font-weight: bold;
     width: 200px;
     height: 150px;
@@ -329,7 +326,6 @@ form{
 
 .box:hover, .rectangle:hover{
     transform: scale(1);
-    background-color: #9FFFCB;
 }
 
 .img-topics{
@@ -341,8 +337,8 @@ form{
     z-index: 2;
     width: 100px;
     height: 100px;
-    bottom: 2%;
-    right: 1%;
+    bottom: 10%;
+    right: 10%;
     
 
 
@@ -359,12 +355,12 @@ form{
 }
 
 .cont {
-    background-color:#E3EAF0;
+    background-color:#f4ecfc;
     width: 60%;
-    height: 1200px;
-    margin-top: 50px;
+    height: 1600px;
+    margin-top: 100px;
     color: black;
-    position: relative;
+
 }
 
 
@@ -373,7 +369,6 @@ form{
     text-align: center;
 }
 .aboutus-p{
-    margin-bottom: 50px;
     color: black;
     text-align: center;
 }
@@ -411,7 +406,7 @@ form{
 }
 
 .faq-card-yellow{
-    background-color: #9FFFCB;
+    background-color: yellow;
     color: black;
     position: absolute;
     width: 100%;
@@ -440,7 +435,7 @@ form{
 
 .faq{
     display: flex;
-    height: 640px;
+    height: 800px;
 }
 
 .faq-section1{
@@ -496,80 +491,50 @@ div.faq-section1 h1{
     padding-left: 10px;
     padding-right: 10px;
     font-size: 30px;
-    background-color: #9FFFCB;
+    background-color: #587c84;
 }
 
 .faq-card:hover{
     transform: scale(1.1);
 }
+@media only screen and (max-width:1200px){
+    .card-box{
+       height: 700px;
+        font-size: 10px;
+    }
+    .card-box:hover{
+        transform:scale(1);
+    }
+    .card-img{ 
+        object-fit: contain;
+        height: 250px;
+     
+    }
+    .faq{
+        flex-direction: column;
+    }
+    .faq-section1{
+        width: 100%;
+    }
 
-.footer{
-    height: 300px;
-    width: 100%;
-    background-color:#25A18E;
-    z-index: 1;
-    display: flex;
-    position: absolute;
-    bottom: 0;
-}
+    .faq-section2{
+        flex-direction: column;
+       
+        width: 100%;
+        
 
-.div-footer{
-    text-align: left;
-    width: 50%;
-    padding: 50px;
-}
-
-
-
-@media only screen and (max-width: 992px) {
-.section-image{
-    display: none;
-}
-.cont{
-    height: 2300px;
-}
-.section-1{
-    width: 100%;
-}
-
-
-#about{
-    height: 2000px;
-}
-
-.card-box{
-    width: 300px;
+    }
+    .faq-box{
+        margin: 0;
+        width: 100%;
+    }
     
-}
-.faq{
-    flex-direction: column;
-}
-.faq-section1{
-    width: 100%;
-}
-.faq-section2{
-    flex-direction: column;
-    
-    width: 100%;
-    
-
-}
-.faq-box{
-    display: flex;
-   flex-direction: column;
-    margin: 0;
-    width: 100%;
-}
-.footer{
-    height: 600px;
-    flex-direction: column;
-}
-.div-footer{
-    width: 100%;
-    text-align: center;
-}
 }
 @media only screen and (max-width: 768px) {
+    .frontpage-background{
+        background:none;
+        background-color: black;
+    }
     .frontpage-container{
         height: 1500px;
         width: 100%;
@@ -585,7 +550,6 @@ div.faq-section1 h1{
     width: 100%;
    }
    .cont{
-    border: solid red;
     width: 100%;
     height: 2300px;
    }
@@ -621,19 +585,21 @@ div.faq-section1 h1{
         
         width: 100%;
         
+    
     }
+
     .ai-chatbot{
         width: 50px;
         height: 50px;
-        border: solid red;
-        right: 0;
-        bottom: 0;
+        bottom: 10%;
+        right: 10%;
+        
+    
+    
     }
     .chatbot{
-        border: solid red;
         width: 50px;
         height: 50px;
-        
     }
 }
 @media only screen and (max-width: 480px) {
@@ -647,10 +613,10 @@ div.faq-section1 h1{
         width: 100%;
         align-items: center;
     }
-    .cont{
-        border: solid blue;
+    .card-box{
+        width: 80%;
+
     }
-    
     .small-card{
         height: 200px;
     }
@@ -664,4 +630,10 @@ div.faq-section1 h1{
         width: 100%;
     }
 
+    .chatbot{
+        right: 10px;
+        top: 0;
+        position: absolute;
+        z-index: 2;
+    }
 }
