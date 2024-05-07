@@ -225,33 +225,33 @@ $notifCount = 0;
         <div class="l-navbar" id="nav-bar">
             <nav class="nav">
                 <div class="nav2">
-                    <a href="admin_view_profile.php" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Admin</span> </a>
+                    <a href="admin_view_profile.php" class="nav_logo" title="Profile"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Admin</span> </a>
 
                     <div class="nav_list">
-                        <a href="admin_page.php" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a>
-                        <a href="admin_view_users.php" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
+                        <a href="admin_page.php" class="nav_link active" title="Dashboard"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a>
+                        <a href="admin_view_users.php" class="nav_link" title="Users"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
 
-                        <a href="admin_view_messages.php" class="nav_link">
+                        <a href="admin_view_messages.php" class="nav_link" title="Messages">
                             <i class='bx bx-message-square-detail nav_icon <?php if ($hasUnread) echo "text-danger"; ?>'></i>
                             <span class="nav_name">Messages</span>
                         </a>
 
 
-                        <a href="admin_view_items.php" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Items</span> </a>
+                        <a href="admin_view_items.php" class="nav_link" title="Items"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Items</span> </a>
 
 
 
                         <div class="dropdown">
-                            <a class="dropbtn nav_link">
+                            <a class="dropbtn nav_link" title="Transactions">
                                 <i class='bx bx-folder nav_icon'></i>
                                 <span class="nav_name">Transactions</span>
                             </a>
                             <div class="dropdown-content" id="myDropdown">
-                                <a href="admin_view_rdu_transactions.php" class="nav_link">
+                                <a href="admin_view_rdu_transactions.php" class="nav_link" title="Rdu Transactions">
                                     <i class='bx bx-coin-stack nav_icon'></i>
                                     <span class="nav_name">Rdu Transactions</span>
                                 </a>
-                                <a href="admin_view_transactions.php" class="nav_link">
+                                <a href="admin_view_transactions.php" class="nav_link" title="Offtake Transactions">
                                     <i class='bx bx-cart-alt nav_icon'></i>
                                     <span class="nav_name">Offtake Transactions</span>
                                 </a>
@@ -271,9 +271,9 @@ $notifCount = 0;
                             });
                         </script>
 
-                        <a href="admin_view_warehouse.php" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_name">Stocks</span> </a>
+                        <a href="admin_view_warehouse.php" class="nav_link" title="Stocks"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_name">Stocks</span> </a>
                     </div>
                 </div>
-                <a href="../../actions/logout.php" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+                <a href="../../actions/logout.php" class="nav_link" title="logOut"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
             </nav>
         </div>
