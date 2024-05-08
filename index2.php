@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road 1 Pharmacy</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="styles.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -26,13 +26,13 @@
         <nav class="nav-bar navbar navbar-expand-md navbar-dark" style="position:fixed">
             <div class="container-fluid">
                 <div class="title">
-                    <img src="img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">Road 1 Pharmacy
+                    <img src="img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav navbar-dropdown mr-auto">
+                    <ul class="navbar-nav navbar-dropdown mr-auto" style="position:fixed">
                         <!--<li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Medicines</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -88,7 +88,7 @@
             </div>
         </div>
         <div class="trending-topics">
-            <h3 class="topics">Trending Topics</h3>
+            <h5 class="topics">Trending Topics</h5>
             <div class="square-button">
                 <button class="box">VITAMINS<img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/4887/4887988.png" alt=""></button>
                 <button class="box">FLU REMEDIES <img class="img-topics" src="https://static.vecteezy.com/system/resources/thumbnails/014/604/165/small/girl-sick-face-cartoon-cute-png.png" alt=""></button>
@@ -197,7 +197,31 @@
                 </div>
             </div>
         </div>
-        <footer class="footer">
+        <div class="carousel-cont">
+            <div id="carouselExampleControls" class="carousel slide carousel-css" data-ride="carousel">
+            <div class="carousel-inner ">
+                <div class="carousel-item .active">
+                <img class="d-block w-100 h-100 " src="https://img.freepik.com/free-photo/pharmacist-checking-medicines-drugstore_259150-57964.jpg" alt="First slide" >
+                </div>
+                <div class="carousel-item active">
+                <img class="d-block w-100 h-100" src="https://media.istockphoto.com/id/1036131880/photo/efficient-pharmacy-operations-thanks-to-teamwork.jpg?s=612x612&w=0&k=20&c=JQPtkW7j14dvFWeLd6JlltULHMw07rJdi5ey7QLqCHc=" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                <img class="d-block w-100 h-100 " src="https://thumbs.dreamstime.com/b/pharmacy-otc-products-turkey-64209774.jpg" alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+            </a>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
             <div class="div-footer">
                 <p>Contact us: <br> Cellphone no. : 0123456789 <br> Telephone : (02) 1234567 <br> Email us at: road1pharmacy@gmail.com</p>
 
@@ -205,8 +229,7 @@
             <div class="div-footer">
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio veritatis error nulla itaque minima quasi voluptas odit corporis perspiciatis autem. Earum illum quasi autem impedit magni saepe deserunt, aliquid quis.</p>
             </div>
-        </footer>
-    </div>
+    </footer>
     <div class="ai-chatbot">
         <a href="#"><img class="chatbot" src="img/chatbot_icon.gif" alt="" title="Hi"></a>
     </div>
