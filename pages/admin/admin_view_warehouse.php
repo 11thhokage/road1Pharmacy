@@ -20,10 +20,10 @@ include '../../actions/session_check.php';
                 <input type='submit' name='submit' value='Search'>
             </form>
         </center>
-        <button id="exportExcelBtn" class="btn btn-primary mb-2">Export to Excel</button>
-        <form id="pdfForm" action="../../actions/admin/admin_generate_pdf.php" method="post">
-            <input type="hidden" id="tableContent" name="table_content">
-            <button type="submit" name="generate_pdf" class="btn btn-primary">Export to PDF</button>
+        <button id='exportExcelBtn' class='btn btn-primary mb-2'>Export to Excel</button>
+        <form id='pdfForm' action='../../actions/admin/admin_generate_pdf.php' method='post'>
+            <input type='hidden' id='tableContent' name='table_content'>
+            <button type='submit' name='generate_pdf' class='btn btn-primary'>Export to PDF</button>
         </form>
 
         <script>

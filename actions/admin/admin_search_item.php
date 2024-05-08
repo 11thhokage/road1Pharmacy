@@ -4,41 +4,47 @@ include '../session_check.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    
-<?php
-include '../../pages/admin/ham.php';
 
-$curr_user=$_SESSION['role_as'];
-echo"<u>Results: </u>&nbsp";
+    <?php
+    include '../../pages/admin/ham.php';
+
+    $curr_user = $_SESSION['role_as'];
+    echo "<u>Results: </u>&nbsp";
 
 
-                    if(isset($_REQUEST['submit'])){
-                        $search = $_GET['search'];
-                        $terms = explode(" ",$search);
-                        $data = "SELECT * FROM warehouse WHERE ";
-                    
-                    if (!empty($terms)) {
-                        $i=0;
-                        foreach($terms as $each){
-                            $i++;
-                            if($i==1){
-                                $data .= "item_name LIKE '%$each%' ";
-                            }else{
-                                $data .= "OR item_name LIKE '%$each%' ";
-                            }
-                        }
-                    
-                        $query= mysqli_query($conn, $data);
-                        if (!$query) {
-                            die('Error in SQL query: ' . mysqli_error($conn));
-                        }
-                        $num = mysqli_num_rows($query);
-                        if($num >0 && $search!=""){
-                    
-                            echo"$num result(s) found for <b>$search</b>!";
-                    
-                            echo"  <h2><center>Item List</center></h2>
+    if (isset($_REQUEST['submit'])) {
+        $search = $_GET['search'];
+        $terms = explode(" ", $search);
+        $data = "SELECT * FROM warehouse WHERE ";
+
+        if (!empty($terms)) {
+            $i = 0;
+            foreach ($terms as $each) {
+                $i++;
+                if ($i == 1) {
+                    $data .= "item_name LIKE '%$each%' ";
+                } else {
+                    $data .= "OR item_name LIKE '%$each%' ";
+                }
+            }
+
+            $query = mysqli_query($conn, $data);
+            if (!$query) {
+                die('Error in SQL query: ' . mysqli_error($conn));
+            }
+            $num = mysqli_num_rows($query);
+            if ($num > 0 && $search != "") {
+
+                echo "$num result(s) found for <b>$search</b>!";
+
+                echo "  <h2><center>Item List</center></h2>
+        <button id='exportExcelBtn' class='btn btn-primary mb-2'>Export to Excel</button>
+        <form id='pdfForm' action='../../actions/admin/admin_generate_pdf.php' method='post' class='mb-2'>
+            <input type='hidden' id='tableContent' name='table_content'>
+            <button type='submit' name='generate_pdf' class='btn btn-primary'>Export to PDF</button>
+        </form>
     <section class='intro'>
         <div class='gradient-custom-2 h-100'>
             <div class='mask d-flex align-items-center h-100'>
@@ -58,23 +64,23 @@ echo"<u>Results: </u>&nbsp";
                                         </tr>
                                     </thead>
                                     <tbody>";
-                            
-                            while($row = mysqli_fetch_assoc($query)){
-                                    $warehouse_code=$row['warehouse_code'];
-                                    $item_name_warehouse=$row['item_name'];
-                                    $item_qty=$row['item_qty'];
-                                    $expiry_date=$row['expiry_date'];
-                                    $vendor_name=$row['vendor_name'];
-                    
+
+                while ($row = mysqli_fetch_assoc($query)) {
+                    $warehouse_code = $row['warehouse_code'];
+                    $item_name_warehouse = $row['item_name'];
+                    $item_qty = $row['item_qty'];
+                    $expiry_date = $row['expiry_date'];
+                    $vendor_name = $row['vendor_name'];
+
                     echo "<tr>";
-                                            echo "<td>" . $warehouse_code. "</td>";
-                                            echo "<td>" .$item_name_warehouse . "</td>";
-                                            echo "<td>" .$item_qty . "</td>";
-                                            echo "<td>" . $expiry_date . "</td>";
-                                            echo "<td>" . $vendor_name . "</td>";
-                                            echo "</tr>";
+                    echo "<td>" . $warehouse_code . "</td>";
+                    echo "<td>" . $item_name_warehouse . "</td>";
+                    echo "<td>" . $item_qty . "</td>";
+                    echo "<td>" . $expiry_date . "</td>";
+                    echo "<td>" . $vendor_name . "</td>";
+                    echo "</tr>";
                 }
-                echo"</tbody>
+                echo "</tbody>
                                 </table>
                             </div>
                         </div>
@@ -85,7 +91,7 @@ echo"<u>Results: </u>&nbsp";
     </section>
     <br/>
         ";
-            }else{
+            } else {
                 echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
            <div class='content'>
                <script>
@@ -99,26 +105,65 @@ echo"<u>Results: </u>&nbsp";
            </div>
        </main>";
             }
-        }else{
-            echo"Please type any Word";
+        } else {
+            echo "Please type any Word";
         }
-        }
-                
-                         
-       
- if($curr_user==='1'){
-    echo"<center><a href='../../pages/admin/admin_view_warehouse.php' class='btn btn-info'>Back to Stock View</a></center>";
-}else{
-   echo "error";
-}
+    }
+
+
+
+    if ($curr_user === '1') {
+        echo "<center><a href='../../pages/admin/admin_view_warehouse.php' class='btn btn-info'>Back to Stock View</a></center>";
+    } else {
+        echo "error";
+    }
 
 
 
 
-?>
-</body>
-<script src="admin.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    ?>
+    </body>
+
+    <!-- Load the full jQuery build first -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <!-- Then load Popper.js and Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="admin.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 </html>
+
+<script>
+    $(document).ready(function() {
+        // Export to Excel button click event
+        $('#exportExcelBtn').click(function() {
+            // Get the table data
+            var tableData = [];
+            $('table tbody tr').each(function() {
+                var rowData = [];
+                $(this).find('td').each(function() {
+                    rowData.push($(this).text());
+                });
+                tableData.push(rowData);
+            });
+
+            // Create a new Excel workbook
+            var workbook = XLSX.utils.book_new();
+
+            // Add the table data to a new worksheet
+            var worksheet = XLSX.utils.aoa_to_sheet(tableData);
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+            // Save the workbook as an Excel file
+            XLSX.writeFile(workbook, 'table_data.xlsx');
+        });
+
+        // Export to PDF button click event
+
+    });
+</script>
