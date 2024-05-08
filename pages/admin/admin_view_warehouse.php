@@ -20,9 +20,23 @@ include '../../actions/session_check.php';
                 <input type='submit' name='submit' value='Search'>
             </form>
         </center>
+        <button id="exportExcelBtn" class="btn btn-primary mb-2">Export to Excel</button>
+        <form id="pdfForm" action="../../actions/admin/admin_generate_pdf.php" method="post">
+            <input type="hidden" id="tableContent" name="table_content">
+            <button type="submit" name="generate_pdf" class="btn btn-primary">Export to PDF</button>
+        </form>
+
+        <script>
+            // Get table content and submit it to the PHP script
+            document.getElementById('pdfForm').addEventListener('submit', function() {
+                var tableContent = document.getElementById('myTable').innerHTML;
+                document.getElementById('tableContent').value = tableContent;
+            });
+        </script>
         <hr />
 
         <div class='container'>
+
             <div class='row'>
 
                 <?php
@@ -40,7 +54,7 @@ include '../../actions/session_check.php';
                     <div class='row justify-content-center'>
                         <div class='col-12'>
                             <div class='table-responsive'>
-                                <table class='table table-dark table-bordered mb-0'>
+                                <table class='table table-dark table-bordered mb-0'id='myTable'>
                                     <thead>
                                         <tr>
                                             <th scope='col'>Item Name</th>
@@ -112,6 +126,7 @@ include '../../actions/session_check.php';
     </section>
     <br />
 
+
     <div class="modal fade custom-fade" id="viewDetailsModal" tabindex="-1" role="dialog" aria-labelledby="viewDetailsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg custom-modal-center" role="document">
             <div class="modal-content">
@@ -137,7 +152,7 @@ include '../../actions/session_check.php';
     </body>
     <!-- Load the full jQuery build first -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <!-- Then load Popper.js and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -173,5 +188,34 @@ include '../../actions/session_check.php';
                 }
             });
         });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Export to Excel button click event
+        $('#exportExcelBtn').click(function() {
+            // Get the table data
+            var tableData = [];
+            $('table tbody tr').each(function() {
+                var rowData = [];
+                $(this).find('td').each(function() {
+                    rowData.push($(this).text());
+                });
+                tableData.push(rowData);
+            });
+
+            // Create a new Excel workbook
+            var workbook = XLSX.utils.book_new();
+
+            // Add the table data to a new worksheet
+            var worksheet = XLSX.utils.aoa_to_sheet(tableData);
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+            // Save the workbook as an Excel file
+            XLSX.writeFile(workbook, 'table_data.xlsx');
+        });
+
+        // Export to PDF button click event
+
     });
 </script>
