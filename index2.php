@@ -25,9 +25,9 @@
     <div class="frontpage-container">
         <nav class="nav-bar navbar navbar-expand-md navbar-dark" style="position:fixed">
             <div class="container-fluid">
-                <a class="title" href="index.php">
+                <h1 class="title" href="index.php">
                     <img src="img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">Road 1 Pharmacy
-                </a>
+                </h1>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
