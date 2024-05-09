@@ -8,13 +8,31 @@ include '../../actions/session_check.php';
 <head>
     <?php include "ham.php"; ?>
 
+    <div class="d-flex flex-row-reverse">
+        <form method='GET' action='../../actions/admin/admin_search_item.php'>
+            <input type='text' name='search' placeholder="Search Item">
+            <input type='submit' class="btn btn-primary" name='item_search' value='Search'>
+        </form>
+    </div>
+    <div class="d-flex flex-row-reverse mt-2">
+        <button id='exportExcelBtn' class='btn btn-success mb-2'>Export to Excel</button>
+    </div>
+    <hr>
     <?php
     include '../../database/config.php';
 
+    // Pagination variables
+    $limit = 3; // Number of items per page
+    $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
+    $offset = ($page - 1) * $limit; // Offset for the SQL query
 
+    // Get total number of items
+    $total_items = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM items"));
 
+    // Calculate total number of pages
+    $total_pages = ceil($total_items / $limit);
 
-    $data = "SELECT * FROM items";
+    $data = "SELECT * FROM items ORDER BY item_name ASC LIMIT $offset, $limit";
     $result = mysqli_query($conn, $data);
     echo "";
     echo "<div class='row justify-content-between'>
@@ -36,6 +54,8 @@ include '../../actions/session_check.php';
                                             <th scope='col'>Unit Price</th>
                                             <th scope='col'>Mark Up(%)</th>
                                             <th scope='col'>Selling Price</th>
+                                            <th scope='col'>Type</th>
+                                            <th scope ='col'>Classification</th>
                                             <th scope='col'>Vendor Name</th>
                                             <th scope='col'>Actions</th>
                                             
@@ -53,6 +73,8 @@ include '../../actions/session_check.php';
             $unit_price = $row['unit_price'];
             $mark_up = $row['mark_up'];
             $price = $row['price'];
+            $type = $row['type'];
+            $classification = $row['classification'];
             $vendor_name = $row['vendor_name'];
             echo "<tr>";
             echo "<td class='code'>" . $code . "</td>";
@@ -60,10 +82,15 @@ include '../../actions/session_check.php';
             echo "<td>" . $unit_price . "</td>";
             echo "<td>" . $mark_up . "%" . "</td>";
             echo "<td>" . $price . "</td>";
+            echo "<td>" . $type . "</td>";
+            echo "<td>" . $classification . "</td>";
             echo "<td>" . $vendor_name . "</td>";
-            echo "<td>" . "<a href='#' class='btn btn-success edit_item'>📝Edit</a> &nbsp&nbsp <a href='#' class='btn btn-danger delete_item'>🗑️Delete</a>" . "</td>";
+            echo "<td>" . "<a href='#' class='btn btn-success edit_item'>📝Edit</a> 
+            &nbsp&nbsp 
+            <a href='#' class='btn btn-danger delete_item'>🗑️Delete</a>" . "</td>";
             echo "</tr>";
         }
+
         echo "</tbody>
                                 </table>
                             </div>
@@ -76,11 +103,35 @@ include '../../actions/session_check.php';
     <br/>
         ";
     } else {
-        echo "Database is EMPTY";
+        echo "Database is Empty";
     }
 
 
+    // Pagination buttons
+    echo "<div class='row justify-content-center mt-4'>";
+    echo "<nav aria-label='Page navigation example'>";
+    echo "<ul class='pagination'>";
+
+    // Previous button
+    if ($page > 1) {
+        echo "<li class='page-item'><a class='page-link' href='?page=" . ($page - 1) . "'>Previous</a></li>";
+    }
+
+    // Page numbers
+    for ($i = 1; $i <= $total_pages; $i++) {
+        echo "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='?page=$i'>$i</a></li>";
+    }
+
+    // Next button
+    if ($page < $total_pages) {
+        echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "'>Next</a></li>";
+    }
+
+    echo "</ul>";
+    echo "</nav>";
+    echo "</div>";
     ?>
+
 
 
     <div class="modal fade custom-fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
@@ -129,6 +180,7 @@ include '../../actions/session_check.php';
 
     <!-- Load the full jQuery build first -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
     <!-- Then load Popper.js and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -180,5 +232,34 @@ include '../../actions/session_check.php';
         $('#deleteItemModal').on('hidden.bs.modal', function() {
             location.reload();
         });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Export to Excel button click event
+        $('#exportExcelBtn').click(function() {
+            // Get the table data
+            var tableData = [];
+            $('table tbody tr').each(function() {
+                var rowData = [];
+                $(this).find('td').each(function() {
+                    rowData.push($(this).text());
+                });
+                tableData.push(rowData);
+            });
+
+            // Create a new Excel workbook
+            var workbook = XLSX.utils.book_new();
+
+            // Add the table data to a new worksheet
+            var worksheet = XLSX.utils.aoa_to_sheet(tableData);
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+            // Save the workbook as an Excel file
+            XLSX.writeFile(workbook, 'item_list_table.xlsx');
+        });
+
+        // Export to PDF button click event
+
     });
 </script>
