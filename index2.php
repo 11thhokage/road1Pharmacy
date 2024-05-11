@@ -94,7 +94,7 @@
                 <button class="box">VITAMINS<img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/4887/4887988.png" alt=""></button>
                 <button class="box">FLU REMEDIES <img class="img-topics" src="https://static.vecteezy.com/system/resources/thumbnails/014/604/165/small/girl-sick-face-cartoon-cute-png.png" alt=""></button>
                 <button class="box">KIDS NUTRITION <img class="img-topics" src="https://img.pikbest.com/png-images/nutritious-and-delicious-soy-milk-png-elements_2495184.png!sw800" alt=""></button>
-                <button class="box">BROWSE PRODUCTS <img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/843/843180.png" alt=""></button>
+                <button class="box">ABSORBENT HYGIENE PRODUCTS <img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/843/843180.png" alt=""></button>
             </div>
 
         </div>
@@ -113,8 +113,8 @@
                         <p class="faq-card-yellow ">01</p>
                     </div>
                     <div class="card-info">
-                        <p class="caption">title</p>
-                        <p class="definition">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat, nostrum.</p>
+                        <p class="caption">MENITA BORBON</p>
+                        <p class="definition">Pharmacist/Purchaser</p>
                     </div>
                 </div>
                 <div class="card-box col-lg-3 col-md-5 col-sm-5">
@@ -123,8 +123,8 @@
                         <p class="faq-card-yellow">02</p>
                     </div>
                     <div class="card-info">
-                        <p class="caption">title</p>
-                        <p class="definition">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat, nostrum.</p>
+                        <p class="caption">RONALDO BORBON</p>
+                        <p class="definition">Proprietor</p>
                     </div>
                 </div>
                 <div class="card-box col-lg-3 col-md-6 col-sm-6">
@@ -139,7 +139,7 @@
                 </div>
 
 
-                <div class="card-box col-lg-4 col-md-7 col-sm-7 small-card">
+                <!-- <div class="card-box col-lg-4 col-md-7 col-sm-7 small-card">
                     <div class="img-cont">
                         <p class="faq-card-yellow">00</p>
                     </div>
@@ -156,7 +156,7 @@
                         <p class="caption">Founded Date</p>
                         <p class="definition">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, eveniet. Asperiores quas at odit doloremque eius, repellendus, velit, quos rerum sunt beatae corrupti expedita molestias aut nisi est reprehenderit deserunt fugiat mollitia maiores laboriosam similique culpa deleniti. Error, similique sapiente?</p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -166,29 +166,31 @@
         <div class="faq">
             <div class="faq-section1">
                 <h1>Pharmacy benefits and services</h1>
-                <p class="definition">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam optio recusandae debitis qui. Voluptatem aperiam voluptatibus consectetur odio commodi? Iusto velit hic vero nisi rem aspernatur repudiandae cupiditate nam quasi.</p>
             </div>
             <div class="faq-section2">
                 <div class="faq-box">
                     <div class="faq-card">
-                        <a class="faq-icon" href=""><i class="bi bi-person-bounding-box"></i></i></a>
-                        <p class="caption faq-p">title</p>
-                        <p class="definition">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, autem?</p>
+                        <a class="faq-icon" href="https://maps.app.goo.gl/T6Y8MSbjgEYKvnnf7"><i class="bi bi-map"></i></i></a>
+                        <p class="caption faq-p">Find the location of the Pharmacy</p>
+                        <p class="definition">Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</p>
                     </div>
                     <div class="faq-card">
-                        <a class="faq-icon" href=""><i class="bi bi-chat-square-text"></i></a>
-                        <p class="caption faq-p">title</p>
-                        <p class="definition">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, autem?</p>
+                        <a class="faq-icon"><i class="bi bi-chat-square-text"></i></a>
+                        <p class="caption faq-p">Where to communicate</p>
+                        <p class="definition">Contact us Here: <br>
+                            Number : #09123456789
+                            Email : <a href="mailto:road1pharmacy@gmail.com"> road1pharmacy@gmail.com</a>
+                        </p>
                     </div>
                     <div class="faq-card">
-                        <a class="faq-icon" href=""><i class="bi bi-clipboard-check"></i></a>
-                        <p class="caption faq-p">title</p>
-                        <p class="definition">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, autem?</p>
+                        <a class="faq-icon"><i class="bi bi-clipboard-check"></i></a>
+                        <p class="caption faq-p">See if Drug is available</p>
+                        <p class="definition">It easy to find out if a certain Drug is available. All you need to know is the name and the correct spelling of the medicine you are looking for</p>
                     </div>
                     <div class="faq-card">
-                        <a class="faq-icon" href=""><i class="bi bi-folder-check"></i></a>
-                        <p class="caption faq-p">title</p>
-                        <p class="definition">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, autem?</p>
+                        <a class="faq-icon"><i class="bi bi-stack"></i></a>
+                        <p class="caption faq-p">Check if the Medicine have stocks</p>
+                        <p class="definition">Ask if a specific medicine has stock by messaging the chatbot on the lower right part</p>
                     </div>
                 </div>
             </div>
@@ -219,7 +221,7 @@
     </div>
     <footer class="footer">
         <div class="div-footer">
-            <p>Contact us: <br> Cellphone no. : 0123456789 <br> Telephone : (02) 1234567 <br> Email us at: road1pharmacy@gmail.com</p>
+            <p>Contact us: <br> Cellphone no. : 0123456789 <br> Telephone : (02) 1234567 <br> Email us at: <a href="mailto:road1pharmacy@gmail.com"> road1pharmacy@gmail.com</a></p>
 
         </div>
         <div class="div-footer">
