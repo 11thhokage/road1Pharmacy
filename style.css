@@ -348,7 +348,7 @@ form{
 .cont {
     background-color:#E3EAF0;
     width: 60%;
-    height: 700px;
+    height: 725px;
     margin-top: 50px;
     color: black;
 }
@@ -363,8 +363,9 @@ form{
     color: black;
     text-align: center;
 }
-#about{
-    width: 100%;
+#About{
+    height: 600px;
+
 }
 
 .card-box{
@@ -447,7 +448,7 @@ div.faq-section1 h1{
     align-content: center;
 }
 .faq-box{
-    width: 100%;
+    width: 95%;
     height: 100%;
     display: grid;
     gap: 20px;
@@ -497,14 +498,21 @@ div.faq-section1 h1{
 
 
 .footer{
+    border: solid red;
     margin-top: 50px;
-    height: 300px;
+    height: 100%;
     width: 100%;
-    background-color:#25A18E;
+    background-color:#1b7869;
     z-index: 1;
     display: flex;
+    justify-content: center;
+    padding-top: 50px;
 }
+.inner-footer{
+    border-top: groove white;
+    width: 80%;
 
+}
 .div-footer{
     text-align: left;
     width: 100%;
@@ -555,7 +563,7 @@ div.faq-section1 h1{
     }
     .faq-box{
         display: flex;
-    flex-direction: column;
+        flex-direction: column;
         margin: 0;
         width: 100%;
     }
@@ -566,6 +574,10 @@ div.faq-section1 h1{
     .footer{
         height: 100%;
         flex-direction: column;
+    }
+    .inner-footer{
+        width: 100%;
+    
     }
     .div-footer{
         width: 100%;
