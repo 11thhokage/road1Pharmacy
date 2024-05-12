@@ -498,7 +498,6 @@ div.faq-section1 h1{
 
 
 .footer{
-    border: solid red;
     margin-top: 50px;
     height: 100%;
     width: 100%;
@@ -517,6 +516,16 @@ div.faq-section1 h1{
     text-align: left;
     width: 100%;
     padding: 50px;
+}
+.footer-h1{
+    display: flex;
+}
+.footer-logo{
+    width: 70px;
+    height: auto;
+    filter: brightness(1.53) contrast(1.5);
+    font-size: 20px;
+    margin-right: 10px;
 }
 
 

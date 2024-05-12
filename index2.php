@@ -217,8 +217,10 @@
     <footer class="footer container-fluid">
         <div class="row inner-footer">
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
-               <h1>Road 1 Pharmacy</h1>
-               <p>Your one stop healthcare pharmacy</p>
+                <div class="footer-h1">
+                    <img src="img/IMG_5789__1_-removebg-preview.png" class="footer-logo" alt="logo"><h1>Road 1 Pharmacy</h1>
+                </div>
+                <p>Your one stop healthcare pharmacy</p>
                 <p>Location: <br> Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</p>
             </div>
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
