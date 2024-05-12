@@ -58,10 +58,7 @@
 }
 
 form{
-   
-   
     align-self: center;
-
 }
 
 .input-form{
@@ -191,12 +188,13 @@ form{
 .title{
     text-decoration: none;
     color: white;
+    display: flex;
 }
 
 .frontpage-section{
     position: relative;
     width: 100%;
-    height: 600px;
+    height: 450px;
     display: flex;
     
 }
@@ -236,27 +234,23 @@ form{
     display: flex;
     flex-direction: column;
     width: 50%;
-    height: 100%;
-    padding-top: 250px;
-    z-index: 1;
+    height: 480px;
+    padding-top: 200px;
+
   
-}
-.frontpage-h1{
-    font-weight: bold;
-    padding-left: 50px;
-    animation: h1move 5s;
-    animation-timing-function: linear;  
-    animation-iteration-count: infinite; 
-    animation-direction: alternate;
 }
 .quote{
     color: black;
     padding-left: 50px;
     text-align: left;
     font-weight: bold;
+    animation: quotemove 5s;
+    animation-timing-function: linear;  
+    animation-iteration-count: infinite; 
+    animation-direction: alternate;
 }
 
-@keyframes h1move {
+@keyframes quotemove {
     0%  {color:#25A18E; }
     50%   {color:#9FFFCB; }
   100%  {color:#7AE582; }
@@ -282,19 +276,12 @@ form{
 }
 
 
-.section-2{
-    width: 50%;
-    height: 100%;
-    
-   
-}
-
 .section-image{
     position: absolute;
     width: 50%;
     height: auto;
     right: 0;
-    bottom: 0;
+    top: 100px;
     z-index: 0;
 }
 
@@ -306,10 +293,10 @@ form{
 
 .square-button{
     z-index: 0;
-    margin-top: 10px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     padding: 0;
+    width: 100%;
 }
 .box{
     background-color: #25A18E;
@@ -361,7 +348,7 @@ form{
 .cont {
     background-color:#E3EAF0;
     width: 60%;
-    height: 1200px;
+    height: 700px;
     margin-top: 50px;
     color: black;
 }
@@ -377,8 +364,7 @@ form{
     text-align: center;
 }
 #about{
-    display: flex;
-    justify-content: space-around;
+    width: 100%;
 }
 
 .card-box{
@@ -461,15 +447,14 @@ div.faq-section1 h1{
     align-content: center;
 }
 .faq-box{
-    width: 80%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 20px;
     justify-items: center;
-    margin-top: 40px;
-    margin-left: 80px;
+    
     
 }
 
@@ -477,7 +462,7 @@ div.faq-section1 h1{
     background-color: white;
     padding:1rem;
     width: 100%;
-    height: 250px;
+    height: 300px;
     border-radius: 20px;
     border: none;
     transform: scale(1);
@@ -504,14 +489,17 @@ div.faq-section1 h1{
     margin-top: 50px;
 }
 .carousel-css{
-    width: 75%;
+    width: 100%;
+}
+.carousel-icon{
+    color: black;
 }
 
 
 .footer{
     margin-top: 50px;
     height: 300px;
-    width: 60%;
+    width: 100%;
     background-color:#25A18E;
     z-index: 1;
     display: flex;
@@ -519,79 +507,94 @@ div.faq-section1 h1{
 
 .div-footer{
     text-align: left;
-    width: 50%;
+    width: 100%;
     padding: 50px;
 }
 
 
 
 @media only screen and (max-width: 1200px) {
-.section-image{
-    display: none;
-}
-.cont{
-    height: 2300px;
-}
-.section-1{
-    width: 100%;
-}
+    .frontpage-section{
+        height: 500px;    
+
+            
+    }
+    .section-image{
+        display: none;
+    }
+    .cont{
+        height: 1400px;
+    }
+    .section-1{
+        width: 100%;
+    }
 
 
-#about{
-    height: 2000px;
-}
+    #About{
+        height: 650px;
+    }
 
-.card-box{
-    width: 300px;
-    
-}
-.faq{
-    height: 1500px;
+    .card-box{
+        width: 300px;
+
+        
+    }
+    .faq{
+        height: 1500px;
+        flex-direction: column;
+    }
+    .faq-section1{
+        width: 100%;
+    }
+    .faq-section2{
+        flex-direction: column;
+        
+        width: 100%;
+        
+
+    }
+    .faq-box{
+        display: flex;
     flex-direction: column;
-}
-.faq-section1{
-    width: 100%;
-}
-.faq-section2{
-    flex-direction: column;
-    
-    width: 100%;
-    
+        margin: 0;
+        width: 100%;
+    }
+    .faq-card{
+        height: 250px;
+    }
 
+    .footer{
+        height: 100%;
+        flex-direction: column;
+    }
+    .div-footer{
+        width: 100%;
+        text-align: center;
+    }
 }
-.faq-box{
-    display: flex;
-   flex-direction: column;
-    margin: 0;
-    width: 100%;
-}
-.footer{
-    height: 600px;
-    flex-direction: column;
-}
-.div-footer{
-    width: 100%;
-    text-align: center;
-}
+
+@media only screen and (max-width: 992px){
+    .frontpage-section{
+        height: 400px;
+    }
+    #About{
+        height: 1100px;
+    }
 }
 @media only screen and (max-width: 768px) {
     .frontpage-container{
-        height: 1500px;
-        width: 100%;
+        width: 80%;
     }
    .frontpage-section{
     flex-direction: column;
+    height: 400px;
    }
-   
-   .square-button{
-    flex-direction: column;
-   }
-   .box{
-    width: 100%;
-   }
+
    .cont{
-    width: 100%;
-    height: 2300px;
+    width: 80%;
+   }
+   #About{
+    height: 1700px;
    }
    .aboutus-card{
     
@@ -619,7 +622,7 @@ div.faq-section1 h1{
     }
 
     #faq{
-        height: 2100px;
+        height: 1400px;
     }
     .faq-section1{
         width: 100%;
@@ -646,6 +649,12 @@ div.faq-section1 h1{
     }
 }
 @media only screen and (max-width: 480px) {
+    .frontpage-container{
+        width: 100%;
+    }
+    .cont{
+        width: 100%;
+    }
     .section-image{
         display: none;
     }
@@ -653,11 +662,11 @@ div.faq-section1 h1{
     .aboutus-card{
       
         flex-direction: column;
-        width: 100%;
+        width: 50%;
         align-items: center;
     }
     #faq{
-       height: 2000px;  
+       height: 1400px;  
     }
     .small-card{
         height: 200px;

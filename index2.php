@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road 1 Pharmacy</title>
-
+    <link rel="stylesheet" href="style.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -13,7 +13,6 @@
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
     </link>
-    <link rel="stylesheet" href="style.css">
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Optional Bootstrap JS -->
@@ -27,7 +26,7 @@
         <nav class="nav-bar navbar navbar-expand-md navbar-dark" style="position:fixed">
             <div class="container-fluid">
                 <div class="title">
-                    <img src="img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">
+                    <img src="img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo"><h1 class="frontpage-h1">Road 1 Pharmacy</h1>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -78,7 +77,6 @@
         </nav>
         <div class="frontpage-section">
             <div class="section-1">
-                <h1 class="frontpage-h1">Road 1 Pharmacy</h1>
                 <h2 class="quote">Your One Stop <br> Healthcare <br> Pharmacy</h2>
                 <!--<div class="section-button">
                     <a class="darkblue-button sec-button">About Us</a>
@@ -90,12 +88,40 @@
         </div>
         <div class="trending-topics">
             <h5 class="topics">Trending Topics</h5>
+<<<<<<< Updated upstream
             <div class="square-button">
                 <button class="box">VITAMINS<img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/4887/4887988.png" alt=""></button>
                 <button class="box">FLU REMEDIES <img class="img-topics" src="https://static.vecteezy.com/system/resources/thumbnails/014/604/165/small/girl-sick-face-cartoon-cute-png.png" alt=""></button>
                 <button class="box">KIDS NUTRITION <img class="img-topics" src="https://img.pikbest.com/png-images/nutritious-and-delicious-soy-milk-png-elements_2495184.png!sw800" alt=""></button>
                 <button class="box">BROWSE PRODUCTS <img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/843/843180.png" alt=""></button>
+=======
+            <div class="carousel-cont">
+            <div id="carouselExampleControls" class="carousel slide carousel-css" data-ride="carousel">
+            <div class="carousel-inner ">
+                <div class="carousel-item active">
+                    <div class="square-button">
+                        <button class="box ">VITAMINS<img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/4887/4887988.png" alt=""></button>
+                        <button class="box">FLU REMEDIES <img class="img-topics" src="https://static.vecteezy.com/system/resources/thumbnails/014/604/165/small/girl-sick-face-cartoon-cute-png.png" alt=""></button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="square-button">
+                        <button class="box">KIDS NUTRITION <img class="img-topics" src="https://img.pikbest.com/png-images/nutritious-and-delicious-soy-milk-png-elements_2495184.png!sw800" alt=""></button>
+                        <button class="box">ABSORBENT HYGIENE PRODUCTS <img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/843/843180.png" alt=""></button>
+                    </div>
+                </div>
+>>>>>>> Stashed changes
             </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon bg-success rounded-circle" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon bg-success rounded-circle" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+            </a>
+            </div>
+        </div>
 
         </div>
 
@@ -106,8 +132,8 @@
         <h1 class="aboutus-header">The Dream of Road 1 Pharmacy</h1>
         <p class="aboutus-p">Provide the best pharmaceutical services for patients.</p>
         <div class="container-fluid " id="about">
-            <div class="row justify-content-around">
-                <div class="card-box col-lg-3 col-md-5 col-sm-5">
+            <div class="row justify-content-evenly">
+                <div class="card-box col-lg-3 col-md-5 col-sm-5 col-7">
                     <div class="img-cont">
                         <img class="card-img" src="img/rdu3.jpg" alt="">
                         <p class="faq-card-yellow ">01</p>
@@ -117,7 +143,7 @@
                         <p class="definition">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat, nostrum.</p>
                     </div>
                 </div>
-                <div class="card-box col-lg-3 col-md-5 col-sm-5">
+                <div class="card-box col-lg-3 col-md-5 col-sm-5 col-7">
                     <div class="img-cont">
                         <img class="card-img" src="img/frontend3.jpg" alt="">
                         <p class="faq-card-yellow">02</p>
@@ -127,7 +153,7 @@
                         <p class="definition">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat, nostrum.</p>
                     </div>
                 </div>
-                <div class="card-box col-lg-3 col-md-6 col-sm-6">
+                <div class="card-box col-lg-3 col-md-6 col-sm-5 col-7">
                     <div class="img-cont">
                         <img class="card-img" src="img/rdu3.jpg" alt="">
                         <p class="faq-card-yellow">03</p>
@@ -176,9 +202,18 @@
                         <p class="definition">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, autem?</p>
                     </div>
                     <div class="faq-card">
+<<<<<<< Updated upstream
                         <a class="faq-icon" href=""><i class="bi bi-chat-square-text"></i></a>
                         <p class="caption faq-p">title</p>
                         <p class="definition">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, autem?</p>
+=======
+                        <a class="faq-icon"><i class="bi bi-chat-square-text"></i></a>
+                        <p class="caption faq-p">Where to communicate</p>
+                        <p class="definition">Contact us Here: <br> 
+                            Number : #09123456789  <br>
+                            Email : <br> <a href="mailto:road1pharmacy@gmail.com"> road1pharmacy@gmail.com</a>
+                        </p>
+>>>>>>> Stashed changes
                     </div>
                     <div class="faq-card">
                         <a class="faq-icon" href=""><i class="bi bi-clipboard-check"></i></a>
@@ -193,30 +228,8 @@
                 </div>
             </div>
         </div>
-        <div class="carousel-cont">
-            <div id="carouselExampleControls" class="carousel slide carousel-css" data-ride="carousel">
-                <div class="carousel-inner ">
-                    <div class="carousel-item .active">
-                        <img class="d-block w-100 h-100 " src="https://img.freepik.com/free-photo/pharmacist-checking-medicines-drugstore_259150-57964.jpg" alt="First slide">
-                    </div>
-                    <div class="carousel-item active">
-                        <img class="d-block w-100 h-100" src="https://media.istockphoto.com/id/1036131880/photo/efficient-pharmacy-operations-thanks-to-teamwork.jpg?s=612x612&w=0&k=20&c=JQPtkW7j14dvFWeLd6JlltULHMw07rJdi5ey7QLqCHc=" alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 h-100 " src="https://thumbs.dreamstime.com/b/pharmacy-otc-products-turkey-64209774.jpg" alt="Third slide">
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only"></span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only"></span>
-                </a>
-            </div>
-        </div>
     </div>
+<<<<<<< Updated upstream
     <footer class="footer">
         <div class="div-footer">
             <p>Contact us: <br> Cellphone no. : 0123456789 <br> Telephone : (02) 1234567 <br> Email us at: road1pharmacy@gmail.com</p>
@@ -224,6 +237,25 @@
         </div>
         <div class="div-footer">
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio veritatis error nulla itaque minima quasi voluptas odit corporis perspiciatis autem. Earum illum quasi autem impedit magni saepe deserunt, aliquid quis.</p>
+=======
+    <footer class="footer container-fluid">
+        <div class="row">
+            <div class="div-footer col-lg-3 col-md-6 col-sm-12">
+               <h1>Road 1 Pharmacy</h1>
+               <p>Your one stop healthcare pharmacy</p>
+                <p>Location: <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, iure. </p>
+            </div>
+            <div class="div-footer col-lg-3 col-md-6 col-sm-12">
+                <p>Contact us: <br> Cellphone no. : 0123456789 <br> Telephone : (02) 1234567 <br> Email: <br> road1pharmacy@gmail.com</p>
+            </div>
+            <div class="div-footer col-lg-3 col-md-6 col-sm-12">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio veritatis error nulla itaque minima quasi voluptas odit corporis perspiciatis autem. Earum illum quasi autem impedit magni saepe deserunt, aliquid quis.</p>
+                <p>Follow us:</p>
+            </div>
+            <div class="div-footer col-lg-3 col-md-6 col-sm-12">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio veritatis error nulla itaque minima quasi voluptas odit corporis perspiciatis autem. Earum illum quasi autem impedit magni saepe deserunt, aliquid quis.</p>
+            </div>
+>>>>>>> Stashed changes
         </div>
     </footer>
     <div class="ai-chatbot">
