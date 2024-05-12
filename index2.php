@@ -13,6 +13,7 @@
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
     </link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -23,7 +24,7 @@
 </head>
 
 <body class="frontpage-background">
-    <div class="frontpage-container">
+    <div id="front" class="frontpage-container">
         <nav class="nav-bar navbar navbar-expand-md navbar-dark" style="position:fixed">
             <div class="container-fluid">
                 <div class="title">
@@ -53,10 +54,17 @@
                                 </div>
                             </li>-->
                         <li class="nav-item ">
-                            <a class="nav-link" href="#">Medicines</a>
+                            <a class="nav-link" onclick="medicineDisplay()">Medicines</a>
+
+                            <script>
+                                function medicineDisplay() {
+                                    var med_list = document.getElementById("med_list");
+                                    med_list.style.display = med_list.style.display === "none" ? "block" : "none";
+                                }
+                            </script>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="#front">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#About">About Us</a>
@@ -76,6 +84,9 @@
                 </div>
             </div>
         </nav>
+        <div id="med_list">
+            <p class="text-center fs-1">Medicine Lists</p>
+        </div>
         <div class="frontpage-section">
             <div class="section-1">
                 <h1 class="frontpage-h1">Road 1 Pharmacy</h1>
@@ -229,19 +240,73 @@
         </div>
     </footer>
     <div class="ai-chatbot">
-        <a href="#"><img class="chatbot" src="img/chatbot_icon.gif" alt="" title="Hi"></a>
+        <a class="chatbot" onclick="toggleChatbox()"><img class="chatbot" src="img/chatbot_icon.gif" alt="" title="Hi"></a>
     </div>
+
+    <div id="chatbox" style="display: none;">
+        <a onclick="closeChatBox()"><i class="fas fa-times"></i></a>
+
+        <body id="chat_body">
+            <div class="chat-container">
+                <h2>Alternative Medicine Chatbot</h2>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="bot-message">Hello! How can I assist you today?</div>
+                </div>
+                <form id="chat-form">
+                    <input type="text" id="user-input" placeholder="Type your message...">
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+
+            <script>
+                document.getElementById('chat-form').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    sendMessage();
+                });
+
+                function sendMessage() {
+                    var userInput = document.getElementById('user-input').value;
+                    appendMessage('user', userInput);
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'chatbotkuno/index.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var botResponse = xhr.responseText;
+                            appendMessage('bot', botResponse);
+                        }
+                    };
+                    xhr.send('input=' + userInput);
+                }
+
+                function appendMessage(sender, message) {
+                    var chatMessages = document.getElementById('chat-messages');
+                    var messageDiv = document.createElement('div');
+                    messageDiv.className = sender + '-message';
+                    messageDiv.textContent = message;
+                    chatMessages.appendChild(messageDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+            </script>
+    </div>
+
+    <script>
+        function toggleChatbox() {
+            var chatbox = document.getElementById("chatbox");
+            chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
+            // console.log("hi");
+        }
+
+        function closeChatBox() {
+            var chatbox = document.getElementById("chatbox");
+            chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
+        }
+    </script>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha254-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
-    $(document).ready(function() {
-        $('.chatbot').click(function(e) {
-            e.preventDefault();
 
-            console.log("Hello World");
-
-
-        });
-    });
 </script>
 
 </html>
