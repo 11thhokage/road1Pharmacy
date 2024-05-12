@@ -86,6 +86,7 @@
         </nav>
         <div id="med_list">
             <p class="text-center fs-1">Medicine Lists</p>
+            
         </div>
         <div class="frontpage-section">
             <div class="section-1">
