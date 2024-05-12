@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road 1 Pharmacy</title>
-
+    <link rel="stylesheet" href="style.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
     </link>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Optional Bootstrap JS -->
@@ -24,7 +23,7 @@
 </head>
 
 <body class="frontpage-background">
-    <div id="front" class="frontpage-container">
+    <div class="frontpage-container">
         <nav class="nav-bar navbar navbar-expand-md navbar-dark" style="position:fixed">
             <div class="container-fluid">
                 <div class="title">
@@ -54,18 +53,17 @@
                                     <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </li>-->
-                        <li class="nav-item ">
-                            <a class="nav-link" onclick="medicineDisplay()">Medicines</a>
+                        <a class="nav-link" onclick="medicineDisplay()">Medicines</a>
 
-                            <script>
-                                function medicineDisplay() {
-                                    var med_list = document.getElementById("med_list");
-                                    med_list.style.display = med_list.style.display === "none" ? "block" : "none";
-                                }
-                            </script>
-                        </li>
+                        <script>
+                            function medicineDisplay() {
+                                var med_list = document.getElementById("med_list");
+                                med_list.style.display = med_list.style.display === "none" ? "block" : "none";
+                            }
+                        </script>
+
                         <li class="nav-item ">
-                            <a class="nav-link" href="#front">Home</a>
+                            <a class="nav-link" href="#">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#About">About Us</a>
@@ -133,16 +131,13 @@
 
 
     </div>
-
-
-    </div>
     <div id="About" class="cont">
         <p class="guide">About</p>
         <h1 class="aboutus-header">The Dream of Road 1 Pharmacy</h1>
         <p class="aboutus-p">Provide the best pharmaceutical services for patients.</p>
         <div class="container-fluid " id="about">
-            <div class="row justify-content-around">
-                <div class="card-box col-lg-3 col-md-5 col-sm-5">
+            <div class="row justify-content-evenly">
+                <div class="card-box col-lg-3 col-md-5 col-sm-5 col-7">
                     <div class="img-cont">
                         <img class="card-img" src="img/rdu3.jpg" alt="">
                         <p class="faq-card-yellow ">01</p>
@@ -152,7 +147,7 @@
                         <p class="definition">Pharmacist/Purchaser</p>
                     </div>
                 </div>
-                <div class="card-box col-lg-3 col-md-5 col-sm-5">
+                <div class="card-box col-lg-3 col-md-5 col-sm-5 col-7">
                     <div class="img-cont">
                         <img class="card-img" src="img/frontend3.jpg" alt="">
                         <p class="faq-card-yellow">02</p>
@@ -162,7 +157,7 @@
                         <p class="definition">Proprietor</p>
                     </div>
                 </div>
-                <div class="card-box col-lg-3 col-md-6 col-sm-6">
+                <div class="card-box col-lg-3 col-md-6 col-sm-5 col-7">
                     <div class="img-cont">
                         <img class="card-img" src="img/rdu3.jpg" alt="">
                         <p class="faq-card-yellow">03</p>
@@ -213,8 +208,8 @@
                         <a class="faq-icon"><i class="bi bi-chat-square-text"></i></a>
                         <p class="caption faq-p">Where to communicate</p>
                         <p class="definition">Contact us Here: <br>
-                            Number : #09123456789
-                            Email : <a href="mailto:road1pharmacy@gmail.com"> road1pharmacy@gmail.com</a>
+                            Number : #09123456789 <br>
+                            Email : <br> <a href="mailto:road1pharmacy@gmail.com"> road1pharmacy@gmail.com</a>
                         </p>
                     </div>
                     <div class="faq-card">
@@ -232,21 +227,28 @@
         </div>
     </div>
     <footer class="footer container-fluid">
-        <div class="row">
+        <div class="row inner-footer">
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
-                <h1>Road 1 Pharmacy</h1>
+                <div class="footer-h1">
+                    <img src="img/IMG_5789__1_-removebg-preview.png" class="footer-logo" alt="logo">
+                    <h1>Road 1 Pharmacy</h1>
+                </div>
                 <p>Your one stop healthcare pharmacy</p>
-                <p>Location: <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, iure. </p>
+                <p>Location: <br> Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</p>
             </div>
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
-                <p>Contact us: <br> Cellphone no. : 0123456789 <br> Telephone : (02) 1234567 <br> Email: <br> road1pharmacy@gmail.com</p>
+                <p style="padding: 50px 50px 0 50px;">
+                    Contact us: <br>
+                    Cellphone no. : #09123456789 <br>
+                    Email: <br>
+                    <a href="mailto:road1pharmacy@gmail.com"> road1pharmacy@gmail.com</a>
+                </p>
             </div>
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio veritatis error nulla itaque minima quasi voluptas odit corporis perspiciatis autem. Earum illum quasi autem impedit magni saepe deserunt, aliquid quis.</p>
-                <p>Follow us:</p>
+                <p style="padding: 50px 50px 0 50px;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis, ipsam.</p>
             </div>
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio veritatis error nulla itaque minima quasi voluptas odit corporis perspiciatis autem. Earum illum quasi autem impedit magni saepe deserunt, aliquid quis.</p>
+                <p style="padding: 50px 50px 0 50px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio veritatis error nulla itaque minima quasi voluptas odit corporis perspiciatis autem. Earum illum quasi autem impedit magni saepe deserunt, aliquid quis.</p>
             </div>
         </div>
     </footer>
@@ -315,9 +317,16 @@
         }
     </script>
 </body>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha254-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
+    $(document).ready(function() {
+        $('.chatbot').click(function(e) {
+            e.preventDefault();
 
+            console.log("Hello World");
+
+
+        });
+    });
 </script>
 
 </html>
