@@ -219,21 +219,18 @@
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
                <h1>Road 1 Pharmacy</h1>
                <p>Your one stop healthcare pharmacy</p>
-                <p>Location: <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, iure. </p>
+                <p>Location: <br> Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</p>
             </div>
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
                 <p style="padding: 50px 50px 0 50px;">
                     Contact us: <br> 
-                    Cellphone no. : 0123456789 <br> 
-                    Telephone : (02) 1234567 <br> 
+                    Cellphone no. : #09123456789 <br> 
                     Email: <br> 
                     <a href="mailto:road1pharmacy@gmail.com"> road1pharmacy@gmail.com</a>
                 </p>
             </div>
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
                 <p style="padding: 50px 50px 0 50px;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis, ipsam.</p>
-                <p style="padding: 50px 50px 0 50px;">Follow us on: </p>
-                <p style="padding-left: 50px;"><i class="bi bi-google"></i> <i class="bi bi-facebook"></i> <i class="bi bi-instagram"></i> <i class="bi bi-youtube"></i> <i class="bi bi-twitter"></i> </p>
             </div> 
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
                 <p style="padding: 50px 50px 0 50px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio veritatis error nulla itaque minima quasi voluptas odit corporis perspiciatis autem. Earum illum quasi autem impedit magni saepe deserunt, aliquid quis.</p>
