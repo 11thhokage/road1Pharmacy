@@ -75,12 +75,6 @@
                 </div>
             </div>
         </nav>
-<<<<<<< Updated upstream
-=======
-        <div id="med_list">
-            <p class="text-center fs-1">Medicine Lists</p>
-        </div>
->>>>>>> Stashed changes
         <div class="frontpage-section">
             <div class="section-1">
                 <h2 class="quote">Your One Stop <br> Healthcare <br> Pharmacy</h2>
@@ -219,10 +213,6 @@
                 </div>
             </div>
         </div>
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     </div>
     <footer class="footer container-fluid">
         <div class="row">
