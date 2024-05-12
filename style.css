@@ -330,9 +330,86 @@ form{
     height: 100px;
     bottom: 2%;
     right: 1%;
-    
+}
+#chatbox{
+    position: fixed;
+    bottom: 20px;
+    right: 100px;
+    width: 450px;
+    height: 300px;
+    background-color: #7692FF;
+    padding: 10px;
+    display: none;
+    border-radius: 10px;
+    z-index: 6;
+}
+#chatbox a{
+    border: none;
+    position: absolute;
+    top :0;
+    right: 10px;
+}
+#chat_body {
+    font-family: Arial, sans-serif;
+}
 
+.chat-container {
+    width: 400px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    background-color: #ABD2FA;
+    padding: 10px;
+    border-radius: 10px;
+    height: 260px;
+}
+.chat-container h2 {
+    margin-top: 0;
+    color: #046865;
+}
+#chat-form{
+    position: absolute;
+    bottom: 25px;
+    right: 155px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+}
+#chat-form button{
+    border: 1px solid #ccc;
+    color : white;
+    background-color: #37393A;
+}
 
+#chat-form input{
+    color: black;
+    background-color: #D6C9C9;
+}
+
+.chat-messages {
+    margin-bottom: 1px;
+    overflow-y: scroll;
+    max-height: 100px;
+}
+
+.user-message {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: blue;
+}
+
+.bot-message {
+    margin-bottom: 10px;
+    font-style: italic;
+    color: #2C6E49;
+}
+#med_list {
+    position: fixed;
+    top: 13%;
+    left: 13%;
+    z-index: 5; /* Add this line */
+    background-color: #7692FF;
+    width: 73vw;
+    height: 75vh;
+    border-radius: 10px;
 }
 .chatbot{
     width: 100px;
