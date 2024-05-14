@@ -50,7 +50,7 @@ include '../../database/config.php'; ?>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="unit_price">Unit Price</label>
-                                    <input type="number" class="form-control" inputmode="decimal" name="unit_price" required placeholder="Enter Unit Price" min="1">
+                                    <input type="number" class="form-control" inputmode="decimal" name="unit_price" required placeholder="Enter Unit Price" min="0.01" step=".01">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="mark_up">Mark up %</label>

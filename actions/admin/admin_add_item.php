@@ -33,7 +33,7 @@ include '../../database/config.php'; ?>
         //Calculate the cost price by multiplying unit price with mark up percentage
         $price = ($mark_up_dec * $unit_price) + $unit_price;
         $price = number_format($price, 2);
-        if (fmod($price, 1) < 0.50) {
+        if (fmod($price, 1) < 0.30) {
             // Round down
             $price = floor($price);
         } else {
