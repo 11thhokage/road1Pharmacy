@@ -46,6 +46,8 @@ include '../../database/config.php'; ?>
         $item_name = $input_name . " " . $unit_qty . $unit_type;
         $item_name = strtoupper($item_name);
         $indication = strtoupper($_POST['indication']);
+        $type = $_POST['type'];
+        $classification = $_POST['class'];
         $vendor_name = $_POST['vendor_name'];
 
 
@@ -70,7 +72,7 @@ include '../../database/config.php'; ?>
                 ";
         } else {
 
-            $insert = "INSERT INTO items(item_name,what_for,unit_price, mark_up, price, vendor_name) VALUES('$item_name','$indication','$unit_price','$mark_up','$price','$vendor_name')";
+            $insert = "INSERT INTO items(item_name,what_for,unit_price, mark_up, price,type,classification, vendor_name) VALUES('$item_name','$indication','$unit_price','$mark_up','$price','$type','$classification','$vendor_name')";
             $insert_to_items = mysqli_query($conn, $insert);
 
             if ($insert_to_items) {

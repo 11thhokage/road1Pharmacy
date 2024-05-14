@@ -63,6 +63,7 @@ include '../../database/config.php'; ?>
                                         <option value="Branded">Branded</option>
                                     </select>
                                 </div>
+                                <input type="hidden" name="class" value="medicine">
                                 <div class="form-group col-md-4">
                                     <label for="indication">Indidcation</label>
                                     <input type="text" class="form-control" name="indication" required placeholder="Enter Medicine Indication">

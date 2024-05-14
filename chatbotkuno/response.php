@@ -28,19 +28,19 @@ function handleInput($input)
             $random_inst = $inst_response[$randomIndex];
             return $randomValue . $random_inst;
         }
-        // } elseif (
-        //     in_array('Fuck', $tokens) ||
-        //     in_array('Shit', $tokens) ||
-        //     in_array('Bitch', $tokens) ||
-        //     in_array('Asshole', $tokens) ||
-        //     in_array('Cunt', $tokens) ||
-        //     in_array('Dick', $tokens) ||
-        //     in_array('Pussy', $tokens) ||
-        //     in_array('Motherfucker', $tokens) ||
-        //     in_array('Bastard', $tokens) ||
-        //     in_array('Damn', $tokens)
-        // ) {
-
+    } elseif (
+        in_array('FUCK', $tokens) ||
+        in_array('SHIT', $tokens) ||
+        in_array('BITCH', $tokens) ||
+        in_array('ASSHOLE', $tokens) ||
+        in_array('CUNT', $tokens) ||
+        in_array('DICK', $tokens) ||
+        in_array('PUSSY', $tokens) ||
+        in_array('MOTHERFUCKER', $tokens) ||
+        in_array('BASTARD', $tokens) ||
+        in_array('DAMN', $tokens)
+    ) {
+        return "We don't accept words like that";
     } else {
         if (in_array('CHECK', $tokens)) {
             $sql = "SELECT * FROM training_items WHERE words IN ('" . implode("','", $tokens) . "')";
