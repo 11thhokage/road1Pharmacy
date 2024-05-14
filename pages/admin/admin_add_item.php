@@ -54,7 +54,7 @@ include '../../database/config.php'; ?>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="mark_up">Mark up %</label>
-                                    <input type="number" class="form-control" name="mark_up" required placeholder="Enter Mark up" min="1">
+                                    <input type="number" class="form-control" name="mark_up" required placeholder="Enter Mark up" min="1" step=".01">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="Type">Type</label>
