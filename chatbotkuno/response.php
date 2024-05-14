@@ -7,6 +7,7 @@ function handleInput($input)
 {
     $input = strtoupper($input);
     $tokens = explode(' ', $input);
+
     if (in_array('HI', $tokens) || in_array('HELLO', $tokens)) {
         $sql = "SELECT response FROM greet_response";
         $result = query($sql);
@@ -27,6 +28,19 @@ function handleInput($input)
             $random_inst = $inst_response[$randomIndex];
             return $randomValue . $random_inst;
         }
+        // } elseif (
+        //     in_array('Fuck', $tokens) ||
+        //     in_array('Shit', $tokens) ||
+        //     in_array('Bitch', $tokens) ||
+        //     in_array('Asshole', $tokens) ||
+        //     in_array('Cunt', $tokens) ||
+        //     in_array('Dick', $tokens) ||
+        //     in_array('Pussy', $tokens) ||
+        //     in_array('Motherfucker', $tokens) ||
+        //     in_array('Bastard', $tokens) ||
+        //     in_array('Damn', $tokens)
+        // ) {
+
     } else {
         if (in_array('CHECK', $tokens)) {
             $sql = "SELECT * FROM training_items WHERE words IN ('" . implode("','", $tokens) . "')";

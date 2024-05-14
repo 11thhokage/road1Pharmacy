@@ -39,7 +39,7 @@ include '../../database/config.php'; ?>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="unit_qty">Unit of Measurement(Number)</label>
-                                    <input type="number" class="form-control" name="unit_qty" required placeholder="Enter Item unit" min="1">
+                                    <input type="number" class="form-control" name="unit_qty" required placeholder="Enter Item unit" min="1" step=".01">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="unit_type">Unit of Measurement</label>
