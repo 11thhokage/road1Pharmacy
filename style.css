@@ -335,7 +335,7 @@ form{
     position: fixed;
     bottom: 20px;
     right: 100px;
-    width: 450px;
+    width: 500px;
     height: 300px;
     background-color: #7692FF;
     padding: 10px;
@@ -354,7 +354,7 @@ form{
 }
 
 .chat-container {
-    width: 400px;
+    width: 450px;
     margin: 10px auto;
     border: 1px solid #ccc;
     background-color: #ABD2FA;
@@ -369,7 +369,7 @@ form{
 #chat-form{
     position: absolute;
     bottom: 25px;
-    right: 155px;
+    right: 200px;
     margin-top: 20px;
     border: 1px solid #ccc;
 }
@@ -387,7 +387,7 @@ form{
 .chat-messages {
     margin-bottom: 1px;
     overflow-y: scroll;
-    max-height: 100px;
+    max-height: 150px;
 }
 
 .user-message {

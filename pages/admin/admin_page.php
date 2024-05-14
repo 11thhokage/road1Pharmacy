@@ -78,7 +78,8 @@ if (isset($_POST['submit'])) {
       }
 
       .profit {
-         background-image: url("../../img/profit.gif");
+         /* background-image: url("../../img/profit.gif"); */
+         background-color: #FF5964;
          background-repeat: no-repeat;
          background-size: 100% 100%;
 

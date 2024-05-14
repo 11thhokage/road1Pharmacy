@@ -55,12 +55,6 @@
                             </li>-->
                         <a class="nav-link" onclick="medicineDisplay()">Medicines</a>
 
-                        <script>
-                            function medicineDisplay() {
-                                var med_list = document.getElementById("med_list");
-                                med_list.style.display = med_list.style.display === "none" ? "block" : "none";
-                            }
-                        </script>
 
                         <li class="nav-item ">
                             <a class="nav-link" href="#">Home</a>
@@ -83,10 +77,24 @@
                 </div>
             </div>
         </nav>
-        <div id="med_list">
+        <div class="container-fluid" style="display: none;" id="med_list">
             <p class="text-center fs-1">Medicine Lists</p>
-
+            <?php include 'med_list.php'; ?>
         </div>
+        <script>
+            function medicineDisplay() {
+                var med_list = document.getElementById("med_list");
+                var displayValue = med_list.style.display;
+
+                if (displayValue === "block") {
+                    med_list.style.display = "none";
+                } else {
+                    med_list.style.display = "block";
+                }
+            }
+        </script>
+
+
         <div class="frontpage-section">
             <div class="section-1">
                 <h2 class="quote">Your One Stop <br> Healthcare <br> Pharmacy</h2>
@@ -202,7 +210,8 @@
                     <div class="faq-card">
                         <a class="faq-icon" href="https://maps.app.goo.gl/T6Y8MSbjgEYKvnnf7"><i class="bi bi-map"></i></i></a>
                         <p class="caption faq-p">Find the location of the Pharmacy</p>
-                        <p class="definition">Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</p>
+                        <!-- <p class="definition">Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</p> -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.6919732709853!2d121.07851119999998!3d14.8425359!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397af55773a7a17%3A0xfe00da48e36d6f5c!2sRoad%201%20Pharmacy%20Convenience%20Store!5e0!3m2!1sfil!2sph!4v1715661497604!5m2!1sfil!2sph" width="230" height="130" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div class="faq-card">
                         <a class="faq-icon"><i class="bi bi-chat-square-text"></i></a>
@@ -234,7 +243,7 @@
                     <h1>Road 1 Pharmacy</h1>
                 </div>
                 <p>Your one stop healthcare pharmacy</p>
-                <p>Location: <br> Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</p>
+                <p>Location: <br> <a href="https://maps.app.goo.gl/T6Y8MSbjgEYKvnnf7">Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</a></p>
             </div>
             <div class="div-footer col-lg-3 col-md-6 col-sm-12">
                 <p style="padding: 50px 50px 0 50px;">
@@ -258,12 +267,26 @@
 
     <div id="chatbox" style="display: none;">
         <a onclick="closeChatBox()"><i class="fas fa-times"></i></a>
+        <?php
+        include 'database/config.php';
+
+        $sql = "SELECT greetings FROM training_greetings";
+        $result = mysqli_query($conn, $sql);
+        $greet = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $greet[] = $row['greetings'];
+        }
+        $randomIndex = array_rand($greet);
+        $randomValue = $greet[$randomIndex];
+
+
+        ?>
 
         <body id="chat_body">
             <div class="chat-container">
                 <h2>Alternative Medicine Chatbot</h2>
                 <div class="chat-messages" id="chat-messages">
-                    <div class="bot-message">Hello! How can I assist you today?</div>
+                    <div class="bot-message"><?php echo $randomValue; ?></div>
                 </div>
                 <form id="chat-form">
                     <input type="text" id="user-input" placeholder="Type your message...">
