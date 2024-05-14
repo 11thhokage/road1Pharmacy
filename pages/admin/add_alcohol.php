@@ -35,7 +35,7 @@
                                 <input type="text" class="form-control" name="vendor_name" required placeholder="Enter Vendor Name">
                             </div>
                         </div>
-                        <input type="submit" name="submit_cNo" value="Add Item" class="btn btn-primary btn-block text">
+                        <input type="submit" name="submit_alcohol" value="Add Item" class="btn btn-primary btn-block text">
                     </form>
                     <p class="text-center"><a href="admin_view_items.php" class="btn btn-danger mt-2 btn-block text ">Cancel</a></p>
                 </div>
