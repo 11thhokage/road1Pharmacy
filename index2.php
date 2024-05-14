@@ -120,7 +120,7 @@
                         <div class="carousel-item">
                             <div class="square-button">
                                 <button class="box">KIDS NUTRITION <img class="img-topics" src="https://img.pikbest.com/png-images/nutritious-and-delicious-soy-milk-png-elements_2495184.png!sw800" alt=""></button>
-                                <button class="box">ABSORBENT HYGIENE PRODUCTS <img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/843/843180.png" alt=""></button>
+                                <button class="box">ABSORBENT HYGIENE PRODUCTS <img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/1521/1521240.png" alt=""></button>
                             </div>
                         </div>
                     </div>
