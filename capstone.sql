@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 05:16 AM
+-- Generation Time: May 14, 2024 at 11:26 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -122,6 +122,48 @@ INSERT INTO `deliver_received` (`post_trans_number`, `receipt_trans_number`, `da
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `greet_response`
+--
+
+CREATE TABLE `greet_response` (
+  `id` int(11) NOT NULL,
+  `response` varchar(250) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `greet_response`
+--
+
+INSERT INTO `greet_response` (`id`, `response`) VALUES
+(1, 'Hi! Need a new medicine?'),
+(2, 'Hello! Looking for alternatives?'),
+(3, 'Greetings! Need a different med?'),
+(4, 'Welcome! Which medicine to replace?'),
+(5, 'Hey! Need a new med?');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instruction_response`
+--
+
+CREATE TABLE `instruction_response` (
+  `id` int(11) NOT NULL,
+  `instructions` varchar(250) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `instruction_response`
+--
+
+INSERT INTO `instruction_response` (`id`, `instructions`) VALUES
+(1, 'For alternatives, type: \'alternative\' followed by the medicine name and size. To check availability, type: \'check\' with the medicine name and size.'),
+(2, 'Type \'alternative\' with the medicine name and size for options. Use \'check\' with the medicine name and size to see availability.'),
+(3, 'Need alternatives? Type \'alternative\' plus medicine name and size. For availability, type \'check\' with medicine name and size.');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `items`
 --
 
@@ -132,6 +174,8 @@ CREATE TABLE `items` (
   `unit_price` double NOT NULL,
   `mark_up` int(2) NOT NULL,
   `price` double NOT NULL,
+  `type` varchar(256) NOT NULL,
+  `classification` varchar(256) NOT NULL,
   `vendor_name` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -139,15 +183,15 @@ CREATE TABLE `items` (
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`code`, `item_name`, `what_for`, `unit_price`, `mark_up`, `price`, `vendor_name`) VALUES
-(3, 'saridon 250mg', 'headache', 5, 20, 6, 'vendor1'),
-(4, 'erythromycin 500mg', 'tonsilitis', 8, 25, 10, 'vendor2'),
-(5, 'biogesic 500mg', 'headache', 4, 25, 5, 'vendor3'),
-(6, 'Loratadine 120mg', 'cough', 5, 20, 6, 'Vendor 4'),
-(7, 'Neozep 250mg', 'cough', 4, 25, 5, 'Vendor 5'),
-(8, 'Arseflora 25ml', 'asthma', 8, 20, 10, 'Vendor 6'),
-(9, 'Mefenamic Acid 250mg', 'antibiotic', 6, 20, 7, 'Vendor 1'),
-(10, 'Drenex 30mg', 'rheumatic', 25, 5, 26, 'juliet');
+INSERT INTO `items` (`code`, `item_name`, `what_for`, `unit_price`, `mark_up`, `price`, `type`, `classification`, `vendor_name`) VALUES
+(3, 'SARIDON 250MG', 'headache', 10, 20, 12, '', '', 'vendor1'),
+(4, 'erythromycin 500mg', 'tonsilitis', 8, 25, 10, '', '', 'vendor2'),
+(5, 'biogesic 500mg', 'headache', 4, 25, 5, '', '', 'vendor3'),
+(6, 'Loratadine 120mg', 'cough', 5, 20, 6, '', '', 'Vendor 4'),
+(7, 'Neozep 250mg', 'cough', 4, 25, 5, '', '', 'Vendor 5'),
+(8, 'Arseflora 25ml', 'asthma', 8, 20, 10, '', '', 'Vendor 6'),
+(9, 'Mefenamic Acid 250mg', 'antibiotic', 6, 20, 7, '', '', 'Vendor 1'),
+(10, 'Drenex 30mg', 'rheumatic', 25, 5, 26, '', '', 'juliet');
 
 -- --------------------------------------------------------
 
@@ -210,6 +254,33 @@ INSERT INTO `reports` (`id`, `item_name`, `reason`, `qty`, `expiry_date`, `statu
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `training_greetings`
+--
+
+CREATE TABLE `training_greetings` (
+  `id` int(11) NOT NULL,
+  `greetings` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `training_greetings`
+--
+
+INSERT INTO `training_greetings` (`id`, `greetings`) VALUES
+(11, 'Hi! Looking for alternatives to a specific medicine? Tell me the name, and I\'ll help!'),
+(12, 'Hello! Need an alternative medication? Provide the medicine name, and I\'ll find options for you.'),
+(13, 'Greetings! I can recommend alternative medicines. Which medicine are you looking to replace?'),
+(14, 'Welcome! Tell me the name of the medicine you\'re seeking an alternative for, and I\'ll check for you.'),
+(15, 'Hey there! Need a different medicine? Let me know the current one, and I\'ll suggest alternatives.'),
+(16, 'Good day! I\'m here to help you find alternative medications. What\'s the name of the medicine?'),
+(17, 'Hi! Want a different medication option? Share the name of the medicine, and I\'ll find alternatives.'),
+(18, 'Hello! I can suggest alternative medicines. What medication are you looking to replace?'),
+(19, 'Welcome! Let me help you find alternative medicines. Which medicine do you need an alternative for?'),
+(20, 'Hi there! Looking for a substitute medication? Tell me the current medicine name, and I\'ll find alternatives.');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `training_items`
 --
 
@@ -223,9 +294,11 @@ CREATE TABLE `training_items` (
 --
 
 INSERT INTO `training_items` (`id`, `words`) VALUES
-(1, 'saridon'),
-(2, '250mg'),
-(3, 'Neozep');
+(1, 'SARIDON'),
+(2, '250MG'),
+(3, 'NEOZEP'),
+(5, '100MG'),
+(8, '500MG');
 
 -- --------------------------------------------------------
 
@@ -402,6 +475,18 @@ ALTER TABLE `deliver_received`
   ADD PRIMARY KEY (`post_trans_number`);
 
 --
+-- Indexes for table `greet_response`
+--
+ALTER TABLE `greet_response`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `instruction_response`
+--
+ALTER TABLE `instruction_response`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `items`
 --
 ALTER TABLE `items`
@@ -417,6 +502,12 @@ ALTER TABLE `push_orders`
 -- Indexes for table `reports`
 --
 ALTER TABLE `reports`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `training_greetings`
+--
+ALTER TABLE `training_greetings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -472,10 +563,22 @@ ALTER TABLE `deliver_received`
   MODIFY `post_trans_number` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
+-- AUTO_INCREMENT for table `greet_response`
+--
+ALTER TABLE `greet_response`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `instruction_response`
+--
+ALTER TABLE `instruction_response`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `push_orders`
@@ -490,16 +593,22 @@ ALTER TABLE `reports`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `training_greetings`
+--
+ALTER TABLE `training_greetings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT for table `training_items`
 --
 ALTER TABLE `training_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `training_words`
 --
 ALTER TABLE `training_words`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `transactions`
