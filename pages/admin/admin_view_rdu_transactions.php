@@ -41,13 +41,23 @@ session_start();
                 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['received_by'])) {
                     $received_by = $_POST['received_by'];
                     if ($received_by == 'all') {
+                        $limit = 10; // Number of items per page
+                        $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
+                        $offset = ($page - 1) * $limit; // Offset for the SQL query
+
+                        // Get total number of items
+                        $total_items = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM deliver_received"));
+
+                        // Calculate total number of pages
+                        $total_pages = ceil($total_items / $limit);
                         $total_query = "SELECT SUM(total) as total_amount FROM deliver_received";
                         $total_result = mysqli_query($conn, $total_query);
                         $total_row = mysqli_fetch_assoc($total_result);
                         $total = $total_row['total_amount'];
+                        $ftotal = number_format($total, 2, '.', '');
 
-                        echo "<h2>Total ₱: $total</h2>";
-                        $transaction = "SELECT * FROM deliver_received";
+                        echo "<h2>Total ₱: $ftotal</h2>";
+                        $transaction = "SELECT * FROM deliver_received ORDER BY post_trans_number DESC LIMIT $offset, $limit";
                         $result = mysqli_query($conn, $transaction);
                         if (!$result) {
                             die('Error: ' . mysqli_error($conn));
@@ -99,18 +109,51 @@ session_start();
                             </div>
                         </div>
                     </section>";
+                            echo "<div class='row justify-content-center mt-4'>";
+                            echo "<nav aria-label='Page navigation example'>";
+                            echo "<ul class='pagination'>";
+
+                            // Previous button
+                            if ($page > 1) {
+                                echo "<li class='page-item'><a class='page-link' href='?page=" . ($page - 1) . "'>Previous</a></li>";
+                            }
+
+                            // Page numbers
+                            for ($i = 1; $i <= $total_pages; $i++) {
+                                echo "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='?page=$i'>$i</a></li>";
+                            }
+
+                            // Next button
+                            if ($page < $total_pages) {
+                                echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "'>Next</a></li>";
+                            }
+
+                            echo "</ul>";
+                            echo "</nav>";
+                            echo "</div>";
                         }
                     } else {
+
                         $username = explode(" ", $received_by);
                         $target =  $username[1];
+                        $limit = 10; // Number of items per page
+                        $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
+                        $offset = ($page - 1) * $limit; // Offset for the SQL query
+
+                        // Get total number of items
+                        $total_items = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM deliver_received WHERE received_by='$target'"));
+
+                        // Calculate total number of pages
+                        $total_pages = ceil($total_items / $limit);
                         $total_query = "SELECT SUM(total) as total_amount FROM deliver_received WHERE received_by = '$target'";
                         $total_result = mysqli_query($conn, $total_query);
                         $total_row = mysqli_fetch_assoc($total_result);
                         $total = $total_row['total_amount'];
+                        $ftotal = number_format($total, 2, '.', '');
 
                         echo "<h3>Transactions of:</h3>" . "<h2 class ='target'><b>" . $target . "</b></h2>";
-                        echo "<h2>Total ₱: $total</h2>";
-                        $transaction = "SELECT * FROM deliver_received WHERE received_by = '$target'";
+                        echo "<h2>Total ₱: $ftotal</h2>";
+                        $transaction = "SELECT * FROM deliver_received WHERE received_by = '$target' ORDER BY post_trans_number DESC LIMIT $offset, $limit";
                         $result = mysqli_query($conn, $transaction);
                         if (!$result) {
                             die('Error: ' . mysqli_error($conn));
@@ -159,6 +202,28 @@ session_start();
                             </div>
                         </div>
                     </section>";
+                            echo "<div class='row justify-content-center mt-4'>";
+                            echo "<nav aria-label='Page navigation example'>";
+                            echo "<ul class='pagination'>";
+
+                            // Previous button
+                            if ($page > 1) {
+                                echo "<li class='page-item'><a class='page-link' href='?page=" . ($page - 1) . "'>Previous</a></li>";
+                            }
+
+                            // Page numbers
+                            for ($i = 1; $i <= $total_pages; $i++) {
+                                echo "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='?page=$i'>$i</a></li>";
+                            }
+
+                            // Next button
+                            if ($page < $total_pages) {
+                                echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "'>Next</a></li>";
+                            }
+
+                            echo "</ul>";
+                            echo "</nav>";
+                            echo "</div>";
                         }
                     }
                 }

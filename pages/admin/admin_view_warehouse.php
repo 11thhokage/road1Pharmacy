@@ -40,8 +40,17 @@ include '../../actions/session_check.php';
             <div class='row'>
 
                 <?php
+                $limit = 10; // Number of items per page
+                $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
+                $offset = ($page - 1) * $limit; // Offset for the SQL query
+
+                // Get total number of items
+                $total_items = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM items"));
+
+                // Calculate total number of pages
+                $total_pages = ceil($total_items / $limit);
                 // Check if the query was successful
-                $get_items = "SELECT item_name FROM items";
+                $get_items = "SELECT item_name FROM items ORDER BY item_name ASC LIMIT $offset, $limit";
                 $items_result = mysqli_query($conn, $get_items);
                 if (!$items_result) {
                     die('Error in query: ' . mysqli_error($conn));
@@ -114,6 +123,29 @@ include '../../actions/session_check.php';
     </section>
     <br/>
         ";
+                // Pagination buttons
+                echo "<div class='row justify-content-center mt-4'>";
+                echo "<nav aria-label='Page navigation example'>";
+                echo "<ul class='pagination'>";
+
+                // Previous button
+                if ($page > 1) {
+                    echo "<li class='page-item'><a class='page-link' href='?page=" . ($page - 1) . "'>Previous</a></li>";
+                }
+
+                // Page numbers
+                for ($i = 1; $i <= $total_pages; $i++) {
+                    echo "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='?page=$i'>$i</a></li>";
+                }
+
+                // Next button
+                if ($page < $total_pages) {
+                    echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "'>Next</a></li>";
+                }
+
+                echo "</ul>";
+                echo "</nav>";
+                echo "</div>";
                 ?>
                 </tbody>
                 </table>

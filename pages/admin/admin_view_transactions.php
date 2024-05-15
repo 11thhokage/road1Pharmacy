@@ -58,9 +58,9 @@ session_start();
                         $gcash_row = mysqli_fetch_assoc($gcash_result);
                         $gcash = $gcash_row['gcash_amount'];
 
-                        echo "<h2>Total ₱: $total</h2> &nbsp&nbsp&nbsp<h3>Cash ₱: $cash</h3> &nbsp&nbsp&nbsp<h3>Gcash ₱: $gcash</h3>";
+                        echo "<h2>Total ₱: $total &nbsp&nbsp&nbspCash ₱: $cash &nbsp&nbsp&nbspGcash ₱: $gcash</h2>";
 
-                        $transaction = "SELECT * FROM transactions";
+                        $transaction = "SELECT * FROM transactions ORDER BY id DESC";
                         $result = mysqli_query($conn, $transaction);
                         if (!$result) {
                             die('Error: ' . mysqli_error($conn));
@@ -139,12 +139,11 @@ session_start();
                         $gcash_row = mysqli_fetch_assoc($gcash_result);
                         $gcash = $gcash_row['gcash_amount'];
 
-                        echo "<h3>Transactions of:</h3>" . "<h2 class ='target'><b>" . $target . "</b></h2>";
-                        echo "<h2>Total ₱: $total</h2>";
-                        echo "<h3>Cash ₱: $cash</h3>";
-                        echo "<h3>Gcash ₱: $gcash</h3>";
+                        echo "<h3>Transactions of: <b>" . $target . "</b></h3>";
+                        echo "<h2>Total ₱: $total &nbsp&nbsp&nbspCash ₱: $cash &nbsp&nbsp&nbspGcash ₱: $gcash</h2>";
 
-                        $transaction = "SELECT * FROM transactions WHERE transact_by = '$target'";
+
+                        $transaction = "SELECT * FROM transactions WHERE transact_by = '$target' ORDER BY id DESC";
                         $result = mysqli_query($conn, $transaction);
                         if (!$result) {
                             die('Error: ' . mysqli_error($conn));

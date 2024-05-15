@@ -85,8 +85,7 @@ include '../../actions/session_check.php';
             echo "<td>" . $type . "</td>";
             echo "<td>" . $classification . "</td>";
             echo "<td>" . $vendor_name . "</td>";
-            echo "<td>" . "<a href='#' class='btn btn-success edit_item'>📝Edit</a> 
-            &nbsp&nbsp 
+            echo "<td>" . "<a href='#' class='btn btn-success edit_item mb-1'>📝Edit</a> &nbsp
             <a href='#' class='btn btn-danger delete_item'>🗑️Delete</a>" . "</td>";
             echo "</tr>";
         }
