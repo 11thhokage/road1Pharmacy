@@ -24,12 +24,10 @@ date_default_timezone_set('Asia/Manila');
 
 <body>
 
-
     <?php
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['items']) && isset($_POST['total'])) {
         if (isset($_POST['mode_of_payment']) && isset($_POST['tender_amount']) && isset($_POST['curr_user'])) {
-
 
             $mode_of_payment = $_POST['mode_of_payment'];
             $amount_tendered = $_POST['tender_amount'];
@@ -63,24 +61,22 @@ date_default_timezone_set('Asia/Manila');
                 // There are invalid items, so we'll display the error messages for all of them
                 foreach ($invalid_items as $invalid_item) {
                     echo "<script>
-            Swal.fire({
-                title: 'Error!',
-                text: 'No more items with the name {$invalid_item['item_name']} found in the warehouse. Max Quantity is only {$invalid_item['total_qty']}',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '../../pages/user/user_frontend.php';
-                }
-            });
-        </script>";
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'No more items with the name {$invalid_item['item_name']} found in the warehouse. Max Quantity is only {$invalid_item['total_qty']}',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '../../pages/user/user_frontend.php';
+                    }
+                });
+                </script>";
                 }
             } else {
                 // All items are valid, proceed with the rest of the code
-                // ... [The rest of your code for handling the successful case]
                 $insert = "INSERT INTO transactions (amount, tender_amount, date_transacted, time_transacted, payment_mode, transact_by)
-                   VALUES ('$total', '$amount_tendered', '$date_transact','$time_transacted', '$mode_of_payment', '$curr_user')";
-
+                       VALUES ('$total', '$amount_tendered', '$date_transact','$time_transacted', '$mode_of_payment', '$curr_user')";
 
                 if ($conn->query($insert) === TRUE) {
                     $last_id = $conn->insert_id;
@@ -92,7 +88,7 @@ date_default_timezone_set('Asia/Manila');
                         $qty = $item['quantity'];
 
                         $insert2 = "INSERT INTO transactions_items(order_id, item_name, price, qty)
-                    VALUES ('$last_id', '$item_name', '$price', '$qty')";
+                                VALUES ('$last_id', '$item_name', '$price', '$qty')";
                         if ($conn->query($insert2) !== TRUE) {
                             $all_items_inserted = false;
                             echo "Error: " . $insert2 . "<br>" . $conn->error;
@@ -129,33 +125,6 @@ date_default_timezone_set('Asia/Manila');
                                         // If current stock is more than the quantity to deduct, update the quantity
                                         $update = "UPDATE warehouse SET item_qty = item_qty - $qty_to_deduct WHERE warehouse_code = '$warehouse_code'";
                                         $qty_to_deduct = 0; // Set quantity to deduct to zero as we've deducted the required quantity 
-                                        unset($_SESSION['items']);
-                                        echo "<script>
-    Swal.fire({
-        title: 'Success!',
-        text: 'Transaction completed successfully.',
-        icon: 'success',
-        showCancelButton: true,
-        confirmButtonText: '<span class=\"print-btn\">Print</span>',
-        cancelButtonText: '<span class=\"save-btn\">Just Save</span>',
-        customClass: {
-            confirmButton: 'btn-green',
-            cancelButton: 'btn-black'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            let printUrl = 'print_receipt.php' + '?mode_of_payment=' + encodeURIComponent('$mode_of_payment') + '&amount_tendered=' + encodeURIComponent('$amount_tendered') + '&items=' + encodeURIComponent(JSON.stringify($items)) + '&total=' + encodeURIComponent('$total') + '&change=' + encodeURIComponent('$change') + '&curr_user=' + encodeURIComponent('$curr_user') + '&date_transact=' + encodeURIComponent('$date_transact') + '&time_transacted=' + encodeURIComponent('$time_transacted');
-            window.location.href = printUrl;
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            let saveUrl = 'save_receipt.php' + '?mode_of_payment=' + encodeURIComponent('$mode_of_payment') + '&amount_tendered=' + encodeURIComponent('$amount_tendered') + '&items=' + encodeURIComponent(JSON.stringify($items)) + '&total=' + encodeURIComponent('$total') + '&change=' + encodeURIComponent('$change') + '&curr_user=' + encodeURIComponent('$curr_user') + '&date_transact=' + encodeURIComponent('$date_transact') + '&time_transacted=' + encodeURIComponent('$time_transacted');
-            window.location.href = saveUrl;
-        } else {
-           let saveUrl = 'save_receipt.php' + '?mode_of_payment=' + encodeURIComponent('$mode_of_payment') + '&amount_tendered=' + encodeURIComponent('$amount_tendered') + '&items=' + encodeURIComponent(JSON.stringify($items)) + '&total=' + encodeURIComponent('$total') + '&change=' + encodeURIComponent('$change') + '&curr_user=' + encodeURIComponent('$curr_user') + '&date_transact=' + encodeURIComponent('$date_transact') + '&time_transacted=' + encodeURIComponent('$time_transacted');
-            window.location.href = saveUrl;
-        }
-    });
-</script>";
-
 
                                         if ($conn->query($update) !== TRUE) {
                                             echo "Error updating record: " . $conn->error;
@@ -163,24 +132,55 @@ date_default_timezone_set('Asia/Manila');
                                         }
                                     }
                                 } else {
-                                    unset($_SESSION['items']);
                                     echo "<script>
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'No more items with the name $item_name found in the warehouse.',
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = '../../pages/user/user_frontend.php';
-                                }
-                            });
-                        </script>";
-
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'No more items with the name $item_name found in the warehouse.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '../../pages/user/user_frontend.php';
+                                    }
+                                });
+                                </script>";
                                     break; // Exit the loop if no more items are found
                                 }
                             }
                         }
+
+                        unset($_SESSION['items']);
+                        $encoded_items = json_encode($items);
+                        echo "<script>
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Transaction completed successfully. Do you want to print the receipt?',
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: '<span class=\"print-btn\">Print</span>',
+                    cancelButtonText: '<span class=\"save-btn\">Just Save</span>',
+                    customClass: {
+                        confirmButton: 'btn-green',
+                        cancelButton: 'btn-black'
+                    }
+                }).then((result) => {
+                    let urlParams = new URLSearchParams({
+                        mode_of_payment: '$mode_of_payment',
+                        amount_tendered: '$amount_tendered',
+                        items: '$encoded_items',
+                        total: '$total',
+                        change: '$change',
+                        curr_user: '$curr_user',
+                        date_transact: '$date_transact',
+                        time_transacted: '$time_transacted'
+                    });
+                    if (result.isConfirmed) {
+                        window.location.href = 'print_receipt.php?' + urlParams.toString();
+                    } else {
+                        window.location.href = 'save_receipt.php?' + urlParams.toString();
+                    }
+                });
+                </script>";
                     }
                 } else {
                     echo "Error: " . $insert . "<br>" . $conn->error;
@@ -195,6 +195,3 @@ date_default_timezone_set('Asia/Manila');
 </body>
 
 </html>
-
-
-<!-- pang ending alert -->

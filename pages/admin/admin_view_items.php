@@ -22,7 +22,7 @@ include '../../actions/session_check.php';
     include '../../database/config.php';
 
     // Pagination variables
-    $limit = 3; // Number of items per page
+    $limit = 10; // Number of items per page
     $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
     $offset = ($page - 1) * $limit; // Offset for the SQL query
 
