@@ -125,15 +125,11 @@ session_start();
 
 
                     <form action="../../actions/user/rdu_receive.php" method="post">
-                        <div class="col-md-4 mb-3">
-                            <label for="date_received">Date Received:</label>
-                            <input type="date" name="date_received" required>
-                        </div>
+
                 </div>
-                <hr style="width:98%;">
 
                 <div class="row">
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label>Item Name</label>
                         <select name="item_name" id="item_name" class='form-select my-select'>
                             <option value="">-- Select Item --</option>
@@ -152,16 +148,20 @@ session_start();
                             ?>
                         </select>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label>Unit Price:</label>
-                        <b><span id="unit_price_display">0</span></b>
+                        <b><span id="unit_price_display">0</span></b><br>
                         <input type="number" name="item_qty" required placeholder="Enter Quantity" min="1">
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label>Subtotal:</label>
                         <b><span id="subtotal_display">0</span></b>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="date_received">Date Received:</label>
+                        <input type="date" name="date_received_check" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
                         <label for="expiry_date">Expiry Date:</label>
                         <input type="date" name="expiry_date" required>
                     </div>
@@ -187,10 +187,10 @@ session_start();
                     ?>
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <input type="text" name="receipt_trans_number" required placeholder="Enter transaction number">
-                                <span>
-                                    <p style="color:red">The number/letters on the sales invoice</p>
-                                </span> <br />
+                                <label for="invoice_no">Invoice Number:</label><br>
+                                <input type="text" name="receipt_trans_number" required placeholder="Enter transaction number"><br>
+                                <span id="errorSpan" style="color: red;"></span>
+                                <p style="color:gray;">The number/letters on the sales invoice</p>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="vendor_name">Vendor Name:</label>
@@ -208,6 +208,11 @@ session_start();
                                     }
                                     ?>
                                 </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="date_received">Date Received:</label><br>
+                                <input type="date" name="date_received" required>
+                                <span id="errorSpan" style="color: red;"></span>
                             </div>
                         </div>
                         <h1 class="text-end" id='total'><b></b></h1>
@@ -294,7 +299,18 @@ session_start();
         var receiptTransNumberInput = document.querySelector('input[name="receipt_trans_number"]');
         var vendorNameInput = document.querySelector('select[name="vendor_name"]');
         var dateReceivedInput = document.querySelector('input[name="date_received"]');
-        document.getElementById('receiveButton').addEventListener('click', function() {
+
+        document.getElementById('receiveButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var errorSpan = document.getElementById('errorSpan');
+            errorSpan.textContent = ''; // Clear any previous error message
+
+
+            if (receiptTransNumberInput.value === '' || vendorNameInput.value === '' || dateReceivedInput.value === '') {
+                errorSpan.textContent = 'Please fill in all the required fields.';
+                return;
+            }
             var form = document.createElement('form');
             form.action = '../../actions/user/receive_item.php';
             form.method = 'post';
@@ -329,10 +345,7 @@ session_start();
 
             // Append the form to the body and submit it
             document.body.appendChild(form);
-
             form.submit();
-
-
         });
 
         // Helper function to create hidden input elements
