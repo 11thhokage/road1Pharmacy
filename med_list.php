@@ -48,17 +48,18 @@
 </head>
 
 <body>
+    <p class="text-center fs-1">Medicine Lists</p>
     <?php
     include 'database/config.php';
 
     // Get the total number of rows
-    $countSql = "SELECT COUNT(*) as total FROM items";
+    $countSql = "SELECT COUNT(*) as total FROM items WHERE classification = 'medicine'";
     $countResult = mysqli_query($conn, $countSql);
     $countRow = mysqli_fetch_assoc($countResult);
     $totalRows = $countRow['total'];
 
     // Calculate the total number of pages
-    $limit = 5; // Number of rows per page
+    $limit = 7; // Number of rows per page
     $totalPages = ceil($totalRows / $limit);
 
     // Get the current page number
@@ -72,7 +73,7 @@
     $offset = ($currentPage - 1) * $limit;
 
     // Fetch the rows for the current page
-    $sql = "SELECT code, item_name, type FROM items ORDER BY item_name ASC LIMIT $limit OFFSET $offset";
+    $sql = "SELECT code, item_name, type FROM items WHERE classification = 'medicine' ORDER BY item_name ASC LIMIT $limit OFFSET $offset";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
@@ -105,16 +106,20 @@
         echo "<nav aria-label='Page navigation example'>";
         echo "<ul class='pagination'>";
         if ($currentPage > 1) {
-            echo "<li class='page-item'><a class='page-link' href='?page=" . ($currentPage - 1) . "'>Previous</a></li>";
+            echo "<li class='page-item'><a class='page-link' href='#' data-page='" . ($currentPage - 1) . "'>Previous</a></li>";
         }
 
-        for ($i = 1; $i <= $totalPages; $i++) {
-            echo "<li class='page-item " . ($currentPage == $i ? 'active' : '') . "'><a class='page-link' href='?page=$i'>$i</a></li>";
+        $startPage = max(1, $currentPage - 1);
+        $endPage = min($startPage + 2, $totalPages);
+
+        for ($i = $startPage; $i <= $endPage; $i++) {
+            echo "<li class='page-item " . ($currentPage == $i ? 'active' : '') . "'><a class='page-link' href='#' data-page='$i'>$i</a></li>";
         }
 
         if ($currentPage < $totalPages) {
-            echo "<li class='page-item'><a class='page-link' href='?page=" . ($currentPage + 1) . "'>Next</a></li>";
+            echo "<li class='page-item'><a class='page-link' href='#' data-page='" . ($currentPage + 1) . "'>Next</a></li>";
         }
+
         echo "</ul>";
         echo "</nav>";
         echo "</div>";

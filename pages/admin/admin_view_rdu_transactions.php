@@ -41,7 +41,7 @@ session_start();
                 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['received_by'])) {
                     $received_by = $_POST['received_by'];
                     if ($received_by == 'all') {
-                        $limit = 10; // Number of items per page
+                        $limit = 2; // Number of items per page
                         $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
                         $offset = ($page - 1) * $limit; // Offset for the SQL query
 
@@ -113,17 +113,17 @@ session_start();
                             echo "<nav aria-label='Page navigation example'>";
                             echo "<ul class='pagination'>";
 
-                            // Previous button
                             if ($page > 1) {
                                 echo "<li class='page-item'><a class='page-link' href='?page=" . ($page - 1) . "'>Previous</a></li>";
                             }
 
-                            // Page numbers
-                            for ($i = 1; $i <= $total_pages; $i++) {
+                            $startPage = max(1, $page - 1);
+                            $endPage = min($startPage + 2, $total_pages);
+
+                            for ($i = $startPage; $i <= $endPage; $i++) {
                                 echo "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='?page=$i'>$i</a></li>";
                             }
 
-                            // Next button
                             if ($page < $total_pages) {
                                 echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "'>Next</a></li>";
                             }
@@ -136,7 +136,7 @@ session_start();
 
                         $username = explode(" ", $received_by);
                         $target =  $username[1];
-                        $limit = 10; // Number of items per page
+                        $limit = 2; // Number of items per page
                         $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
                         $offset = ($page - 1) * $limit; // Offset for the SQL query
 
@@ -206,17 +206,17 @@ session_start();
                             echo "<nav aria-label='Page navigation example'>";
                             echo "<ul class='pagination'>";
 
-                            // Previous button
                             if ($page > 1) {
                                 echo "<li class='page-item'><a class='page-link' href='?page=" . ($page - 1) . "'>Previous</a></li>";
                             }
 
-                            // Page numbers
-                            for ($i = 1; $i <= $total_pages; $i++) {
+                            $startPage = max(1, $page - 1);
+                            $endPage = min($startPage + 2, $total_pages);
+
+                            for ($i = $startPage; $i <= $endPage; $i++) {
                                 echo "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='?page=$i'>$i</a></li>";
                             }
 
-                            // Next button
                             if ($page < $total_pages) {
                                 echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "'>Next</a></li>";
                             }

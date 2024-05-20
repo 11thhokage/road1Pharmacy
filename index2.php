@@ -78,9 +78,10 @@
             </div>
         </nav>
         <div class="container-fluid" style="display: none;" id="med_list">
-            <p class="text-center fs-1">Medicine Lists</p>
+
             <?php include 'med_list.php'; ?>
         </div>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script>
             function medicineDisplay() {
                 var med_list = document.getElementById("med_list");
@@ -90,8 +91,28 @@
                     med_list.style.display = "none";
                 } else {
                     med_list.style.display = "block";
+                    loadMedList(1); // Load the first page by default when showing the list
                 }
             }
+
+            function loadMedList(page) {
+                $.ajax({
+                    url: 'med_list.php',
+                    type: 'GET',
+                    data: {
+                        page: page
+                    },
+                    success: function(response) {
+                        $('#med_list').html(response);
+                    }
+                });
+            }
+
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('data-page');
+                loadMedList(page);
+            });
         </script>
 
 
