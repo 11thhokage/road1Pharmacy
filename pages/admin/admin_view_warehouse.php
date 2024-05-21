@@ -100,15 +100,15 @@ include '../../actions/session_check.php';
                     if ($item_qty == 0) {
                         echo "<td style= 'color:red;'>" . $item_qty . "</td>";
                         echo "<td>" . $vendor_name . "</td>";
-                        echo "<td></td>";
+                        echo "<td scope='col' class=''>" . "<a href='#' class='btn btn-success view_details'>Adjust</a>" . "</td>" . "</td>";
                     } elseif ($item_qty > 0 && $item_qty <= 10) {
                         echo "<td style='color:red;'>" . $item_qty . "</td>";
                         echo "<td>" . $vendor_name . "</td>";
-                        echo "<td scope='col' class=''> " . "<a href='#' class='btn btn-info view_details'>View Details</a>" . "</td>";
+                        echo "<td scope='col' class=''> " . "<a href='#' class='btn btn-info view_details mr-1'>View Details</a>" . "<a href='#' class='btn btn-success view_details'>Adjust</a>" . "</td>";
                     } else {
                         echo "<td>" . $item_qty . "</td>";
                         echo "<td>" . $vendor_name . "</td>";
-                        echo "<td scope='col' class=''> " . "<a href='#' class='btn btn-info view_details'>View Details</a>" . "</td>";
+                        echo "<td scope='col' class=''> " . "<a href='#' class='btn btn-info view_details mr-1'>View Details</a>" . "<a href='#' class='btn btn-success view_details'>Adjust</a>" . "</td>";
                     }
                     echo "</tr>";
                 }
@@ -128,17 +128,17 @@ include '../../actions/session_check.php';
                 echo "<nav aria-label='Page navigation example'>";
                 echo "<ul class='pagination'>";
 
-                // Previous button
                 if ($page > 1) {
                     echo "<li class='page-item'><a class='page-link' href='?page=" . ($page - 1) . "'>Previous</a></li>";
                 }
 
-                // Page numbers
-                for ($i = 1; $i <= $total_pages; $i++) {
+                $startPage = max(1, $page - 1);
+                $endPage = min($startPage + 2, $total_pages);
+
+                for ($i = $startPage; $i <= $endPage; $i++) {
                     echo "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='?page=$i'>$i</a></li>";
                 }
 
-                // Next button
                 if ($page < $total_pages) {
                     echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "'>Next</a></li>";
                 }
