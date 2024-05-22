@@ -194,9 +194,9 @@ session_start();
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="vendor_name">Vendor Name:</label>
-                                <select name="vendor_name" id="" required>
+                                <select name="vendor_name" class="my-select" id="" required>
                                     <?php
-                                    $data = "SELECT * FROM items";
+                                    $data = "SELECT DISTINCT vendor_name FROM items";
                                     $result = mysqli_query($conn, $data);
                                     if (mysqli_num_rows($result) > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
