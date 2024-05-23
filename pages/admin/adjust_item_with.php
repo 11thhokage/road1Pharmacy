@@ -1,15 +1,19 @@
 <?php
 include '../../database/config.php';
-include '../../actions/session_check.php';
 
-// Retrieve the item_name from the query parameter
-$item_name = $_GET['item_name'];
+if (isset($_GET['warehouse_code']) && isset($_GET['item_name']) && isset($_GET['item_qty']) && isset($_GET['expiry_date'])) {
+    $warehouse_code = $_GET['warehouse_code'];
+    $item_name = $_GET['item_name'];
+    $item_qty = $_GET['item_qty'];
+    $expiry_date = $_GET['expiry_date'];
+    date_default_timezone_set('Asia/Manila');
+    $today =  date("Y-m-d");
+    $time = date('H:i:s');
 
-date_default_timezone_set('Asia/Manila');
-$today =  date("Y-m-d");
-$time = date('H:i:s');
-
-// Print the item_name
+    // Process the received data as required
+    // For example, you can display the data or handle the adjustment logic here
+    // Add your adjustment logic here
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,48 +49,29 @@ $time = date('H:i:s');
                         <h5 class="text-center">Adjust <?php echo $item_name ?></h5>
                         <form action="../../actions/admin/adjust_item.php" method="post">
                             <div class="row">
+                                <input type="hidden" name="id" value="<?php echo $warehouse_code;   ?>">
                                 <div class="form-group col-md-12">
                                     <h6>Item Name: <b><?php echo $item_name ?></b></h6>
                                     <input type="hidden" class="form-control" name="item_name" value="<?php echo $item_name; ?>" required placeholder="Enter Item Name">
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label for="qty">Quantity:</label>
+                                    <h6 for="qty">Current Quantity: <?php echo $item_qty; ?></h6>
+                                    <input type="hidden" class="form-control" name="curr_qty" required placeholder="Enter Quantity" min="1" value="<?php echo $item_qty; ?>">
+                                    <select name="process" id="">
+                                        <option value="Add">+</option>
+                                        <option value="Sub">-</option>
+                                    </select>
                                     <input type="number" class="form-control" name="qty" required placeholder="Enter Quantity" min="1">
+
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <label for="exp_date">Expiry Date:</label>
-                                    <input type="date" class="form-control" name="expiry_date" required placeholder="Enter Expiry Date">
-                                </div>
-                                <input type="hidden" class="form-control" name="date_received" value="<?php echo $today; ?>" required placeholder="Enter Expiry Date">
+                                <input type="hidden" class="form-control" name="date" value="<?php echo $today; ?>" required placeholder="Enter Expiry Date">
+                                <input type="hidden" class="form-control" name="expiry_date" value="<?php echo $expiry_date; ?>" required placeholder="Enter Expiry Date">
                                 <input type="hidden" class="form-control" name="time" value="<?php echo $time; ?>" required placeholder="Enter Expiry Date">
 
-                                <div class="form-group col-md-12">
-                                    <label for="reason">Reason:</label>
-                                    <select class="form-control" name="reason" id="">
-                                        <option value="Found from Warehouse">Found from Warehouse</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="vendor_name">Vendor Name:</label>
-                                    <select name="vendor_name" class="form-control my-select" id="" required>
-                                        <?php
-                                        $data = "SELECT DISTINCT vendor_name FROM items";
-                                        $result = mysqli_query($conn, $data);
-                                        if (mysqli_num_rows($result) > 0) {
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                $vendor_name = $row['vendor_name'];
-                                                echo "<option value='$vendor_name'>$vendor_name</option>";
-                                            }
-                                        } else {
-                                            echo "<option value=''>No data found!</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
                             </div>
                             <br>
                             <center>
-                                <input type="submit" name="submit_zero" value="Adjust <?php echo $item_name ?>" class="btn btn-primary btn-block text">
+                                <input type="submit" name="submit_edit" value="Adjust <?php echo $item_name ?>" class="btn btn-primary btn-block text">
                                 <a href="admin_view_warehouse.php" class="btn btn-danger btn-block text">Cancel</a>
                             </center>
                         </form>

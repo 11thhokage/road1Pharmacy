@@ -1,15 +1,18 @@
 <?php
 include '../../database/config.php';
-include '../../actions/session_check.php';
 
-// Retrieve the item_name from the query parameter
-$item_name = $_GET['item_name'];
+if (isset($_GET['item_name'])) {
+    $item_name = $_GET['item_name'];
 
-date_default_timezone_set('Asia/Manila');
-$today =  date("Y-m-d");
-$time = date('H:i:s');
+    // Process the received data as required
+    // For example, you can display the data or handle the add item logic here
 
-// Print the item_name
+    date_default_timezone_set('Asia/Manila');
+    $today =  date("Y-m-d");
+    $time = date('H:i:s');
+
+    // Add your add item logic here
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +45,7 @@ $time = date('H:i:s');
             <div class="col-md-7">
                 <div class="card mt-5">
                     <div class="card-body">
-                        <h5 class="text-center">Adjust <?php echo $item_name ?></h5>
+                        <h5 class="text-center">Add <?php echo $item_name ?></h5>
                         <form action="../../actions/admin/adjust_item.php" method="post">
                             <div class="row">
                                 <div class="form-group col-md-12">
@@ -86,7 +89,7 @@ $time = date('H:i:s');
                             </div>
                             <br>
                             <center>
-                                <input type="submit" name="submit_zero" value="Adjust <?php echo $item_name ?>" class="btn btn-primary btn-block text">
+                                <input type="submit" name="submit_add" value="Add <?php echo $item_name ?>" class="btn btn-primary btn-block text">
                                 <a href="admin_view_warehouse.php" class="btn btn-danger btn-block text">Cancel</a>
                             </center>
                         </form>
