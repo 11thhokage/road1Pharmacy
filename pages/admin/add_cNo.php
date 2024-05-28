@@ -29,7 +29,7 @@
                                 <label for="mark_up">Mark up %</label>
                                 <input type="number" class="form-control" name="mark_up" required placeholder="Enter Mark up" min="1" step=".01">
                             </div>
-                            <input type="hidden" name="class" value="creams and ointment">
+                            <input type="hidden" name="class" value="Creams and ointment">
                             <div class="form-group col-md-12">
                                 <label for="vendor_name">Vendor Name</label>
                                 <input type="text" class="form-control" name="vendor_name" required placeholder="Enter Vendor Name">

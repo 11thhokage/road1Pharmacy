@@ -37,7 +37,11 @@ include '../../actions/session_check.php';
     echo "";
     echo "<div class='row justify-content-between'>
         <div class='col-2'> <h2>Item List</h2></div>
-        <div class='col-2'><a href='admin_add_item.php' class='btn btn-primary my-2'>➕Add Item</a></div>
+        <div class='col-2'>
+        <a href='add_medicine2.php' class='btn btn-primary my-2'>➕Add med</a>
+        <a href='add_others.php' class='btn btn-primary my-2'>➕Add othters</a>
+        <a href='admin_add_item.php' class='btn btn-primary my-2'>➕Add Item</a>
+        </div>
     </div>
     <section class='intro'>
         <div class='gradient-custom-2 h-100'>
