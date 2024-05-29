@@ -75,6 +75,7 @@
                                     <option value="cosmetics">Cosmetics</option>
                                     <option value="supplement">Supplement</option>
                                     <option value="eyedorps">Eyedorps</option>
+                                    <option value="others">Others</option>
                                 </select>
                                 <div class="form-group col-md-4">
                                     <label for="vendor_name">Vendor Name</label>
