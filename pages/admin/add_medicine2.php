@@ -37,6 +37,7 @@
                                     <label for="unit_type">Unit of Measurement</label>
                                     <select class="form-control" name="unit_type" id="">
                                         <option value="">None</option>
+                                        <option value="mcg">Micrograms</option>
                                         <option value="mg">Milligrams</option>
                                         <option value="ml">Milliliters</option>
                                     </select>
