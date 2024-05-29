@@ -65,16 +65,16 @@
                                 </div>
                                 <label for="Type">Type</label>
                                 <select class="form-control" name="class" id="">
-                                    <option value="Ampules And Vials">AV</option>
-                                    <option value="Creams and Ointments">CnO</option>
-                                    <option value="Alcohol">Alcohol</option>
-                                    <option value="Milk">Milk</option>
+                                    <option value="ampules and vials">AV</option>
+                                    <option value="creams and ointments">CnO</option>
+                                    <option value="alcohol">Alcohol</option>
+                                    <option value="milk">Milk</option>
                                     <option value="diaper">Diaper</option>
-                                    <option value="Medical supp">Medical supplies</option>
-                                    <option value="Medicine misc">Medicine Misc</option>
-                                    <option value="Cosmetics">Cosmetics</option>
-                                    <option value="Supplement">Supplement</option>
-                                    <option value="Eyedorps">Eyedorps</option>
+                                    <option value="medical supp">Medical supplies</option>
+                                    <option value="medicine misc">Medicine Misc</option>
+                                    <option value="cosmetics">Cosmetics</option>
+                                    <option value="supplement">Supplement</option>
+                                    <option value="eyedorps">Eyedorps</option>
                                 </select>
                                 <div class="form-group col-md-4">
                                     <label for="vendor_name">Vendor Name</label>
