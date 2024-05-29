@@ -66,7 +66,7 @@
     include 'database/config.php';
 
     // Get the total number of rows
-    $countSql = "SELECT COUNT(*) as total FROM items WHERE classification = 'supplements'"; //replace with what_for
+    $countSql = "SELECT COUNT(*) as total FROM items WHERE what_for = 'COLD AND FLU RELIEF'"; //replace with what_for
     $countResult = mysqli_query($conn, $countSql);
     $countRow = mysqli_fetch_assoc($countResult);
     $totalRows = $countRow['total'];
@@ -86,7 +86,7 @@
     $offset = ($currentPage - 1) * $limit;
 
     // Fetch the rows for the current page
-    $sql = "SELECT code, item_name, type FROM items WHERE classification = 'supplements' ORDER BY item_name ASC LIMIT $limit OFFSET $offset"; //replace what_for
+    $sql = "SELECT code, item_name, type FROM items WHERE what_for = 'COLD AND FLU RELIEF' ORDER BY item_name ASC LIMIT $limit OFFSET $offset"; //replace what_for
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
