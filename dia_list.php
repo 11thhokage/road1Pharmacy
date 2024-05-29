@@ -3,7 +3,7 @@
 
 <head>
     <style>
-        #med_close {
+        #dia_close {
             position: absolute;
             top: 10px;
             right: 15px;
@@ -52,21 +52,21 @@
         }
     </style>
 </head>
-<a onclick="closeMedList()"><i class="fas fa-times" id="med_close"></i></a>
+<a onclick="closeDiaList()"><i class="fas fa-times" id="dia_close"></i></a>
 <script>
-    function closeMedList() {
-        var chatbox = document.getElementById("med_list");
+    function closeDiaList() {
+        var chatbox = document.getElementById("dia_list");
         chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
     }
 </script>
 
 <body>
-    <p class="text-center fs-1">Medicine Lists</p>
+    <p class="text-center fs-1">Diapers Lists</p>
     <?php
     include 'database/config.php';
 
     // Get the total number of rows
-    $countSql = "SELECT COUNT(*) as total FROM items WHERE classification = 'medicine'";
+    $countSql = "SELECT COUNT(*) as total FROM items WHERE classification = 'diaper'"; //replace with what_for
     $countResult = mysqli_query($conn, $countSql);
     $countRow = mysqli_fetch_assoc($countResult);
     $totalRows = $countRow['total'];
@@ -86,7 +86,7 @@
     $offset = ($currentPage - 1) * $limit;
 
     // Fetch the rows for the current page
-    $sql = "SELECT code, item_name, type FROM items WHERE classification = 'medicine' ORDER BY item_name ASC LIMIT $limit OFFSET $offset";
+    $sql = "SELECT code, item_name, type FROM items WHERE classification = 'diaper' ORDER BY item_name ASC LIMIT $limit OFFSET $offset"; //replace what_for
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {

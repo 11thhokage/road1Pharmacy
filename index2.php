@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road 1 Pharmacy</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -78,7 +78,6 @@
             </div>
         </nav>
         <div class="container-fluid" style="display: none;" id="med_list">
-
             <?php include 'med_list.php'; ?>
         </div>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -134,14 +133,163 @@
                     <div class="carousel-inner ">
                         <div class="carousel-item active">
                             <div class="square-button">
-                                <button class="box ">VITAMINS<img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/4887/4887988.png" alt=""></button>
-                                <button class="box">FLU REMEDIES <img class="img-topics" src="https://static.vecteezy.com/system/resources/thumbnails/014/604/165/small/girl-sick-face-cartoon-cute-png.png" alt=""></button>
+                                <button onclick="vitDisplay()" class="box ">VITAMINS<img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/4887/4887988.png" alt=""></button>
+                                <div class="container-fluid" style="display: none;" id="vit_list">
+                                    <?php include 'vit_list.php'; ?>
+                                </div>
+                                <script>
+                                    function vitDisplay() {
+                                        var vit_list = document.getElementById("vit_list");
+                                        var displayValue = vit_list.style.display;
+
+                                        if (displayValue === "block") {
+                                            vit_list.style.display = "none";
+                                        } else {
+                                            vit_list.style.display = "block";
+                                            loadVitList(1); // Load the first page by default when showing the list
+                                        }
+                                    }
+
+                                    function loadVitList(page) {
+                                        $.ajax({
+                                            url: 'vit_list.php',
+                                            type: 'GET',
+                                            data: {
+                                                page: page
+                                            },
+                                            success: function(response) {
+                                                $('#vit_list').html(response);
+                                            }
+                                        });
+                                    }
+
+                                    $(document).on('click', '.pagination a', function(e) {
+                                        e.preventDefault();
+                                        var page = $(this).attr('data-page');
+                                        loadVitList(page);
+                                    });
+                                </script>
+
+                                <button onclick="fluDisplay()" class="box">FLU REMEDIES <img class="img-topics" src="https://static.vecteezy.com/system/resources/thumbnails/014/604/165/small/girl-sick-face-cartoon-cute-png.png" alt=""></button>
+                                <div class="container-fluid" style="display: none;" id="flu_list">
+                                    <?php include 'flu_list.php'; ?>
+                                </div>
+                                <script>
+                                    function fluDisplay() {
+                                        var flu_list = document.getElementById("flu_list");
+                                        var displayValue = flu_list.style.display;
+
+                                        if (displayValue === "block") {
+                                            flu_list.style.display = "none";
+                                        } else {
+                                            flu_list.style.display = "block";
+                                            loadFluList(1); // Load the first page by default when showing the list
+                                        }
+                                    }
+
+                                    function loadFluList(page) {
+                                        $.ajax({
+                                            url: 'flu_list.php',
+                                            type: 'GET',
+                                            data: {
+                                                page: page
+                                            },
+                                            success: function(response) {
+                                                $('#flu_list').html(response);
+                                            }
+                                        });
+                                    }
+
+                                    $(document).on('click', '.pagination a', function(e) {
+                                        e.preventDefault();
+                                        var page = $(this).attr('data-page');
+                                        loadFluList(page);
+                                    });
+                                </script>
+
+
                             </div>
                         </div>
                         <div class="carousel-item">
                             <div class="square-button">
-                                <button class="box">KIDS NUTRITION <img class="img-topics" src="https://img.pikbest.com/png-images/nutritious-and-delicious-soy-milk-png-elements_2495184.png!sw800" alt=""></button>
-                                <button class="box">ABSORBENT HYGIENE PRODUCTS <img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/1521/1521240.png" alt=""></button>
+                                <button onclick="kidDisplay()" class="box">KIDS NUTRITION <img class="img-topics" src="https://img.pikbest.com/png-images/nutritious-and-delicious-soy-milk-png-elements_2495184.png!sw800" alt=""></button>
+                                <div class="container-fluid" style="display: none;" id="kid_list">
+                                    <?php include 'kid_list.php'; ?>
+                                </div>
+                                <script>
+                                    function kidDisplay() {
+                                        var kid_list = document.getElementById("kid_list");
+                                        var displayValue = kid_list.style.display;
+
+                                        if (displayValue === "block") {
+                                            kid_list.style.display = "none";
+                                        } else {
+                                            kid_list.style.display = "block";
+                                            loadKidList(1); // Load the first page by default when showing the list
+                                        }
+                                    }
+
+                                    function loadKidList(page) {
+                                        $.ajax({
+                                            url: 'Kid_list.php',
+                                            type: 'GET',
+                                            data: {
+                                                page: page
+                                            },
+                                            success: function(response) {
+                                                $('#kid_list').html(response);
+                                            }
+                                        });
+                                    }
+
+                                    $(document).on('click', '.pagination a', function(e) {
+                                        e.preventDefault();
+                                        var page = $(this).attr('data-page');
+                                        loadKidList(page);
+                                    });
+                                </script>
+
+
+                                <button onclick="diaDisplay()" class="box">ABSORBENT HYGIENE PRODUCTS <img class="img-topics" src="https://cdn-icons-png.flaticon.com/512/1521/1521240.png" alt=""></button>
+                                <div class="container-fluid" style="display: none;" id="dia_list">
+                                    <?php include 'dia_list.php'; ?>
+                                </div>
+                                <script>
+                                    function diaDisplay() {
+                                        var dia_list = document.getElementById("dia_list");
+                                        var displayValue = dia_list.style.display;
+
+                                        if (displayValue === "block") {
+                                            dia_list.style.display = "none";
+                                        } else {
+                                            dia_list.style.display = "block";
+                                            loadDiaList(1); // Load the first page by default when showing the list
+                                        }
+                                    }
+
+                                    function loadDiaList(page) {
+                                        $.ajax({
+                                            url: 'dia_list.php',
+                                            type: 'GET',
+                                            data: {
+                                                page: page
+                                            },
+                                            success: function(response) {
+                                                $('#dia_list').html(response);
+                                            }
+                                        });
+                                    }
+
+                                    $(document).on('click', '.pagination a', function(e) {
+                                        e.preventDefault();
+                                        var page = $(this).attr('data-page');
+                                        loadDiaList(page);
+                                    });
+                                </script>
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -166,9 +314,9 @@
         <p class="aboutus-p">Provide the best pharmaceutical services for patients.</p>
         <div class="container-fluid " id="about">
             <div class="row justify-content-evenly">
-                <div class="card-box col-lg-3 col-md-5 col-sm-5 col-7">
+                <div class="card-box col-lg-5 col-md-5 col-sm-5">
                     <div class="img-cont">
-                        <img class="card-img" src="img/rdu3.jpg" alt="">
+                        <!-- <img class="card-img" src="img/rdu3.jpg" alt=""> -->
                         <p class="faq-card-yellow ">01</p>
                     </div>
                     <div class="card-info">
@@ -176,9 +324,9 @@
                         <p class="definition">Pharmacist/Purchaser</p>
                     </div>
                 </div>
-                <div class="card-box col-lg-3 col-md-5 col-sm-5 col-7">
+                <div class="card-box col-lg-5 col-md-5 col-sm-5">
                     <div class="img-cont">
-                        <img class="card-img" src="img/frontend3.jpg" alt="">
+                        <!-- <img class="card-img" src="img/frontend3.jpg" alt=""> -->
                         <p class="faq-card-yellow">02</p>
                     </div>
                     <div class="card-info">
@@ -186,14 +334,24 @@
                         <p class="definition">Proprietor</p>
                     </div>
                 </div>
-                <div class="card-box col-lg-3 col-md-6 col-sm-5 col-7">
+                <div class="card-box col-lg-5 col-md-5 col-sm-5">
                     <div class="img-cont">
-                        <img class="card-img" src="img/rdu3.jpg" alt="">
-                        <p class="faq-card-yellow">03</p>
+                        <!-- <img class="card-img" src="img/rdu3.jpg" alt=""> -->
+                        <p class="faq-card-yellow ">03</p>
                     </div>
                     <div class="card-info">
-                        <p class="caption">title</p>
-                        <p class="definition">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat, nostrum.</p>
+                        <p class="caption">CHENG CAGADAS</p>
+                        <p class="definition">Drugstore Clerk</p>
+                    </div>
+                </div>
+                <div class="card-box col-lg-5 col-md-5 col-sm-5">
+                    <div class="img-cont">
+                        <!-- <img class="card-img" src="img/rdu3.jpg" alt=""> -->
+                        <p class="faq-card-yellow ">04</p>
+                    </div>
+                    <div class="card-info">
+                        <p class="caption">Juliet Taroma</p>
+                        <p class="definition">Drugstore Clerk</p>
                     </div>
                 </div>
 
@@ -232,7 +390,7 @@
                         <a class="faq-icon" href="https://maps.app.goo.gl/T6Y8MSbjgEYKvnnf7"><i class="bi bi-map"></i></i></a>
                         <p class="caption faq-p">Find the location of the Pharmacy</p>
                         <!-- <p class="definition">Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</p> -->
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.6919732709853!2d121.07851119999998!3d14.8425359!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397af55773a7a17%3A0xfe00da48e36d6f5c!2sRoad%201%20Pharmacy%20Convenience%20Store!5e0!3m2!1sfil!2sph!4v1715661497604!5m2!1sfil!2sph" width="230" height="130" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe class="gmaps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.6919732709853!2d121.07851119999998!3d14.8425359!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397af55773a7a17%3A0xfe00da48e36d6f5c!2sRoad%201%20Pharmacy%20Convenience%20Store!5e0!3m2!1sfil!2sph!4v1715661497604!5m2!1sfil!2sph" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div class="faq-card">
                         <a class="faq-icon"><i class="bi bi-chat-square-text"></i></a>
@@ -257,28 +415,29 @@
         </div>
     </div>
     <footer class="footer container-fluid">
-        <div class="row inner-footer">
-            <div class="div-footer col-lg-3 col-md-6 col-sm-12">
-                <div class="footer-h1">
+        <div class="row inner-footer justify-content-evenly">
+            <div class=" col-lg-3 col-md-6 col-sm-12">
+                <div class="footer-h1 ">
                     <img src="img/IMG_5789__1_-removebg-preview.png" class="footer-logo" alt="logo">
                     <h1>Road 1 Pharmacy</h1>
                 </div>
-                <p>Your one stop healthcare pharmacy</p>
-                <p>Location: <br> <a href="https://maps.app.goo.gl/T6Y8MSbjgEYKvnnf7">Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</a></p>
+                <h5>Your one stop healthcare pharmacy</h5>
             </div>
-            <div class="div-footer col-lg-3 col-md-6 col-sm-12">
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <p style="padding: 50px 50px 0 50px;">
-                    Contact us: <br>
+                <p>Location: <br> <a href="https://maps.app.goo.gl/T6Y8MSbjgEYKvnnf7">Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</a></p>
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p style="padding: 50px 50px 0 50px;">
                     Cellphone no. : #09123456789 <br>
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p style="padding: 50px 50px 0 50px;">
                     Email: <br>
                     <a href="mailto:road1pharmacy@gmail.com"> road1pharmacy@gmail.com</a>
                 </p>
-            </div>
-            <div class="div-footer col-lg-3 col-md-6 col-sm-12">
-                <p style="padding: 50px 50px 0 50px;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis, ipsam.</p>
-            </div>
-            <div class="div-footer col-lg-3 col-md-6 col-sm-12">
-                <p style="padding: 50px 50px 0 50px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio veritatis error nulla itaque minima quasi voluptas odit corporis perspiciatis autem. Earum illum quasi autem impedit magni saepe deserunt, aliquid quis.</p>
             </div>
         </div>
     </footer>
