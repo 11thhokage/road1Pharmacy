@@ -38,6 +38,7 @@
                                     <select class="form-control" name="unit_type" id="">
                                         <option value="">None</option>
                                         <option value="g">Grams</option>
+                                        <option value="kg">Kilograms</option>
                                         <option value="mg">Milligrams</option>
                                         <option value="ml">Milliliters</option>
                                     </select>
