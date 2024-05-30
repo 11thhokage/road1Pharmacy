@@ -1,9 +1,10 @@
 <?php
 include '../../database/config.php';
 if (session_status() == PHP_SESSION_NONE) {
-    session_start();}
+    session_start();
+}
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the 'items' and 'total' are set in the POST request
     if (isset($_POST['items']) && isset($_POST['total']) && isset($_POST['user'])) {
         // Retrieve the total
@@ -18,12 +19,14 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"></link>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    </link>
     <!-- Bootstrap Bundle JS (includes Popper.js) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- SweetAlert2 JS -->
@@ -31,78 +34,87 @@ if (session_status() == PHP_SESSION_NONE) {
     <link rel="stylesheet" href="../../css/checkout.css">
     <title>Checkout</title>
 </head>
+
 <body>
     <div class='container' id='container2'>
         <div class="card-header">
-        <center>
-            <h1><b>Road 1 Pharmacy</b></h1>
-            <h3>Your One Stop Pharmacy</h3>
-            <h3>By:</h3>
-            <h4>Address</h4>
-            <h4>Sjdm Bulacan</h4>
-            <h2>📝 Order Summary</h2>
-        </center>
+            <center>
+                <h1><b>Road 1 Pharmacy</b></h1>
+                <h3>Your One Stop Pharmacy</h3>
+                <h3>By:</h3>
+                <h4>Address</h4>
+                <h4>Sjdm Bulacan</h4>
+                <h2>📝 Order Summary</h2>
+            </center>
         </div>
         <div class='row'>
             <div class='col-md-12'>
                 <div class='card' style='width: 69.rem;'>
                     <div class='card-body'>
                         <section class="intro">
-                        <div class="gradient-custom-1 h-100">
-                            <div class="mask d-flex align-items-center h-100">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                <div class="col-12">
-                                    <div class="table-responsive bg-white">
-                                    <table class="table mb-0">
-                                        <thead>
-                                        <tr>
-                                            <th scope='col'>No</th>
-                                            <th scope='col'>Item Name</th>
-                                            <th scope='col'>Price</th>
-                                            <th scope='col'>Quantity</th>
-                                            <th scope='col'>Subtotal</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php
-                                            if (!empty($_POST['items'])) {
-                                                foreach ($_POST['items'] as $item) {
-                                                    echo "<tr>";
-                                                    echo "<td scope='row'> " . htmlspecialchars($item['id']) . "</td>";
-                                                    echo "<td scope='row'> " . htmlspecialchars($item['item_name']) . "</td>";
-                                                    echo "<td scope='row'>" . htmlspecialchars($item['price']) . "</td>";
-                                                    echo "<td scope='row'>" . htmlspecialchars($item['quantity']) . "</td>";
-                                                    echo "<td scope='row'>" . htmlspecialchars($item['subtotal']) . "</td>";
-                                                    echo "</tr>";
-                                                }
-                                                
-                                            } else {
-                                                echo "<p>No items in the order.</p>";
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
+                            <div class="gradient-custom-1 h-100">
+                                <div class="mask d-flex align-items-center h-100">
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12">
+                                                <div class="table-responsive bg-white">
+                                                    <table class="table mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope='col'>No</th>
+                                                                <th scope='col'>Item Name</th>
+                                                                <th scope='col'>Price</th>
+                                                                <th scope='col'>Quantity</th>
+                                                                <th scope='col'>Subtotal</th>
+                                                                <th scope='col'>Type</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $gen = 0; // Initialize the "gen" variable to 0
+
+                                                            if (!empty($_POST['items'])) {
+                                                                foreach ($_POST['items'] as $item) {
+                                                                    echo "<tr>";
+                                                                    echo "<td scope='row'> " . htmlspecialchars($item['id']) . "</td>";
+                                                                    echo "<td scope='row'> " . htmlspecialchars($item['item_name']) . "</td>";
+                                                                    echo "<td scope='row'>" . htmlspecialchars($item['price']) . "</td>";
+                                                                    echo "<td scope='row'>" . htmlspecialchars($item['quantity']) . "</td>";
+                                                                    echo "<td scope='row'>" . htmlspecialchars($item['subtotal']) . "</td>";
+                                                                    echo "<td scope='row'>" . htmlspecialchars($item['type']) . "</td>";
+                                                                    echo "</tr>";
+
+                                                                    if ($item['type'] === 'Generic') {
+                                                                        $gen += $item['subtotal']; // Add the subtotal to the "gen" variable
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                echo "<p>No items in the order.</p>";
+                                                            }
+
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="text-end">
+                                <?php echo "<h4>" . htmlspecialchars($total) . "</h4>"; ?>
+                                <div class="form-group">
+                                    <form action="process_checkout2.php" method="post">
+                                        <label for="mode_of_payment">Payment Mode</label>
+                                        <select class="form-control" id="mode_of_payment" name="mode_of_payment" style='width:20%;'>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Gcash">Gcash</option>
+                                        </select>
+                                        <label for="amountTendered">Amount Tendered:</label>
+                                        <input required min="<?= $total ?>" type="number" name="tender_amount" class="form-control" id="amountTendered" placeholder="Enter amount tendered" style='width:20%;'>
                                 </div>
+                                <h4 id="change">Change: </h4>
                             </div>
-                            </div>
-                        </div>
-                        <div class="text-end">
-                            <?php echo "<h4>" . htmlspecialchars($total) . "</h4>"; ?>
-                        <div class="form-group">
-            <form action="process_checkout.php" method="post">
-                            <label for="mode_of_payment">Payment Mode</label>
-                            <select class="form-control" id="mode_of_payment" name="mode_of_payment" style='width:20%;'>
-                                <option value="Cash">Cash</option>
-                                <option value="Gcash">Gcash</option>
-                            </select>
-                            <label for="amountTendered">Amount Tendered:</label>
-                            <input required min="<?=$total ?>" type="number" name = "tender_amount" class="form-control" id="amountTendered" placeholder="Enter amount tendered" style='width:20%;'>
-                        </div>
-                        <h4 id="change">Change: </h4>
-                        </div>
                         </section>
                     </div>
                 </div>
@@ -114,16 +126,18 @@ if (session_status() == PHP_SESSION_NONE) {
             </center>
         </div>
     </div>
-    <center class ="mt-2">
+    <center class="mt-2">
         <?php
         $curr_user = $_SESSION['username'];
+
         ?>
         <!-- Pass the items and total as hidden fields -->
         <input type="hidden" name="items" value='<?php echo json_encode($_POST['items']); ?>'>
         <input type="hidden" name="total" value='<?php echo htmlspecialchars($total); ?>'>
-        <input type="hidden" name="curr_user" value='<?php echo $curr_user?>'>
+        <input type="hidden" name="gen" value='<?php echo $gen ?>'>
+        <input type="hidden" name="curr_user" value='<?php echo $curr_user ?>'>
         <button type="submit" class="btn btn-primary mb-0">Proceed</button>
-    </form>
+        </form>
         <a href="../../pages/user/user_frontend.php" class="btn btn-danger">Cancel</a>
     </center>
 </body>
@@ -135,15 +149,15 @@ if (session_status() == PHP_SESSION_NONE) {
 <script>
     $(document).ready(function() {
         var proceedButton = $('button[type="submit"]');
-        
+
         $('#amountTendered').on('input', function() {
             var total = <?php echo json_encode($total); ?>;
             var amountTendered = $(this).val();
             var change = amountTendered - total;
             $('#change').text('Change: ' + (change >= 0 ? change.toFixed(2) : 'Insufficient Amount'));
-            
+
             // Disable or enable the proceed button based on the amount tendered
-            if (change < 0  ) {
+            if (change < 0) {
                 proceedButton.prop('disabled', true);
             } else {
                 proceedButton.prop('disabled', false);
@@ -154,4 +168,5 @@ if (session_status() == PHP_SESSION_NONE) {
         $('#amountTendered').trigger('input');
     });
 </script>
+
 </html>

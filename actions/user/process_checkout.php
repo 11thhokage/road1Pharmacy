@@ -37,6 +37,7 @@ date_default_timezone_set('Asia/Manila');
             $curr_user = $_POST['curr_user'];
             $date_transact = date('Y-m-d');
             $time_transacted = date('H:i:s');
+            $gen = $_POST['gen'];
 
             $invalid_items = []; // Initialize an array to keep track of invalid items
 
@@ -75,8 +76,8 @@ date_default_timezone_set('Asia/Manila');
                 }
             } else {
                 // All items are valid, proceed with the rest of the code
-                $insert = "INSERT INTO transactions (amount, tender_amount, date_transacted, time_transacted, payment_mode, transact_by)
-                       VALUES ('$total', '$amount_tendered', '$date_transact','$time_transacted', '$mode_of_payment', '$curr_user')";
+                $insert = "INSERT INTO transactions (amount, tender_amount, gen_sales,date_transacted, time_transacted, payment_mode, transact_by)
+                       VALUES ('$total', '$amount_tendered','$gen', '$date_transact','$time_transacted', '$mode_of_payment', '$curr_user')";
 
                 if ($conn->query($insert) === TRUE) {
                     $last_id = $conn->insert_id;

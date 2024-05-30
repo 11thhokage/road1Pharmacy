@@ -22,11 +22,21 @@ if (isset($_POST['submit'])) {
    $total_row = mysqli_fetch_assoc($total_result);
    $capital = $total_row['total_amount'];
 
+   $total_query = "SELECT SUM(gen_sales) as gen_sum FROM transactions WHERE date_transacted BETWEEN '$startDate' AND '$endDate'";
+   $total_result = mysqli_query($conn, $total_query);
+   $total_row = mysqli_fetch_assoc($total_result);
+   $gen_sales = $total_row['gen_sum'];
+
    $income =  $sales - $capital;
    $dataPoints = array(
       array("y" => $capital, "label" => "Received"),
       array("y" => $sales, "label" => "Sold"),
       array("y" => $income, "label" => "Income")
+   );
+   $non_gen_sales = $sales - $gen_sales;
+   $dataPoints2 = array(
+      array("y" => $gen_sales, "label" => "Generic"),
+      array("y" => $non_gen_sales, "label" => "Non Generic")
    );
 } else {
    date_default_timezone_set('Asia/Manila');
@@ -47,11 +57,24 @@ if (isset($_POST['submit'])) {
       $capital = 0;
    }
 
+   $total_query = "SELECT SUM(gen_sales) as gen_sum FROM transactions WHERE date_transacted = '$today'";
+   $total_result = mysqli_query($conn, $total_query);
+   $total_row = mysqli_fetch_assoc($total_result);
+   $gen_sales = $total_row['gen_sum'];
+   if (empty($gen_sales)) {
+      $gen_sales = 0;
+   }
+
    $income =  $sales - $capital;
    $dataPoints = array(
       array("y" => $capital, "label" => "Received"),
       array("y" => $sales, "label" => "Sold"),
       array("y" => $income, "label" => "Income")
+   );
+   $non_gen_sales = $sales - $gen_sales;
+   $dataPoints2 = array(
+      array("y" => $gen_sales, "label" => "Generic"),
+      array("y" => $non_gen_sales, "label" => "Non Generic")
    );
 }
 
@@ -196,7 +219,7 @@ if (isset($_POST['submit'])) {
                <div class="col-md-4 mb-4">
                   <div class="card">
                      <div class="card-body bottom" id="content">
-                        <p class="card-title text-start fs-3"><b>Pie graph</b></p>
+                        <p class="card-title text-start fs-4"><b>Generic Sales</b></p>
                         <div id="chartContainer1" style="height: 46.5vh; width: 100%;"></div>
                      </div>
                   </div>
@@ -205,7 +228,16 @@ if (isset($_POST['submit'])) {
          </div>
       </div>
    </div>
+   <?php
+   if (isset($_POST['submit'])) {
+      $tit = "Sales from " . $startDate . " to " . $endDate;
+      $dit = "";
+   } else {
+      $tit = "Today's Sales";
+      $dit = $today;
+   }
 
+   ?>
    </body>
    <!-- Load the full jQuery build first -->
    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha254-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -225,10 +257,11 @@ if (isset($_POST['submit'])) {
             animationEnabled: true,
             exportEnabled: true,
             title: {
-               text: "Sales today"
+               text: "<?php echo $tit; ?>"
+
             },
             subtitles: [{
-               text: "<?php echo $today; ?>"
+               text: "<?php echo $dit; ?>"
             }],
             data: [{
                type: "pie",
@@ -236,8 +269,8 @@ if (isset($_POST['submit'])) {
                legendText: "{label}",
                indexLabelFontSize: 16,
                indexLabel: "{label} - #percent%",
-               yValueFormatString: "฿#,##0",
-               dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+               yValueFormatString: "₱#,##0",
+               dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
             }]
          });
          chart1.render();
