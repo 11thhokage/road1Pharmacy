@@ -40,6 +40,7 @@
                                         <option value="mcg">Micrograms</option>
                                         <option value="mg">Milligrams</option>
                                         <option value="ml">Milliliters</option>
+                                        <option value="g">Grams</option>
                                     </select>
                                 </div>
                                 <!-- <div class="form-group col-md-6">
