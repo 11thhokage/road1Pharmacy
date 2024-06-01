@@ -16,9 +16,9 @@ include '../../database/config.php';
         <div class="container-fluid px-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="mb-0">
+                    <h3 class="mb-0"><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'>
                         View Transactions
-                    </h4>
+                    </h3>
                 </div>
                 <div class="card-body">
                     <?php

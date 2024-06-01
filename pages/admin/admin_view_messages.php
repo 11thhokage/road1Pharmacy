@@ -8,7 +8,7 @@ include '../../actions/session_check.php';
     <?php include 'ham.php'; ?>
     <div class="height-100 bg-light">
         <h2>
-            <left style="padding-left: 10px;">Reports</left>
+            <left style="padding-left: 10px;"><img src="../../img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">Reports</left>
         </h2>
 
         <center>

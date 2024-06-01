@@ -72,7 +72,7 @@ $notifCount = 0;
     .dropdown-content {
         display: none;
         position: absolute;
-        background-color: #4723D9;
+        background-color: #ED3C5A;
         min-width: 210px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
@@ -89,7 +89,7 @@ $notifCount = 0;
     }
 
     .dropdown-content a:hover {
-        background-color: #4723D9;
+        background-color: #ED3C5A;
     }
 
     /* .dropdown:hover .dropdown-content {
@@ -105,6 +105,10 @@ $notifCount = 0;
         color: var(--white-color);
         text-decoration: underline;
     }
+
+    .notification-bell * {
+        background-color: #ED3C5A;
+    }
 </style>
 
 
@@ -116,7 +120,7 @@ $notifCount = 0;
 
         <header class="header" id="header">
 
-            <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+            <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle" style="color: #ED3C5A;"></i> </div>
             <div class='header_time'>
                 <h5><b><span id='current_datetime'></span></b></h5>
                 <script>
@@ -222,7 +226,7 @@ $notifCount = 0;
             </div>
 
         </header>
-        <div class="l-navbar" id="nav-bar">
+        <div class="l-navbar" id="nav-bar" style="background-color:#ED3C5A;">
             <nav class="nav">
                 <div class="nav2">
                     <a href="admin_view_profile.php" class="nav_logo" title="Profile"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Admin</span> </a>

@@ -26,7 +26,7 @@ include '../../actions/session_check.php';
   echo "  <div class='container' style'height:100vh;'>
             <div class='row'>";
   echo "<div class='row justify-content-between'>
-        <div class='col-2'> <h2>Users List</h2></div>
+        <div class='col-2'> <h4 class='fs-4'><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'>Users List</h4></div>
         <div class='col-2'><a href='register.php' class='btn btn-primary my-2'>➕Add User</a></div>
     </div>";
 

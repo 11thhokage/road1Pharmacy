@@ -36,7 +36,7 @@ include '../../actions/session_check.php';
     $result = mysqli_query($conn, $data);
     echo "";
     echo "<div class='row justify-content-between'>
-        <div class='col-2'> <h2>Item List</h2></div>
+        <div class='col-2'> <h2><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'>Item List</h2></div>
         <div class='col-2'>
         <a href='add_medicine2.php' class='btn btn-primary my-2'>➕Add med</a>
         <a href='add_others.php' class='btn btn-primary my-2'>➕Add othters</a>
@@ -264,12 +264,24 @@ include '../../actions/session_check.php';
     $(document).ready(function() {
         // Export to Excel button click event
         $('#exportExcelBtn').click(function() {
+            // Get the table headers
+            var tableHeaders = [];
+            $('table thead th').each(function(index) {
+                // Exclude the "Actions" column (assuming it is the last column)
+                if (index !== $('table thead th').length - 1) {
+                    tableHeaders.push($(this).text());
+                }
+            });
+
             // Get the table data
-            var tableData = [];
+            var tableData = [tableHeaders]; // Start with the headers
             $('table tbody tr').each(function() {
                 var rowData = [];
-                $(this).find('td').each(function() {
-                    rowData.push($(this).text());
+                $(this).find('td').each(function(index) {
+                    // Exclude the "Actions" column (assuming it is the last column)
+                    if (index !== $(this).parent().find('td').length - 1) {
+                        rowData.push($(this).text());
+                    }
                 });
                 tableData.push(rowData);
             });
@@ -282,7 +294,7 @@ include '../../actions/session_check.php';
             XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
 
             // Save the workbook as an Excel file
-            XLSX.writeFile(workbook, 'item_list_table.xlsx');
+            XLSX.writeFile(workbook, 'items_list.xlsx');
         });
 
         // Export to PDF button click event

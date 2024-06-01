@@ -36,37 +36,39 @@ date_default_timezone_set('Asia/Manila');
             $time_transacted = $_GET['time_transacted'];
 
             // Set establishment details
-            $establishment_name = "Your Establishment";
-            $proprietor = "Proprietor's Name";
-            $address = "Address";
+            $establishment_name = "Road 1 Pharmacy";
+            $proprietor = "Ronaldo Borbon";
+            $address = "Unit 2 Ipo road, Minuyan, Sjdm, Bulacan";
             $contact_number = "Contact Number";
             $validity = "Receipt is valid for 30 days.";
 
             // Create the receipt text
-            $receipt = "----------------------------------------------\n";
+            $receipt = "-----------------------------------------\n";
             $receipt .= $establishment_name . "\n";
             $receipt .= "Proprietor: " . $proprietor . "\n";
             $receipt .= $address . "\n";
             $receipt .= "Contact: " . $contact_number . "\n";
-            $receipt .= "----------------------------------------------\n";
+            $receipt .= "-----------------------------------------\n";
             $receipt .= "Transaction Date: " . $date_transact . "\n";
             $receipt .= "Transaction Time: " . $time_transacted . "\n";
-            $receipt .= "----------------------------------------------\n";
-            $receipt .= "Transacted By: " . $curr_user;
-            $receipt .= "----------------------------------------------\n";
+            $receipt .= "-----------------------------------------\n";
+            $receipt .= "Transacted By: " . $curr_user . "\n";
+            $receipt .= "-----------------------------------------\n";
             $receipt .= "Items:\n";
             foreach ($items as $item) {
                 $receipt .= $item['item_name'] . " - " . $item['quantity'] . " x " . $item['price'] . "\n";
             }
-            $receipt .= "----------------------------------------------\n";
+            $receipt .= "-----------------------------------------\n";
             $receipt .= "Mode of Payment: " . $mode_of_payment . "\n";
             $receipt .= "Amount Tendered: " . $amount_tendered . "\n";
-            $receipt .= "----------------------------------------------\n";
+            $receipt .= "-----------------------------------------\n";
             $receipt .= "Total: " . $total . "\n";
             $receipt .= "Change: " . $change . "\n";
-            $receipt .= "----------------------------------------------\n";
+            $receipt .= "-----------------------------------------\n";
             $receipt .= $validity . "\n";
-
+            $receipt .= "-----------------------------------------\n";
+            $receipt .= "-----------------------------------------\n";
+            $receipt .= "-----------------------------------------\n";
             // Define the file path and name
             $file_path = '../transactions/';
             $file_name = $date_transact . '.' . str_replace(':', '-', $time_transacted) . '.txt';

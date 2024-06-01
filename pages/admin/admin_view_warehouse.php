@@ -12,7 +12,7 @@ include '../../actions/session_check.php';
     <?php include "ham.php"; ?>
     <div class="height-100 bg-light">
 
-        <h1 style="padding-left:10px;">Stocks</h1>
+        <h1 style="padding-left:10px;"><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'>Stocks</h1>
         <center>
             <form method='GET' action='../../actions/admin/admin_search_item.php'>
 

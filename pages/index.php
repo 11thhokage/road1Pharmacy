@@ -22,9 +22,9 @@
 
 </head>
 
-<body class="bg-dark background">
+<body class="bg-dark background " style="background-color:#873142 !important;">
    <div class="section ">
-      <div class="container ">
+      <div class="container bg-dark background">
          <div class="image">
             <!--<a href="index.php" class="return"><img width="50" height="50" src="https://img.icons8.com/ios/50/FFFFFF/circled-left--v1.png" alt="circled-left--v1"/></a>-->
          </div>

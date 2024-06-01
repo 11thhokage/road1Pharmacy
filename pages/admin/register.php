@@ -26,7 +26,7 @@
 
 </head>
 
-<body class="bg-dark background">
+<body class="bg-dark background" style="background-color:#873142 !important;">
 
    <?php
 
@@ -104,16 +104,16 @@
    };
    ?>
    <div class="section ">
-      <div class="container ">
+      <div class="container bg-dark background ">
          <div class="image">
             <a href="admin_view_users.php" class="return"><img width="50" height="50" src="https://img.icons8.com/ios/50/FFFFFF/circled-left--v1.png" alt="circled-left--v1" /></a>
+         </div>
+         <div class="form-section bg-dark">
             <div class="logo">
                <img class="logo-image" src="../../img/IMG_5789__1_-removebg-preview.png" alt="logo">
                <h1>Road 1 Pharmacy</h1>
             </div>
             <p>Your One Stop Healthcare Pharmacy</p>
-         </div>
-         <div class="form-section bg-dark">
             <form ENCTYPE="multipart/form-data" action="" method="post">
                <?php
                if (isset($error) && !empty($error)) {

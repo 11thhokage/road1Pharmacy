@@ -19,8 +19,8 @@ session_start();
     <div class="container-fluid px-4">
         <div class="card">
             <div class="card-header">
-                <h4 class="mb-0">Add Transaction
-                </h4>
+                <h2 class="mb-0"><img src="../../img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">Add Transaction
+                </h2>
             </div>
             <div class="card-body">
                 <form action="../../actions/user/add_order2.php" method="post">
@@ -74,7 +74,7 @@ session_start();
         </div>
         <div class="card mt-3">
             <div class="card-header">
-                <h4 class="mb-0">Pending Transaction</h4>
+                <h4 class="mb-0"><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'>Pending Transaction</h4>
             </div>
             <div class="card-body">
                 <?php

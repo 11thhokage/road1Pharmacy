@@ -250,6 +250,13 @@ if ($result->num_rows > 0) {   // output data of each row
         .body-pd {
             padding-left: calc(var(--nav-width) + 188px)
         }
+
+        .logo-image-navbar {
+            width: 40px;
+            height: auto;
+            filter: brightness(1.53) contrast(1.5);
+            font-size: 20px;
+        }
     }
 </style>
 </head>

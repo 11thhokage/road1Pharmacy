@@ -115,7 +115,9 @@ if (isset($_POST['submit'])) {
       <div class="container-fluid px-4" id="dashboard">
          <div class="card" id="main_card">
             <div class="card-header"><b>
-                  <h1>Dashboard</h1>
+                  <div class="title">
+                     <h1 class="frontpage-h1"><img src="../../img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">DashBoard</h1>
+                  </div>
                </b></div>
             <div class="row">
                <div class="col-md-4 my-4">
