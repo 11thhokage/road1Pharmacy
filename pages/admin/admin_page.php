@@ -27,6 +27,11 @@ if (isset($_POST['submit'])) {
    $total_row = mysqli_fetch_assoc($total_result);
    $gen_sales = $total_row['gen_sum'];
 
+   $count_query = "SELECT COUNT(*) AS count FROM transactions WHERE date_transacted BETWEEN '$startDate' AND '$endDate'";
+   $count_result = mysqli_query($conn, $count_query);
+   $count_row = mysqli_fetch_assoc($count_result);
+   $count = $count_row['count'];
+
    $income =  $sales - $capital;
    $dataPoints = array(
       array("y" => $capital, "label" => "Received"),
@@ -64,6 +69,13 @@ if (isset($_POST['submit'])) {
    if (empty($gen_sales)) {
       $gen_sales = 0;
    }
+   $count_query = "SELECT COUNT(*) AS count FROM transactions WHERE date_transacted = '$today'";
+   $count_result = mysqli_query($conn, $count_query);
+   $count_row = mysqli_fetch_assoc($count_result);
+   $count = $count_row['count'];
+   if (empty($count)) {
+      $count = 0;
+   }
 
    $income =  $sales - $capital;
    $dataPoints = array(
@@ -97,7 +109,11 @@ if (isset($_POST['submit'])) {
       }
 
       .top {
-         height: 71vh;
+         height: 64.5vh;
+      }
+
+      .mid {
+         height: 70vh;
       }
 
       .profit {
@@ -105,7 +121,20 @@ if (isset($_POST['submit'])) {
          background-color: #FF5964;
          background-repeat: no-repeat;
          background-size: 100% 100%;
+         width: 100%;
+      }
 
+      .trans {
+         background-color: #129490;
+         background-repeat: no-repeat;
+         background-size: 100% 100%;
+         width: 100%;
+      }
+
+      .rank {
+         background-color: #70B77E;
+         background-repeat: no-repeat;
+         background-size: 100% 100%;
          width: 100%;
       }
    </style>
@@ -120,25 +149,160 @@ if (isset($_POST['submit'])) {
                   </div>
                </b></div>
             <div class="row">
-               <div class="col-md-4 my-4">
+               <div class="col-md-4 my-1">
                   <div class="card">
                      <div class="card-body top profit" id="content">
-                        <p class="card-title text-start fs-3"><b>Profit</b></p>
-                        <p class="card-text text-start fs-2">Your current profit
+                        <p class="card-title text-start fs-2"><b>Profit</b></p>
+                        <p class="card-text text-start fs-1">Your current profit
                            <?php
                            if (isset($_POST['submit'])) {
-                              echo "from " . $startDate . " to " . $endDate . " is: <b> P" . number_format($income, 2) . "</b>";
+                              echo "from " . $startDate . " to " . $endDate . " is: <b> ₱" . number_format($income, 2) . "</b>";
                            } else {
-                              echo "for Today is <b> P" . number_format($income, 2) . "</b>";
+                              echo "for Today is <b> ₱" . number_format($income, 2) . "</b>";
                            }
                            ?>
                         </p>
                      </div>
                   </div>
                </div>
-               <div class="col-md-8 my-4">
+               <div class="col-md-4 my-1">
                   <div class="card">
-                     <div class="card-body top" id="content">
+                     <div class="card-body top trans" id="content" style="height:64.5vh;">
+                        <p class=" card-title text-start fs-2"><b>Transaction</b></p>
+                        <p class="card-text text-start fs-1">Total transactions
+                           <?php
+                           if (isset($_POST['submit'])) {
+                              echo "from " . $startDate . " to " . $endDate . " are: <b> " . $count . "</b>";
+                           } else {
+                              echo "for Today is <b> " . $count . "</b>";
+                           }
+                           ?>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4 my-1">
+                  <div class="card">
+                     <div class="card-body top rank" id="content">
+                        <p class="card-title text-start fs-3"><b>Top Generic Seller</b></p>
+                        <p class="card-text text-start fs-4">Top 3 Gen seller
+                           <?php
+                           if (isset($_POST['submit'])) {
+                              echo "from " . $startDate . " to " . $endDate . " are:";
+                           } else {
+                              echo "for Today are ";
+                           }
+                           ?>
+                        </p>
+                        <section class="intro">
+                           <div class="gradient-custom-2 h-100">
+                              <div class="mask d-flex align-items-center h-100">
+                                 <div class="container">
+                                    <div class="row justify-content-center">
+                                       <div class="col-12">
+                                          <div class="table-responsive">
+                                             <table class="table table-light table-bordered mb-0" style="height:20.5vh; width: 100%;">
+                                                <thead>
+                                                   <tr>
+                                                      <th scope="col">Seller</th>
+                                                      <th scope="col">Gen Sales</th>
+                                                      <th scope="col">Incentives(%)</th>
+                                                   </tr>
+                                                </thead>
+                                                <tbody>
+                                                   <?php
+                                                   if (isset($_POST['submit'])) {
+                                                      $user_query = "SELECT DISTINCT transact_by FROM transactions";
+                                                      $user_result = mysqli_query($conn, $user_query);
+                                                      if ($user_result) {
+                                                         $sales_users = array(); // Create an array to store the sales users and their sales
+                                                         while ($row = mysqli_fetch_assoc($user_result)) {
+                                                            $transacted_by = $row['transact_by'];
+                                                            $total_query = "SELECT SUM(gen_sales) as gen_sum FROM transactions WHERE date_transacted BETWEEN '$startDate' AND '$endDate' AND transact_by ='$transacted_by'";
+                                                            $total_result = mysqli_query($conn, $total_query);
+                                                            $total_row = mysqli_fetch_assoc($total_result);
+                                                            $gen_sales_user = $total_row['gen_sum'];
+                                                            if (empty($gen_sales_user)) {
+                                                               $gen_sales_user = 0;
+                                                            }
+
+                                                            // Store the sales user and their sales in the array
+                                                            $sales_users[$transacted_by] = $gen_sales_user;
+                                                         }
+
+                                                         // Sort the array in descending order based on sales
+                                                         arsort($sales_users);
+
+                                                         // Get the top three sales users
+                                                         $top_three_sales_users = array_slice($sales_users, 0, 3);
+
+                                                         // Display the top three sales users
+                                                         foreach ($top_three_sales_users as $transacted_by => $gen_sales_user) {
+                                                   ?>
+                                                            <tr>
+                                                               <td><?php echo $transacted_by; ?></td>
+                                                               <td>₱<?php echo $gen_sales_user; ?></td>
+                                                               <td>₱<?php echo $gen_sales_user * 0.01; ?></td>
+                                                            </tr>
+                                                         <?php
+                                                         }
+                                                      } else {
+                                                         echo mysqli_error($conn);
+                                                      }
+                                                   } else {
+                                                      $user_query = "SELECT DISTINCT transact_by FROM transactions";
+                                                      $user_result = mysqli_query($conn, $user_query);
+                                                      if ($user_result) {
+                                                         $sales_users = array(); // Create an array to store the sales users and their sales
+                                                         while ($row = mysqli_fetch_assoc($user_result)) {
+                                                            $transacted_by = $row['transact_by'];
+                                                            $total_query = "SELECT SUM(gen_sales) as gen_sum FROM transactions WHERE date_transacted = '$today' AND transact_by ='$transacted_by'";
+                                                            $total_result = mysqli_query($conn, $total_query);
+                                                            $total_row = mysqli_fetch_assoc($total_result);
+                                                            $gen_sales_user = $total_row['gen_sum'];
+                                                            if (empty($gen_sales_user)) {
+                                                               $gen_sales_user = 0;
+                                                            }
+                                                            $sales_users[$transacted_by] = $gen_sales_user;
+                                                         }
+                                                         arsort($sales_users);
+
+                                                         // Get the top three sales users
+                                                         $top_three_sales_users = array_slice($sales_users, 0, 3);
+
+                                                         // Display the top three sales users
+                                                         foreach ($top_three_sales_users as $transacted_by => $gen_sales_user) {
+                                                         ?>
+                                                            <tr>
+                                                               <td><?php echo $transacted_by; ?></td>
+                                                               <td>₱<?php echo $gen_sales_user; ?></td>
+                                                               <td>₱<?php echo $gen_sales_user * 0.01; ?></td>
+                                                            </tr>
+                                                   <?php
+                                                         }
+                                                      } else {
+                                                         echo mysqli_error($conn);
+                                                      }
+                                                   }
+                                                   ?>
+
+
+                                                </tbody>
+                                                <!-- table body -->
+                                             </table>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </section>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-8 my-1">
+                  <div class="card">
+                     <div class="card-body mid income" id="content">
                         <p class="card-title text-start fs-5"><b>Sales Report</b></p>
                         <p class="class-title text-center fs-3">
                            <?php
@@ -156,11 +320,19 @@ if (isset($_POST['submit'])) {
                            <input type="date" id="endDate" name="endDate" placeholder="End Date (YYYY/MM/DD)" pattern="\d{4}/\d{2}/\d{2}" required max="<?php echo $today; ?>">
                            <input type="submit" name="submit" class="btn btn-primary"></input>
                         </form>
-                        <div id="chartContainer" style="height: 45vh; width: 95%;"></div>
+                        <div id="chartContainer" style="height: 43vh; width: 95%;"></div>
                      </div>
                   </div>
                </div>
-               <!-- <div class="col-md-4 my-4">
+               <div class="col-md-4 my-1">
+                  <div class="card">
+                     <div class="card-body mid gen" id="content">
+                        <p class="card-title text-start fs-4"><b>Generic Sales</b></p>
+                        <div id="chartContainer1" style="height: 56vh; width: 100%;"></div>
+                     </div>
+                  </div>
+               </div>
+               <!-- <div class="col-md-4 my-1">
                   <div class="card">
                      <div class="card-body top" id="content">
                         <p class="card-title text-start fs-3"><b>Line Graph</b></p>
@@ -181,13 +353,13 @@ if (isset($_POST['submit'])) {
                                           <div class="table-responsive">
                                              <table class="table table-light table-bordered mb-0" style="height:46.5vh; width: 100%;">
                                                 <thead>
-                                                   <t>
+                                                   <tr>
                                                       <th scope="col">Transaction #</th>
                                                       <th scope="col">Amount</th>
                                                       <th scope="col">Amount Tendered</th>
                                                       <th scope="col">Date Of Transaction</th>
                                                       <th scope="col">Time</th>
-                                                      </tr>
+                                                   </tr>
                                                 </thead>
                                                 <tbody>
                                                    <?php
@@ -197,8 +369,8 @@ if (isset($_POST['submit'])) {
                                                    ?>
                                                       <tr>
                                                          <td><?php echo $row['id']; ?></td>
-                                                         <td><?php echo $row['amount']; ?></td>
-                                                         <td><?php echo $row['tender_amount']; ?></td>
+                                                         <td>₱<?php echo $row['amount']; ?></td>
+                                                         <td>₱<?php echo $row['tender_amount']; ?></td>
                                                          <td><?php echo $row['date_transacted']; ?></td>
                                                          <td><?php echo $row['time_transacted']; ?></td>
                                                       </tr>
@@ -218,14 +390,7 @@ if (isset($_POST['submit'])) {
                      </div>
                   </div>
                </div>
-               <div class="col-md-4 mb-4">
-                  <div class="card">
-                     <div class="card-body bottom" id="content">
-                        <p class="card-title text-start fs-4"><b>Generic Sales</b></p>
-                        <div id="chartContainer1" style="height: 46.5vh; width: 100%;"></div>
-                     </div>
-                  </div>
-               </div>
+
             </div>
          </div>
       </div>
