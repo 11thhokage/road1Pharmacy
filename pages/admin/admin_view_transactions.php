@@ -14,9 +14,9 @@ session_start();
         <div class="d-flex flex-row-reverse mt-2">
             <button id='exportExcelBtn' class='btn btn-success mb-2'>Export to Excel</button>
         </div>
-        <!-- Filter Dropdown -->
+        <!-- Filter Dropdowns -->
         <center>
-            <select name="transact_by" id="transact_by" class="mb-2 form-select my-select" style="width:30%;">
+            <select name="transact_by" id="transact_by" class="mb-2 form-select my-select" style="width:15%;">
                 <option value='all'>All</option>
                 <?php
                 $data = "SELECT username FROM accounts WHERE role_as = '2'";
@@ -30,6 +30,11 @@ session_start();
                     echo "<option value=''>No data found!</option>";
                 }
                 ?>
+            </select>
+            <select name="payment_mode" id="payment_mode" class="mb-2 form-select my-select" style="width:15%;">
+                <option value='all'>All</option>
+                <option value='Cash'>Cash</option>
+                <option value='Gcash'>Gcash</option>
             </select>
         </center>
 
@@ -66,12 +71,13 @@ session_start();
     <!-- AJAX Script -->
     <script>
         $(document).ready(function() {
-            function loadTransactions(transact_by, page) {
+            function loadTransactions(transact_by, payment_mode, page) {
                 $.ajax({
                     url: 'load_offtake_transactions.php',
                     type: 'POST',
                     data: {
                         transact_by: transact_by,
+                        payment_mode: payment_mode,
                         page: page
                     },
                     success: function(data) {
@@ -80,20 +86,22 @@ session_start();
                 });
             }
 
-            $('#transact_by').change(function() {
-                var transact_by = $(this).val();
-                loadTransactions(transact_by, 1);
+            $('#transact_by, #payment_mode').change(function() {
+                var transact_by = $('#transact_by').val();
+                var payment_mode = $('#payment_mode').val();
+                loadTransactions(transact_by, payment_mode, 1);
             });
 
             $('body').on('click', '.pagination a', function(e) {
                 e.preventDefault();
                 var transact_by = $('#transact_by').val();
+                var payment_mode = $('#payment_mode').val();
                 var page = $(this).attr('data-page');
-                loadTransactions(transact_by, page);
+                loadTransactions(transact_by, payment_mode, page);
             });
 
             // Initial load
-            loadTransactions('all', 1);
+            loadTransactions('all', 'all', 1);
 
             // View Details
             $('body').on('click', '.view_details', function(e) {
@@ -163,9 +171,6 @@ session_start();
                 // Save the workbook as an Excel file
                 XLSX.writeFile(workbook, 'offtake_trans_table.xlsx');
             });
-
-            // Export to PDF button click event
-
         });
     </script>
     </body>

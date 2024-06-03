@@ -236,7 +236,7 @@ $notifCount = 0;
                         <a href="admin_view_users.php" class="nav_link" title="Users"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
 
                         <a href="admin_view_messages.php" class="nav_link" title="Messages">
-                            <i class='bx bx-message-square-detail nav_icon <?php if ($hasUnread) echo "text-danger"; ?>'></i>
+                            <i class='bx bx-message-square-detail nav_icon <?php if ($hasUnread) echo "text-dark"; ?>'></i>
                             <span class="nav_name">Messages</span>
                         </a>
 

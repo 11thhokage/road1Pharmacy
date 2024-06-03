@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['date_received'])) {
                         $startDate = $_POST['startDate'];
                         $endDate = $_POST['endDate'];
 
-                        $total_query = "SELECT SUM(total) as total_amount FROM deliver_received WHERE date_received BETWEEN '$startDate' AND '$endDate'";
+                        $total_query = "SELECT SUM(total) as total_amount FROM deliver_received WHERE date_received BETWEEN '$startDate' AND '$endDate' AND received_by ='$user_name'";
                         $total_result = mysqli_query($conn, $total_query);
                         $total_row = mysqli_fetch_assoc($total_result);
                         $capital = $total_row['total_amount'];
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['date_received'])) {
                         date_default_timezone_set('Asia/Manila');
                         $today =  date("Y-m-d");
 
-                        $total_query = "SELECT SUM(total) as total_amount FROM deliver_received WHERE date_received = '$today'";
+                        $total_query = "SELECT SUM(total) as total_amount FROM deliver_received WHERE date_received = '$today' AND received_by ='$user_name'";
                         $total_result = mysqli_query($conn, $total_query);
                         $total_row = mysqli_fetch_assoc($total_result);
                         $capital = $total_row['total_amount'];
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['date_received'])) {
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $query = "SELECT * FROM deliver_received ORDER BY post_trans_number DESC LIMIT 6";
+                                                        $query = "SELECT * FROM deliver_received WHERE received_by ='$user_name' ORDER BY post_trans_number DESC LIMIT 6 ";
                                                         $result = mysqli_query($conn, $query);
                                                         while ($row = mysqli_fetch_assoc($result)) {
                                                         ?>

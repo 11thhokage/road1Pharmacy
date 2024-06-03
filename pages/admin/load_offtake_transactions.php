@@ -2,11 +2,20 @@
 include '../../database/config.php';
 
 $transact_by = $_POST['transact_by'];
+$payment_mode = $_POST['payment_mode'];
 $page = isset($_POST['page']) ? $_POST['page'] : 1;
 $limit = 7; // Number of items per page
 $offset = ($page - 1) * $limit;
 
-$whereClause = ($transact_by === 'all') ? "" : "WHERE transact_by='$transact_by'";
+// Construct the where clause based on the filters
+$whereClauses = [];
+if ($transact_by !== 'all') {
+    $whereClauses[] = "transact_by='$transact_by'";
+}
+if ($payment_mode !== 'all') {
+    $whereClauses[] = "payment_mode='$payment_mode'";
+}
+$whereClause = !empty($whereClauses) ? "WHERE " . implode(' AND ', $whereClauses) : "";
 
 // Get total number of items
 $total_items_query = "SELECT COUNT(*) as count FROM transactions $whereClause";
@@ -26,12 +35,12 @@ $ftotal = number_format($total, 2, '.', '');
 // Adjust the cash and gcash queries
 $cash_query = "SELECT SUM(amount) as cash_amount FROM transactions ";
 $gcash_query = "SELECT SUM(amount) as gcash_amount FROM transactions ";
-if ($transact_by === 'all') {
+if (!empty($whereClauses)) {
+    $cash_query .= $whereClause . " AND payment_mode = 'Cash'";
+    $gcash_query .= $whereClause . " AND payment_mode = 'Gcash'";
+} else {
     $cash_query .= "WHERE payment_mode = 'Cash'";
     $gcash_query .= "WHERE payment_mode = 'Gcash'";
-} else {
-    $cash_query .= "WHERE payment_mode = 'Cash' AND transact_by = '$transact_by'";
-    $gcash_query .= "WHERE payment_mode = 'Gcash' AND transact_by = '$transact_by'";
 }
 
 $cash_result = mysqli_query($conn, $cash_query);
