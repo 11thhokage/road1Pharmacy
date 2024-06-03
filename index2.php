@@ -478,6 +478,7 @@
                 document.getElementById('chat-form').addEventListener('submit', function(event) {
                     event.preventDefault();
                     sendMessage();
+                    document.getElementById("user-input").value = "";
                 });
 
                 function sendMessage() {

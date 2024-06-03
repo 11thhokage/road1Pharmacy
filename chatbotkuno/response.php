@@ -45,7 +45,7 @@ function handleInput($input)
         if (in_array('CHECK', $tokens)) {
             $sql = "SELECT * FROM training_items WHERE words IN ('" . implode("','", $tokens) . "')";
             $result = query($sql);
-            if (mysqli_num_rows($result) > 1) {
+            if (mysqli_num_rows($result) == 1) {
                 $result_values = "";
                 while ($row = mysqli_fetch_assoc($result)) {
                     $result_values .= $row['words'] . " ";
@@ -60,17 +60,149 @@ function handleInput($input)
                     if (mysqli_num_rows($result) > 0) {
                         return "YES. The item " . $item_name . " is available";
                     } else {
-                        return "No. The item " . $item_name . " is not available";
+                        return "No. The item " . $item_name . " has no stocks";
                     }
                 } else {
                     return "The item " . $result_values . " is not available";
                 }
-            } elseif (mysqli_num_rows($result) == 1) {
-                $row = mysqli_fetch_assoc($result);
-                $token = $row["words"];
-                return "Give more information about the " . $token;
+            } elseif (mysqli_num_rows($result) == 2) {
+                $result_values = [];
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $result_values[] = $row['words'];
+                }
+                $item_name1 = $result_values[0] . " " . $result_values[1];
+                $item_name2 = $result_values[1] . " " . $result_values[0];
+                $sql = "SELECT * FROM items WHERE `item_name` = '$item_name1'";
+                $result = query($sql);
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_assoc($result);
+                    $item_name = $row['item_name'];
+                    $sql = "SELECT * FROM warehouse WHERE item_name = '$item_name' AND item_qty > 0";
+                    $result = query($sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        return "YES. The item " . $item_name . " is available";
+                    } else {
+                        return "No. The item " . $item_name . " has no stocks";
+                    }
+                } else {
+                    $sql = "SELECT * FROM items WHERE `item_name` = '$item_name2'";
+                    $result = query($sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        $row = mysqli_fetch_assoc($result);
+                        $item_name = $row['item_name'];
+                        $sql = "SELECT * FROM warehouse WHERE item_name = '$item_name' AND item_qty > 0";
+                        $result = query($sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            return "YES. The item " . $item_name . " is available";
+                        } else {
+                            return "No. The item " . $item_name . " has no stocks";
+                        }
+                    } else {
+                        $lengthOfTokens = count($tokens);
+                        $input = $tokens[$lengthOfTokens - 2] . " " . $tokens[$lengthOfTokens - 1];
+                        return "The item " . $input . " is not available";
+                    }
+                }
+            } elseif (mysqli_num_rows($result) == 3) {
+                $result_values = [];
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $result_values[] = $row['words'];
+                }
+                $item_name1 = $result_values[0] . " " . $result_values[1] . " " . $result_values[2];
+                $item_name2 = $result_values[0] . " " . $result_values[2] . " " . $result_values[1];
+                $item_name3 = $result_values[1] . " " . $result_values[2] . " " . $result_values[0];
+                $item_name4 = $result_values[1] . " " . $result_values[0] . " " . $result_values[2];
+                $item_name5 = $result_values[2] . " " . $result_values[0] . " " . $result_values[1];
+                $item_name6 = $result_values[2] . " " . $result_values[1] . " " . $result_values[0];
+                $sql = "SELECT * FROM items WHERE `item_name` = '$item_name1'";
+                $result = query($sql);
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_assoc($result);
+                    $item_name = $row['item_name'];
+                    $sql = "SELECT * FROM warehouse WHERE item_name = '$item_name' AND item_qty > 0";
+                    $result = query($sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        return "YES. The item " . $item_name . " is available";
+                    } else {
+                        return "No. The item " . $item_name . " has no stocks";
+                    }
+                } else {
+                    $sql = "SELECT * FROM items WHERE `item_name` = '$item_name2'";
+                    $result = query($sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        $row = mysqli_fetch_assoc($result);
+                        $item_name = $row['item_name'];
+                        $sql = "SELECT * FROM warehouse WHERE item_name = '$item_name' AND item_qty > 0";
+                        $result = query($sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            return "YES. The item " . $item_name . " is available";
+                        } else {
+                            return "No. The item " . $item_name . " has no stocks";
+                        }
+                    } else {
+                        $sql = "SELECT * FROM items WHERE `item_name` = '$item_name3'";
+                        $result = query($sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            $row = mysqli_fetch_assoc($result);
+                            $item_name = $row['item_name'];
+                            $sql = "SELECT * FROM warehouse WHERE item_name = '$item_name' AND item_qty > 0";
+                            $result = query($sql);
+                            if (mysqli_num_rows($result) > 0) {
+                                return "YES. The item " . $item_name . " is available";
+                            } else {
+                                return "No. The item " . $item_name . " has no stocks";
+                            }
+                        } else {
+                            $sql = "SELECT * FROM items WHERE `item_name` = '$item_name4'";
+                            $result = query($sql);
+                            if (mysqli_num_rows($result) > 0) {
+                                $row = mysqli_fetch_assoc($result);
+                                $item_name = $row['item_name'];
+                                $sql = "SELECT * FROM warehouse WHERE item_name = '$item_name' AND item_qty > 0";
+                                $result = query($sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    return "YES. The item " . $item_name . " is available";
+                                } else {
+                                    return "No. The item " . $item_name . " has no stocks";
+                                }
+                            } else {
+                                $sql = "SELECT * FROM items WHERE `item_name` = '$item_name5'";
+                                $result = query($sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    $row = mysqli_fetch_assoc($result);
+                                    $item_name = $row['item_name'];
+                                    $sql = "SELECT * FROM warehouse WHERE item_name = '$item_name' AND item_qty > 0";
+                                    $result = query($sql);
+                                    if (mysqli_num_rows($result) > 0) {
+                                        return "YES. The item " . $item_name . " is available";
+                                    } else {
+                                        return "No. The item " . $item_name . " has no stocks";
+                                    }
+                                } else {
+                                    $sql = "SELECT * FROM items WHERE `item_name` = '$item_name6'";
+                                    $result = query($sql);
+                                    if (mysqli_num_rows($result) > 0) {
+                                        $row = mysqli_fetch_assoc($result);
+                                        $item_name = $row['item_name'];
+                                        $sql = "SELECT * FROM warehouse WHERE item_name = '$item_name' AND item_qty > 0";
+                                        $result = query($sql);
+                                        if (mysqli_num_rows($result) > 0) {
+                                            return "YES. The item " . $item_name . " is available";
+                                        } else {
+                                            return "No. The item " . $item_name . " has no stocks";
+                                        }
+                                    } else {
+                                        $lengthOfTokens = count($tokens);
+                                        $input = $tokens[$lengthOfTokens - 3] . " " . $tokens[$lengthOfTokens - 2] . " " . $tokens[$lengthOfTokens - 1];
+                                        return "The item " . $input . " is not available";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             } else {
-                return "Currently, there is no alternative yet for the medicine you are looking for that is available in our pharmacy.";
+                return "Currently, the medicine you are looking for is not available in our pharmacy."; // add, switch the else in check algo
             }
         } else {
             $sql = "SELECT * FROM training_words WHERE words IN ('" . implode("','", $tokens) . "')";
@@ -100,7 +232,7 @@ function handleInput($input)
                 } else {
                     $sql = "SELECT * FROM training_items WHERE words IN ('" . implode("','", $tokens) . "')";
                     $result = query($sql);
-                    if (mysqli_num_rows($result) > 1) {
+                    if (mysqli_num_rows($result) == 1) {
                         $result_values = "";
                         while ($row = mysqli_fetch_assoc($result)) {
                             $result_values .= $row['words'] . " ";
@@ -120,10 +252,147 @@ function handleInput($input)
                         } else {
                             return "The item " . $result_values . " is not found";
                         }
-                    } elseif (mysqli_num_rows($result) == 1) {
-                        $row = mysqli_fetch_assoc($result);
-                        $token = $row["words"];
-                        return "Give more information about the " . $token;
+                    } elseif (mysqli_num_rows($result) == 2) {
+                        $result_values = [];
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $result_values[] = $row['words'];
+                        }
+                        $item_name1 = $result_values[0] . " " . $result_values[1];
+                        $item_name2 = $result_values[1] . " " . $result_values[0];
+                        $sql = "SELECT * FROM items WHERE `item_name` = '$item_name1'";
+                        $result = query($sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            $row = mysqli_fetch_assoc($result);
+                            $what_for = $row['what_for'];
+                            $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                            $result = query($sql);
+                            $for_warehouse = [];
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $for_warehouse[] = $row['item_name'];
+                            }
+                            return $for_warehouse;
+                        } else {
+                            $sql = "SELECT * FROM items WHERE `item_name` = '$item_name2'";
+                            $result = query($sql);
+                            if (mysqli_num_rows($result) > 0) {
+                                $row = mysqli_fetch_assoc($result);
+                                $what_for = $row['what_for'];
+                                $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                $result = query($sql);
+                                $for_warehouse = [];
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    $for_warehouse[] = $row['item_name'];
+                                }
+                                return $for_warehouse;
+                            } else {
+                                $lengthOfTokens = count($tokens);
+                                $input = $tokens[$lengthOfTokens - 2] . " " . $tokens[$lengthOfTokens - 1];
+                                return "The item " . $input . " is not available";
+                            }
+                        }
+                    } elseif (mysqli_num_rows($result) == 3) {
+                        $result_values = [];
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $result_values[] = $row['words'];
+                        }
+                        $item_name1 = $result_values[0] . " " . $result_values[1] . " " . $result_values[2];
+                        $item_name2 = $result_values[0] . " " . $result_values[2] . " " . $result_values[1];
+                        $item_name3 = $result_values[1] . " " . $result_values[2] . " " . $result_values[0];
+                        $item_name4 = $result_values[1] . " " . $result_values[0] . " " . $result_values[2];
+                        $item_name5 = $result_values[2] . " " . $result_values[0] . " " . $result_values[1];
+                        $item_name6 = $result_values[2] . " " . $result_values[1] . " " . $result_values[0];
+                        $sql = "SELECT * FROM items WHERE `item_name` = '$item_name1'";
+                        $result = query($sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            $row = mysqli_fetch_assoc($result);
+                            $sql = "SELECT * FROM items WHERE `item_name` = '$item_name1'";
+                            $result = query($sql);
+                            if (mysqli_num_rows($result) > 0) {
+                                $row = mysqli_fetch_assoc($result);
+                                $what_for = $row['what_for'];
+                                $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                $result = query($sql);
+                                $for_warehouse = [];
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    $for_warehouse[] = $row['item_name'];
+                                }
+                                return $for_warehouse;
+                            } else {
+                                $sql = "SELECT * FROM items WHERE `item_name` = '$item_name2'";
+                                $result = query($sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    $row = mysqli_fetch_assoc($result);
+                                    $what_for = $row['what_for'];
+                                    $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                    $result = query($sql);
+                                    $for_warehouse = [];
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $for_warehouse[] = $row['item_name'];
+                                    }
+                                    return $for_warehouse;
+                                } else {
+                                    $sql = "SELECT * FROM items WHERE `item_name` = '$item_name3'";
+                                    $result = query($sql);
+                                    if (mysqli_num_rows($result) > 0) {
+                                        $row = mysqli_fetch_assoc($result);
+                                        $what_for = $row['what_for'];
+                                        $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                        $result = query($sql);
+                                        $for_warehouse = [];
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            $for_warehouse[] = $row['item_name'];
+                                        }
+                                        return $for_warehouse;
+                                    } else {
+                                        $sql = "SELECT * FROM items WHERE `item_name` = '$item_name4'";
+                                        $result = query($sql);
+                                        if (mysqli_num_rows($result) > 0) {
+                                            $row = mysqli_fetch_assoc($result);
+                                            $what_for = $row['what_for'];
+                                            $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                            $result = query($sql);
+                                            $for_warehouse = [];
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                $for_warehouse[] = $row['item_name'];
+                                            }
+                                            return $for_warehouse;
+                                        } else {
+                                            $sql = "SELECT * FROM items WHERE `item_name` = '$item_name5'";
+                                            $result = query($sql);
+                                            if (mysqli_num_rows($result) > 0) {
+                                                $row = mysqli_fetch_assoc($result);
+                                                $what_for = $row['what_for'];
+                                                $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                                $result = query($sql);
+                                                $for_warehouse = [];
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    $for_warehouse[] = $row['item_name'];
+                                                }
+                                                return $for_warehouse;
+                                            } else {
+                                                $sql = "SELECT * FROM items WHERE `item_name` = '$item_name6'";
+                                                $result = query($sql);
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    $row = mysqli_fetch_assoc($result);
+                                                    $what_for = $row['what_for'];
+                                                    $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                                    $result = query($sql);
+                                                    $for_warehouse = [];
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $for_warehouse[] = $row['item_name'];
+                                                    }
+                                                    return $for_warehouse;
+                                                } else {
+                                                    $lengthOfTokens = count($tokens);
+                                                    $input = $tokens[$lengthOfTokens - 3] . " " . $tokens[$lengthOfTokens - 2] . " " . $tokens[$lengthOfTokens - 1];
+                                                    return "The item " . $input . " is not available";
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     } else {
                         return "Currently, there is no alternative yet for the medicine you are looking for that is available in our pharmacy.";
                     }
