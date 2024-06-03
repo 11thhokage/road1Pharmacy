@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['date_received'])) {
         <div class="col-md-12 mb-2">
             <div class="card">
                 <div class="card-body">
-                    <h4>Delivery Received</h4>
+                    <h3><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'>Delivery Received</h3>
                     <?php
                     date_default_timezone_set('Asia/Manila');
                     $today =  date("Y-m-d");
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['date_received'])) {
         <div class="col-md-12 mb-4">
             <div class="card">
                 <div class="card-body bottom" id="content">
-                    <p class="card-title text-start fs-3"><b>Recent Transactions</b></p>
+                    <p class="card-title text-start fs-3"><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'><b>Recent Transactions</b></p>
                     <section class="intro">
                         <div class="gradient-custom-2 h-100">
                             <div class="mask d-flex align-items-center h-100">

@@ -7,34 +7,35 @@ include '../../actions/session_check.php';
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <?php include "user_ham.php";?>
+    <?php include "user_ham.php"; ?>
     <div class="height-100 bg-light">
 
-<h1>Stocks:</h1>
-<center>
-<form method='GET' action='user_search_item.php'>
+        <h1><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'>Stocks:</h1>
+        <center>
+            <form method='GET' action='user_search_item.php'>
 
-    <input type='text' name='search'>
-    <input type='submit' name='submit' value='search Warehouse'>
-</form>
-</center>
-<hr />
+                <input type='text' name='search'>
+                <input type='submit' name='submit' value='search Warehouse'>
+            </form>
+        </center>
+        <hr />
 
-  <div class='container'>
+        <div class='container'>
             <div class='row'>
-            
-<?php
-// Check if the query was successful
-$data= "SELECT * FROM warehouse";
-$result = mysqli_query($conn, $data);
-if (!$result) {
-    die('Error in query: ' . mysqli_error($conn));
-}
+
+                <?php
+                // Check if the query was successful
+                $data = "SELECT * FROM warehouse";
+                $result = mysqli_query($conn, $data);
+                if (!$result) {
+                    die('Error in query: ' . mysqli_error($conn));
+                }
 
 
-if(mysqli_num_rows($result)> 0){
-    echo"<h2><center>Item List</center></h2>
+                if (mysqli_num_rows($result) > 0) {
+                    echo "<h2><center>Item List</center></h2>
     <section class='intro'>
         <div class='gradient-custom-2 h-100'>
             <div class='mask d-flex align-items-center h-100'>
@@ -54,26 +55,24 @@ if(mysqli_num_rows($result)> 0){
                                         </tr>
                                     </thead>
                                     <tbody>";
-    while($row=mysqli_fetch_assoc($result)){
-        $warehouse_code=$row['warehouse_code'];
-        $item_name_warehouse=$row['item_name'];
-        $item_qty=$row['item_qty'];
-        $expiry_date=$row['expiry_date'];
-        $vendor_name=$row['vendor_name'];
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $warehouse_code = $row['warehouse_code'];
+                        $item_name_warehouse = $row['item_name'];
+                        $item_qty = $row['item_qty'];
+                        $expiry_date = $row['expiry_date'];
+                        $vendor_name = $row['vendor_name'];
 
-        
 
-        echo "<tr>";
-                                            echo "<td>" . $warehouse_code. "</td>";
-                                            echo "<td>" .$item_name_warehouse . "</td>";
-                                            echo "<td>" .$item_qty . "</td>";
-                                            echo "<td>" . $expiry_date . "</td>";
-                                            echo "<td>" . $vendor_name . "</td>";
-                                            echo "</tr>";
 
-        
-    }
-    echo"</tbody>
+                        echo "<tr>";
+                        echo "<td>" . $warehouse_code . "</td>";
+                        echo "<td>" . $item_name_warehouse . "</td>";
+                        echo "<td>" . $item_qty . "</td>";
+                        echo "<td>" . $expiry_date . "</td>";
+                        echo "<td>" . $vendor_name . "</td>";
+                        echo "</tr>";
+                    }
+                    echo "</tbody>
                                 </table>
                             </div>
                         </div>
@@ -84,43 +83,37 @@ if(mysqli_num_rows($result)> 0){
     </section>
     <br/>
         ";
-}else{
-    echo"Database is EMPTY";
-}
+                } else {
+                    echo "Database is EMPTY";
+                }
 
 
-?>
-    
-                                        <?php
-                                        
-                                            
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                ?>
+
+                <?php
+
+
+                ?>
+                </tbody>
+                </table>
             </div>
         </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </section>
-    <br/>
+    <br />
 
 
 
 
 
     </div>
-</body>
-<script src="user_ham.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+    <script src="user_ham.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </html>
-
-
-
-
-
-
-

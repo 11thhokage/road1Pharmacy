@@ -118,7 +118,7 @@ session_start();
     <div class="container-fluid px-4">
         <div class="card">
             <div class="card-header">
-                <h4 class='mb-0'>Received Items</h4>
+                <h4 class='mb-0'><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'>Received Items</h4>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -129,7 +129,7 @@ session_start();
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-5 mb-3">
                         <label>Item Name</label>
                         <select name="item_name" id="item_name" class='form-select my-select'>
                             <option value="">-- Select Item --</option>
@@ -153,7 +153,7 @@ session_start();
                         <b><span id="unit_price_display">0</span></b><br>
                         <input type="number" name="item_qty" required placeholder="Enter Quantity" min="1">
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label>Subtotal:</label>
                         <b><span id="subtotal_display">0</span></b>
                     </div>
@@ -173,117 +173,118 @@ session_start();
                 </div>
                 </form>
             </div>
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h4 class='mb-0'>Lists</h4>
-                </div>
-                <div class="card-body">
-                    <?php
-                    if (isset($_SESSION['items'])) {
-                        $session_items = $_SESSION['items'];
-                        if (empty($session_items)) {
-                            unset($_SESSION['items']);
-                        }
-                    ?>
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="invoice_no">Invoice Number:</label><br>
-                                <input type="text" name="receipt_trans_number" required placeholder="Enter transaction number"><br>
-                                <span id="errorSpan" style="color: red;"></span>
-                                <p style="color:gray;">The number/letters on the sales invoice</p>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="vendor_name">Vendor Name:</label>
-                                <select name="vendor_name" class="my-select" id="" required>
-                                    <?php
-                                    $data = "SELECT DISTINCT vendor_name FROM items";
-                                    $result = mysqli_query($conn, $data);
-                                    if (mysqli_num_rows($result) > 0) {
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $vendor_name = $row['vendor_name'];
-                                            echo "<option value='$vendor_name'>$vendor_name</option>";
-                                        }
-                                    } else {
-                                        echo "<option value=''>No data found!</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="date_received">Date Received:</label><br>
-                                <input type="date" name="date_received" required>
-                                <span id="errorSpan" style="color: red;"></span>
-                            </div>
+        </div>
+        <div class="card mt-3">
+            <div class="card-header">
+                <h4 class='mb-0'><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'>Lists</h4>
+            </div>
+            <div class="card-body">
+                <?php
+                if (isset($_SESSION['items'])) {
+                    $session_items = $_SESSION['items'];
+                    if (empty($session_items)) {
+                        unset($_SESSION['items']);
+                    }
+                ?>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="invoice_no">Invoice Number:</label><br>
+                            <input type="text" name="receipt_trans_number" required placeholder="Enter transaction number"><br>
+                            <span id="errorSpan" style="color: red;"></span>
+                            <p style="color:gray;">The number/letters on the sales invoice</p>
                         </div>
-                        <h1 class="text-end" id='total'><b></b></h1>
-                        <section class='intro'>
-                            <div class='gradient-custom-2 h-100'>
-                                <div class='mask d-flex align-items-center h-100'>
-                                    <div class='container'>
-                                        <div class='row justify-content-center'>
-                                            <div class='col-12'>
-                                                <div class='table-responsive'>
-                                                    <table class='table table-dark table-bordered mb-0'>
-                                                        <thead>
+                        <div class="col-md-4 mb-3">
+                            <label for="vendor_name">Vendor Name:</label>
+                            <select name="vendor_name" class="my-select" id="" required>
+                                <?php
+                                $data = "SELECT DISTINCT vendor_name FROM items";
+                                $result = mysqli_query($conn, $data);
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $vendor_name = $row['vendor_name'];
+                                        echo "<option value='$vendor_name'>$vendor_name</option>";
+                                    }
+                                } else {
+                                    echo "<option value=''>No data found!</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="date_received">Date Received:</label><br>
+                            <input type="date" name="date_received" required>
+                            <span id="errorSpan" style="color: red;"></span>
+                        </div>
+                    </div>
+                    <h1 class="text-end" id='total'><b></b></h1>
+                    <section class='intro'>
+                        <div class='gradient-custom-2 h-100'>
+                            <div class='mask d-flex align-items-center h-100'>
+                                <div class='container'>
+                                    <div class='row justify-content-center'>
+                                        <div class='col-12'>
+                                            <div class='table-responsive'>
+                                                <table class='table table-dark table-bordered mb-0'>
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope='col'>ID</th>
+                                                            <th scope='col'>Item Name</th>
+                                                            <th scope='col'>Unit Price</th>
+                                                            <th scope='col'>Quantity</th>
+                                                            <th scope='col'>Subtotal</th>
+                                                            <th scope='col'>Expiry Date</th>
+                                                            <th scope='col'>Remove</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $i = 1;
+                                                        foreach ($session_items as $key => $item) :
+                                                        ?>
                                                             <tr>
-                                                                <th scope='col'>ID</th>
-                                                                <th scope='col'>Item Name</th>
-                                                                <th scope='col'>Unit Price</th>
-                                                                <th scope='col'>Quantity</th>
-                                                                <th scope='col'>Subtotal</th>
-                                                                <th scope='col'>Expiry Date</th>
-                                                                <th scope='col'>Remove</th>
+                                                                <td scope='col' id='order_id'><?= $i++; ?></td>
+                                                                <td scope='col' id='order_item_name'><?= $item['item_name']; ?></td>
+                                                                <td scope='col' id='order_price'><?= $item['price']; ?></td>
+                                                                <td scope='col'>
+                                                                    <div class="input-group qty_box">
+                                                                        <input type="hidden" value=<?= $key ?> class="qty_id">
+                                                                        <button class="input-group-text decr">-</button>
+                                                                        <input type="number" value="<?= $item['quantity']; ?>" class="qty quantityInput" id='order_qty'>
+                                                                        <button class="input-group-text incr">+</button>
+                                                                    </div>
+                                                                </td>
+                                                                <td scope='col' id='order_subtotal'><?= $item['price'] * $item['quantity']; ?></td>
 
+                                                                <td scope='col' id='expiry_date'><?= $item['expiry_date']; ?></td>
+                                                                <td scope='col'>
+                                                                    <a href="../../actions/user/order_void.php?index=<?= $key; ?>" class="btn btn-danger">🗑️Void</a>
+                                                                </td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $i = 1;
-                                                            foreach ($session_items as $key => $item) :
-                                                            ?>
-                                                                <tr>
-                                                                    <td scope='col' id='order_id'><?= $i++; ?></td>
-                                                                    <td scope='col' id='order_item_name'><?= $item['item_name']; ?></td>
-                                                                    <td scope='col' id='order_price'><?= $item['price']; ?></td>
-                                                                    <td scope='col'>
-                                                                        <div class="input-group qty_box">
-                                                                            <input type="hidden" value=<?= $key ?> class="qty_id">
-                                                                            <button class="input-group-text decr">-</button>
-                                                                            <input type="number" value="<?= $item['quantity']; ?>" class="qty quantityInput" id='order_qty'>
-                                                                            <button class="input-group-text incr">+</button>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td scope='col' id='order_subtotal'><?= $item['price'] * $item['quantity']; ?></td>
-
-                                                                    <td scope='col' id='expiry_date'><?= $item['expiry_date']; ?></td>
-                                                                    <td scope='col'>
-                                                                        <a href="../../actions/user/order_void.php?index=<?= $key; ?>" class="btn btn-danger">🗑️Void</a>
-                                                                    </td>
-                                                                </tr>
-                                                            <?php endforeach; ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                        <?php endforeach; ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </section>
-                        <center><button class="btn btn-primary mt-5 receive" id="receiveButton">Receive</button></center>
-                    <?php
-                    } else {
-                        echo "<h3>No pending Transactions</h3>";
-                    }
-                    ?>
-                </div>
+                        </div>
+                    </section>
+                    <center><button class="btn btn-primary mt-5 receive" id="receiveButton">Receive</button></center>
+                <?php
+                } else {
+                    echo "<h3>No pending Transactions</h3>";
+                }
+                ?>
             </div>
-
-
-
-
-
         </div>
+
+
+
+
+
+    </div>
     </div>
     </body>
 
