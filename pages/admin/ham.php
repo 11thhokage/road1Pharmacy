@@ -1,4 +1,6 @@
 <?php
+session_start();
+include '../../actions/admin_midware.php';
 
 $host = "localhost";
 $user = "root";

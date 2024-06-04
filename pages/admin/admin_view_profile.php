@@ -2,6 +2,7 @@
 
 include '../../database/config.php';
 session_start();
+include '../../actions/admin_midware.php';
 
 if (!isset($_SESSION['admin_name'])) {
   echo "wrong";

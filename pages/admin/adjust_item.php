@@ -1,6 +1,7 @@
 <?php
 include '../../database/config.php';
 include '../../actions/session_check.php';
+include '../../actions/admin_midware.php';
 
 // Retrieve the item_name from the query parameter
 $item_name = $_GET['item_name'];

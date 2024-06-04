@@ -1,5 +1,7 @@
 <?php
 include '../../database/config.php';
+session_start();
+include '../../actions/admin_midware.php';
 
 if (isset($_GET['warehouse_code']) && isset($_GET['item_name']) && isset($_GET['item_qty']) && isset($_GET['expiry_date'])) {
     $warehouse_code = $_GET['warehouse_code'];

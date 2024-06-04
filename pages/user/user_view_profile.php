@@ -4,6 +4,7 @@ include '../../database/config.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+include '../../actions/user_midware.php';
 
 // Check if the session variable 'user_name' is set
 if (!isset($_SESSION['user_name'])) {

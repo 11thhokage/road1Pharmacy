@@ -2,6 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+include '../../actions/user_midware.php';
 
 
 include "../../database/config.php";

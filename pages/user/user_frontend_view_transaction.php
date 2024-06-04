@@ -1,5 +1,7 @@
 <?php
 include '../../database/config.php';
+include '../../actions/user_midware.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

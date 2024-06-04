@@ -1,5 +1,7 @@
 <?php
 include '../../database/config.php';
+session_start();
+include '../../actions/admin_midware.php';
 
 $received_by = $_POST['received_by'];
 $page = isset($_POST['page']) ? $_POST['page'] : 1;

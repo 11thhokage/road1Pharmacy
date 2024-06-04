@@ -1,4 +1,6 @@
 <?php
+session_start();
+include '../../actions/admin_midware.php';
 // pdo connection
 $pdo = new PDO(
     "mysql:host=localhost;dbname=capstone;charset=utf8mb4",

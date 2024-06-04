@@ -1,3 +1,7 @@
+<?php
+session_start();
+include '../../actions/admin_midware.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -3,10 +3,7 @@ include '../../database/config.php';
 session_start();
 
 //middleware
-if (!isset($_SESSION['admin_name'])) {
-   header('location:../index.php');
-   exit();
-}
+include '../../actions/admin_midware.php';
 
 if (isset($_POST['submit'])) {
    $startDate = $_POST['startDate'];
@@ -144,6 +141,13 @@ if (isset($_POST['submit'])) {
    </style>
 
    <!-- Container Main start -->
+   <?php
+   if (isset($_SESSION['username'])) {
+      $username = $_SESSION['username'];
+   } else {
+      echo "No session found. Please log in.";
+   }
+   ?>
    <div class="height-500 bg-light">
       <div class="container-fluid px-4" id="dashboard">
          <div class="card" id="main_card">

@@ -1,6 +1,7 @@
 <?php
 include '../../database/config.php';
 include '../../actions/session_check.php';
+include '../../actions/admin_midware.php';
 
 ?>
 

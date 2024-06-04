@@ -1,5 +1,7 @@
 <?php
 include '../../database/config.php';
+session_start();
+include '../../actions/admin_midware.php';
 
 $transact_by = $_POST['transact_by'];
 $payment_mode = $_POST['payment_mode'];

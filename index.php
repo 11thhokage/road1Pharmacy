@@ -379,7 +379,7 @@
 
                                     function loadKidList(page) {
                                         $.ajax({
-                                            url: 'Kid_list.php',
+                                            url: 'kid_list.php',
                                             type: 'GET',
                                             data: {
                                                 page: page

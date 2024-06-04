@@ -1,5 +1,7 @@
 <?php
 @include '../../database/config.php';
+session_start();
+include '../../actions/admin_midware.php';
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +50,7 @@
       $pass = hash('sha256', $_POST['password']);
       $cpass = hash('sha256', $_POST['cpassword']);
       $role_as = $_POST['role_as'];
+      $status = $_POST['status'];
 
       $select = "SELECT * FROM accounts WHERE username = '$username' AND email = '$email'";
 
@@ -61,7 +64,7 @@
          } else {
             if (($type == "image/jpeg" || $type == "image/jpg" || $type == "image/png") && ($size <= 2097152)) {
                move_uploaded_file($temp, "../../img/$mypic");
-               $insert = "INSERT INTO accounts(username, email, password, role_as, picture) VALUES('$username','$email','$pass','$role_as', '$mypic')";
+               $insert = "INSERT INTO accounts(username, email, password, role_as, picture, status) VALUES('$username','$email','$pass','$role_as', '$mypic','$status')";
                mysqli_query($conn, $insert);
                $mail = new PHPMailer(true);
 
@@ -152,6 +155,7 @@
                   </select>
                   <label for="role_as">Role</label>
                </div>
+               <input type="hidden" name="status" value="out">
                <input type="submit" name="submit" value="Register Now" class="btn btn-primary btn-block">
             </form>
             <div class="other-sign-in">

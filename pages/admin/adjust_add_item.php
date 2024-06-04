@@ -1,5 +1,8 @@
 <?php
 include '../../database/config.php';
+session_start();
+include '../../actions/admin_midware.php';
+
 
 if (isset($_GET['item_name'])) {
     $item_name = $_GET['item_name'];

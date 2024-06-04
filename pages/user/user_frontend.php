@@ -1,6 +1,7 @@
 <?php
 include '../../database/config.php';
 session_start();
+include '../../actions/user_midware.php';
 ?>
 
 <!DOCTYPE html>

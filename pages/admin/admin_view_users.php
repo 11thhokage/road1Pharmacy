@@ -1,5 +1,6 @@
 <?php
 include '../../actions/session_check.php';
+include '../../actions/admin_midware.php';
 ?>
 
 <!DOCTYPE html>

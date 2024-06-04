@@ -5,10 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 //middleware
-if (!isset($_SESSION['role_as'])) {
-    header('location:../index.php');
-    exit();
-}
+include '../../actions/user_midware.php';
 $user_name = $_SESSION['user_name'];
 
 // Initialize $subtotal to null
