@@ -600,17 +600,6 @@
             }
         </script>
 
-        <script>
-            $(document).ready(function() {
-                $('.chatbot').click(function(e) {
-                    e.preventDefault();
-
-                    console.log("Hello World");
-
-
-                });
-            });
-        </script>
 </body>
 
 </html>
