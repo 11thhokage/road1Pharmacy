@@ -542,50 +542,50 @@
 
             ?>
 
-            <body id="chat_body">
-                <div class="chat-container">
-                    <h2>Alternative Medicine Chatbot</h2>
-                    <div class="chat-messages" id="chat-messages">
-                        <div class="bot-message"><?php echo $randomValue; ?></div>
-                    </div>
-                    <form id="chat-form">
-                        <input type="text" id="user-input" placeholder="Type your message...">
-                        <button type="submit">Send</button>
-                    </form>
+
+            <div class="chat-container">
+                <h2>Alternative Medicine Chatbot</h2>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="bot-message"><?php echo $randomValue; ?></div>
                 </div>
+                <form id="chat-form">
+                    <input type="text" id="user-input" placeholder="Type your message...">
+                    <button type="submit">Send</button>
+                </form>
+            </div>
 
-                <script>
-                    document.getElementById('chat-form').addEventListener('submit', function(event) {
-                        event.preventDefault();
-                        sendMessage();
-                        document.getElementById("user-input").value = "";
-                    });
+            <script>
+                document.getElementById('chat-form').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    sendMessage();
+                    document.getElementById("user-input").value = "";
+                });
 
-                    function sendMessage() {
-                        var userInput = document.getElementById('user-input').value;
-                        appendMessage('user', userInput);
+                function sendMessage() {
+                    var userInput = document.getElementById('user-input').value;
+                    appendMessage('user', userInput);
 
-                        var xhr = new XMLHttpRequest();
-                        xhr.open('POST', 'chatbotkuno/index.php', true);
-                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                        xhr.onreadystatechange = function() {
-                            if (xhr.readyState == 4 && xhr.status == 200) {
-                                var botResponse = xhr.responseText;
-                                appendMessage('bot', botResponse);
-                            }
-                        };
-                        xhr.send('input=' + userInput);
-                    }
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'chatbotkuno/index.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var botResponse = xhr.responseText;
+                            appendMessage('bot', botResponse);
+                        }
+                    };
+                    xhr.send('input=' + userInput);
+                }
 
-                    function appendMessage(sender, message) {
-                        var chatMessages = document.getElementById('chat-messages');
-                        var messageDiv = document.createElement('div');
-                        messageDiv.className = sender + '-message';
-                        messageDiv.textContent = message;
-                        chatMessages.appendChild(messageDiv);
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
-                    }
-                </script>
+                function appendMessage(sender, message) {
+                    var chatMessages = document.getElementById('chat-messages');
+                    var messageDiv = document.createElement('div');
+                    messageDiv.className = sender + '-message';
+                    messageDiv.textContent = message;
+                    chatMessages.appendChild(messageDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+            </script>
         </div>
         <script>
             function toggleChatbox() {
@@ -599,18 +599,18 @@
                 chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
             }
         </script>
-</body>
-<script>
-    $(document).ready(function() {
-        $('.chatbot').click(function(e) {
-            e.preventDefault();
 
-            console.log("Hello World");
+        <script>
+            $(document).ready(function() {
+                $('.chatbot').click(function(e) {
+                    e.preventDefault();
+
+                    console.log("Hello World");
 
 
-        });
-    });
-</script>
+                });
+            });
+        </script>
 </body>
 
 </html>
