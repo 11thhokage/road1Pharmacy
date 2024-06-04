@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road 1 Pharmacy</title>
     <link rel="stylesheet" href="styles.css">
@@ -20,36 +21,37 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position:fixed; width:100%; height:50px; padding:none; z-index:3;">
-    <div class="navbar-title">
-        <img src="img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">
-        <a class="navbar-brand" href="#">Road 1 Pharmacy</a>
-    </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav" style="margin:none;">
-        <ul class="navbar-nav navbar-links">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li>
-                <a class="nav-link" onclick="medicineDisplay()">Medicines</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#about" >About Us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#faq">FAQ</a>
-            </li>
-        </ul>
-    </div>
+        <div class="navbar-title">
+            <img src="img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">
+            <a class="navbar-brand" href="#">Road 1 Pharmacy</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav" style="margin:none;">
+            <ul class="navbar-nav navbar-links">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li>
+                    <a class="nav-link" onclick="medicineDisplay()">Medicines</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#faq">FAQ</a>
+                </li>
+            </ul>
+        </div>
     </nav>
-    <div class="container-fluid" style="display: none;" id="med_list" >
+    <div class="container-fluid" style="display: none;" id="med_list">
         <?php include 'med_list.php'; ?>
     </div>
-    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
         function medicineDisplay() {
             var med_list = document.getElementById("med_list");
@@ -72,7 +74,18 @@
                 },
                 success: function(response) {
                     $('#med_list').html(response);
+                    updatePagination();
                 }
+            });
+        }
+
+        function updatePagination() {
+            document.querySelectorAll('.pagination a').forEach(function(element) {
+                element.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var page = this.getAttribute('data-page');
+                    loadMedList(page);
+                });
             });
         }
 
@@ -80,9 +93,18 @@
             e.preventDefault();
             var page = $(this).attr('data-page');
             loadMedList(page);
-        }); 
+        });
+
+        document.getElementById('goButton').addEventListener('click', function() {
+            var page = document.getElementById('gotoPage').value;
+            if (page >= 1 && page <= <?php echo $totalPages; ?>) {
+                loadMedList(page);
+            } else {
+                alert('Please enter a valid page number between 1 and <?php echo $totalPages; ?>');
+            }
+        });
     </script>
-    <div class="carouselimg" >
+    <div class="carouselimg">
         <div class="custom-shape-divider-bottom-1717314319">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
@@ -105,10 +127,10 @@
                 <div class="carousel-item">
                     <img class="d-block w-100 carousel-img3" alt="Third slide">
                 </div>
-                </div>
-                    
             </div>
+
         </div>
+    </div>
     </div>
     <div class="frontpage">
         <div class="hexagon1 hex">
@@ -118,13 +140,17 @@
             <img src="img\pngwingleft.com.png" alt="">
         </div>
         <div class="section1">
-            <div class="about-us1">
+            <div class="about-us1" id="about">
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 col-md-8 col-sm-8 description">
                             <h5 class="text-danger" id="aboutus">About Us</h5>
                             <h2>We Are The Best Pharmacy</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> Facilis cumque, aperiam laboriosam sint explicabo possimus sit. <br> Repellendus perferendis aliquid qui!</p>
+                            <p>The Mission of Road 1 Pharmacy is to give the best care to patients.
+                                We aim to provide top-notch pharmaceutical services,
+                                ensuring everyone gets the right medicine and advice they need.
+                                By focusing on quality and care,
+                                We hope to make a positive difference in people's health and lives.</p>
                         </div>
                         <div class="col-lg-3 col-md-5 col-sm-6">
                             <div class="card bg-white">
@@ -147,7 +173,7 @@
                     </div>
                 </div>
             </div>
-            <center class="captions" >
+            <center class="captions">
                 <h2>The Dream of Road 1 Pharmacy</h2>
                 <p>Provide the best pharmaceutical services for patients.</p>
             </center>
@@ -162,30 +188,30 @@
                         <div class="card-group col-lg-8 col-md-12 col-sm-12 users">
                             <div class="card ">
                                 <div class="card-body border">
-                                <i class="bi bi-person-circle text-danger"></i>
-                                <h5 class="card-title">MENITA BORBON</h5>
-                                <p class="card-text">Pharmacist/Purchaser</p>
+                                    <i class="bi bi-person-circle text-danger"></i>
+                                    <h5 class="card-title">MENITA BORBON</h5>
+                                    <p class="card-text">Pharmacist/Purchaser</p>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-body border">
-                                <i class="bi bi-person-circle text-danger"></i>
-                                <h5 class="card-title">RONALDO BORBON</h5>
-                                <p class="card-text">Proprietor</p>
+                                    <i class="bi bi-person-circle text-danger"></i>
+                                    <h5 class="card-title">RONALDO BORBON</h5>
+                                    <p class="card-text">Proprietor</p>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-body border">
-                                <i class="bi bi-person-circle text-danger"></i>
-                                <h5 class="card-title">CHENG CAGADAS</h5>
-                                <p class="card-text">Drugstore Clerk</p>
+                                    <i class="bi bi-person-circle text-danger"></i>
+                                    <h5 class="card-title">CHENG CAGADAS</h5>
+                                    <p class="card-text">Drugstore Clerk</p>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-body border">
-                                <i class="bi bi-person-circle text-danger"></i>
-                                <h5 class="card-title">JULIET TAROMA</h5>
-                                <p class="card-text">Drugstore Clerk</p>
+                                    <i class="bi bi-person-circle text-danger"></i>
+                                    <h5 class="card-title">JULIET TAROMA</h5>
+                                    <p class="card-text">Drugstore Clerk</p>
                                 </div>
                             </div>
                         </div>
@@ -193,14 +219,14 @@
                 </div>
             </div>
         </div>
-        <div class="section2" id="about">
+        <div class="section2" id="faq">
             <center class="captions">
                 <h2>We Give The Best Products</h2>
-            </center> 
+            </center>
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-lg-2 col-md-3 col-sm-6 ">
-                        <div  class="card "style=" box-shadow: 0px 0px 10px 2px #888888;  margin-bottom:30px; height:250px;">
+                        <div class="card " style=" box-shadow: 0px 0px 10px 2px #888888;  margin-bottom:30px; height:250px;">
                             <div class="card-body justify-content-center ">
                                 <center><i class="fa-solid fa-tablets text-danger products"></i></center>
                                 <h5 class="card-title">VITAMINS</h5>
@@ -230,7 +256,18 @@
                                             },
                                             success: function(response) {
                                                 $('#vit_list').html(response);
+                                                updatePagination();
                                             }
+                                        });
+                                    }
+
+                                    function updatePagination() {
+                                        document.querySelectorAll('.pagination a').forEach(function(element) {
+                                            element.addEventListener('click', function(event) {
+                                                event.preventDefault();
+                                                var page = this.getAttribute('data-page');
+                                                loadVitList(page);
+                                            });
                                         });
                                     }
 
@@ -239,15 +276,24 @@
                                         var page = $(this).attr('data-page');
                                         loadVitList(page);
                                     });
+
+                                    document.getElementById('goButtonV').addEventListener('click', function() {
+                                        var page = document.getElementById('gotoPageV').value;
+                                        if (page >= 1 && page <= <?php echo $totalPages; ?>) {
+                                            loadVitList(page);
+                                        } else {
+                                            alert('Please enter a valid page number between 1 and <?php echo $totalPages; ?>');
+                                        }
+                                    });
                                 </script>
                                 <div class="ieffect"></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6">
-                        <div class="card "style=" box-shadow: 0px 0px 10px 2px #888888;  margin-bottom:30px; height:250px;">
-                            <div class="card-body " >
-                            <center><i class="fa-solid fa-virus text-danger products "></i></center>
+                        <div class="card " style=" box-shadow: 0px 0px 10px 2px #888888;  margin-bottom:30px; height:250px;">
+                            <div class="card-body ">
+                                <center><i class="fa-solid fa-virus text-danger products "></i></center>
                                 <h5 class="card-title">FLU REMEDIES</h5>
                                 <button class="card-button" onclick="fluDisplay()">View more</button>
                                 <div class="container-fluid" style="display: none;" id="flu_list">
@@ -275,7 +321,18 @@
                                             },
                                             success: function(response) {
                                                 $('#flu_list').html(response);
+                                                updatePagination();
                                             }
+                                        });
+                                    }
+
+                                    function updatePagination() {
+                                        document.querySelectorAll('.pagination a').forEach(function(element) {
+                                            element.addEventListener('click', function(event) {
+                                                event.preventDefault();
+                                                var page = this.getAttribute('data-page');
+                                                loadFluList(page);
+                                            });
                                         });
                                     }
 
@@ -284,15 +341,24 @@
                                         var page = $(this).attr('data-page');
                                         loadFluList(page);
                                     });
+
+                                    document.getElementById('goButtonF').addEventListener('click', function() {
+                                        var page = document.getElementById('gotoPageF').value;
+                                        if (page >= 1 && page <= <?php echo $totalPages; ?>) {
+                                            loadFluList(page);
+                                        } else {
+                                            alert('Please enter a valid page number between 1 and <?php echo $totalPages; ?>');
+                                        }
+                                    });
                                 </script>
                                 <div class="ieffect"></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6">
-                        <div  class="card "style=" box-shadow: 0px 0px 10px 2px #888888;  margin-bottom:30px; height:250px;">
+                        <div class="card " style=" box-shadow: 0px 0px 10px 2px #888888;  margin-bottom:30px; height:250px;">
                             <div class="card-body ">
-                            <center><i class="fa-solid fa-child text-danger products"></i></center>
+                                <center><i class="fa-solid fa-child text-danger products"></i></center>
                                 <h5 class="card-title">KIDS NUTRITION</h5>
                                 <button class="card-button" onclick="kidDisplay()">View more</button>
                                 <div class="container-fluid" style="display: none;" id="kid_list">
@@ -320,7 +386,18 @@
                                             },
                                             success: function(response) {
                                                 $('#kid_list').html(response);
+                                                updatePagination();
                                             }
+                                        });
+                                    }
+
+                                    function updatePagination() {
+                                        document.querySelectorAll('.pagination a').forEach(function(element) {
+                                            element.addEventListener('click', function(event) {
+                                                event.preventDefault();
+                                                var page = this.getAttribute('data-page');
+                                                loadKidList(page);
+                                            });
                                         });
                                     }
 
@@ -329,17 +406,26 @@
                                         var page = $(this).attr('data-page');
                                         loadKidList(page);
                                     });
+
+                                    document.getElementById('goButtonK').addEventListener('click', function() {
+                                        var page = document.getElementById('gotoPageK').value;
+                                        if (page >= 1 && page <= <?php echo $totalPages; ?>) {
+                                            loadKidList(page);
+                                        } else {
+                                            alert('Please enter a valid page number between 1 and <?php echo $totalPages; ?>');
+                                        }
+                                    });
                                 </script>
                                 <div class="ieffect"></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6">
-                        <div  class="card "style=" box-shadow: 0px 0px 10px 2px #888888; margin-bottom:30px; height:250px;">
+                        <div class="card " style=" box-shadow: 0px 0px 10px 2px #888888; margin-bottom:30px; height:250px;">
                             <div class="card-body">
-                            <center><i class="fa-solid fa-baby text-danger products"></i></center>
+                                <center><i class="fa-solid fa-baby text-danger products"></i></center>
                                 <h5 class="card-title">ABSORBENT HYGIENE PRODUCTS</h5>
-                                <button class="card-button"  onclick="diaDisplay()">View more</button>
+                                <button class="card-button" onclick="diaDisplay()">View more</button>
                                 <div class="container-fluid" style="display: none;" id="dia_list">
                                     <?php include 'dia_list.php'; ?>
                                 </div>
@@ -365,7 +451,18 @@
                                             },
                                             success: function(response) {
                                                 $('#dia_list').html(response);
+                                                updatePagination();
                                             }
+                                        });
+                                    }
+
+                                    function updatePagination() {
+                                        document.querySelectorAll('.pagination a').forEach(function(element) {
+                                            element.addEventListener('click', function(event) {
+                                                event.preventDefault();
+                                                var page = this.getAttribute('data-page');
+                                                loadDiaList(page);
+                                            });
                                         });
                                     }
 
@@ -374,13 +471,22 @@
                                         var page = $(this).attr('data-page');
                                         loadDiaList(page);
                                     });
+
+                                    document.getElementById('goButtonD').addEventListener('click', function() {
+                                        var page = document.getElementById('gotoPageD').value;
+                                        if (page >= 1 && page <= <?php echo $totalPages; ?>) {
+                                            loadDiaList(page);
+                                        } else {
+                                            alert('Please enter a valid page number between 1 and <?php echo $totalPages; ?>');
+                                        }
+                                    });
                                 </script>
                                 <div class="ieffect"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>           
+            </div>
         </div>
         <footer class="container-fluid footer">
             <div class="row inner-footer justify-content-evenly">
@@ -389,107 +495,110 @@
                         <img src="img/IMG_5789__1_-removebg-preview.png" class="footer-logo" alt="logo">
                         <h1>Road 1 Pharmacy</h1>
                     </div>
-                    <h5>Your one stop healthcare pharmacy</h5>
+                    <h3>Your one stop healthcare pharmacy</h3>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 footer-maps" >
+                <div class="col-lg-3 col-md-3 col-sm-12 footer-maps">
+                    <h2>Location:</h2>
                     <p style="padding: 10px 50px 0 50px;">
-                    <iframe class="gmaps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.6919732709853!2d121.07851119999998!3d14.8425359!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397af55773a7a17%3A0xfe00da48e36d6f5c!2sRoad%201%20Pharmacy%20Convenience%20Store!5e0!3m2!1sfil!2sph!4v1715661497604!5m2!1sfil!2sph" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <p>Location: <br> <a href="https://maps.app.goo.gl/T6Y8MSbjgEYKvnnf7">Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</a></p>
+                        <iframe class="gmaps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.6919732709853!2d121.07851119999998!3d14.8425359!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397af55773a7a17%3A0xfe00da48e36d6f5c!2sRoad%201%20Pharmacy%20Convenience%20Store!5e0!3m2!1sfil!2sph!4v1715661497604!5m2!1sfil!2sph" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                    <p><a href="https://maps.app.goo.gl/T6Y8MSbjgEYKvnnf7">Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</a></p>
                     </p>
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-12 footer-contacts">
+                    <h2>Contact us:</h2>
                     <p style="padding: 50px 50px 0 50px;">
                         Cellphone no. : #09123456789 <br>
-                    </p>    
+                    </p>
                     <p style="padding: 0px 50px 0 50px;">
                         Email: <br>
                         <a href="mailto:road1pharmacy@gmail.com"> road1pharmacy@gmail.com</a>
-                    </p>  
+                    </p>
                 </div>
             </div>
         </footer>
         <div class="ai-chatbot">
-        <a class="chatbot" onclick="toggleChatbox()">
-            <div class="chatbot-circle">
-                <i class="bi bi-chat-dots-fill text-light chaticon" title="Hi"></i>
-            </div>
-        </a>
-    </div>
-
-    <div id="chatbox" style="display: none;">
-        <a onclick="closeChatBox()"><i class="fas fa-times"></i></a>
-        <?php
-        include 'database/config.php';
-
-        $sql = "SELECT greetings FROM training_greetings";
-        $result = mysqli_query($conn, $sql);
-        $greet = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $greet[] = $row['greetings'];
-        }
-        $randomIndex = array_rand($greet);
-        $randomValue = $greet[$randomIndex];
-
-
-        ?>
-
-        <body id="chat_body">
-            <div class="chat-container">
-                <h2>Alternative Medicine Chatbot</h2>
-                <div class="chat-messages" id="chat-messages">
-                    <div class="bot-message"><?php echo $randomValue; ?></div>
+            <a class="chatbot" onclick="toggleChatbox()">
+                <div class="chatbot-circle">
+                    <i class="bi bi-chat-dots-fill text-light chaticon" title="Hi"></i>
                 </div>
-                <form id="chat-form">
-                    <input type="text" id="user-input" placeholder="Type your message...">
-                    <button type="submit">Send</button>
-                </form>
-            </div>
+            </a>
+        </div>
 
-            <script>
-                document.getElementById('chat-form').addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    sendMessage();
-                    document.getElementById("user-input").value = "";
-                });
+        <div id="chatbox" style="display: none;">
+            <a onclick="closeChatBox()"><i class="fas fa-times" id="chat_close"></i></a>
+            <?php
+            include 'database/config.php';
 
-                function sendMessage() {
-                    var userInput = document.getElementById('user-input').value;
-                    appendMessage('user', userInput);
+            $sql = "SELECT greetings FROM training_greetings";
+            $result = mysqli_query($conn, $sql);
+            $greet = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $greet[] = $row['greetings'];
+            }
+            $randomIndex = array_rand($greet);
+            $randomValue = $greet[$randomIndex];
 
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'chatbotkuno/index.php', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            var botResponse = xhr.responseText;
-                            appendMessage('bot', botResponse);
-                        }
-                    };
-                    xhr.send('input=' + userInput);
-                }
 
-                function appendMessage(sender, message) {
-                    var chatMessages = document.getElementById('chat-messages');
-                    var messageDiv = document.createElement('div');
-                    messageDiv.className = sender + '-message';
-                    messageDiv.textContent = message;
-                    chatMessages.appendChild(messageDiv);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }
-            </script>
-    </div>
-    <script>
-        function toggleChatbox() {
-            var chatbox = document.getElementById("chatbox");
-            chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
-            // console.log("hi");
-        }
+            ?>
 
-        function closeChatBox() {
-            var chatbox = document.getElementById("chatbox");
-            chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
-        }
-    </script>
+            <body id="chat_body">
+                <div class="chat-container">
+                    <h2>Alternative Medicine Chatbot</h2>
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="bot-message"><?php echo $randomValue; ?></div>
+                    </div>
+                    <form id="chat-form">
+                        <input type="text" id="user-input" placeholder="Type your message...">
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+
+                <script>
+                    document.getElementById('chat-form').addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        sendMessage();
+                        document.getElementById("user-input").value = "";
+                    });
+
+                    function sendMessage() {
+                        var userInput = document.getElementById('user-input').value;
+                        appendMessage('user', userInput);
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'chatbotkuno/index.php', true);
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                var botResponse = xhr.responseText;
+                                appendMessage('bot', botResponse);
+                            }
+                        };
+                        xhr.send('input=' + userInput);
+                    }
+
+                    function appendMessage(sender, message) {
+                        var chatMessages = document.getElementById('chat-messages');
+                        var messageDiv = document.createElement('div');
+                        messageDiv.className = sender + '-message';
+                        messageDiv.textContent = message;
+                        chatMessages.appendChild(messageDiv);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }
+                </script>
+        </div>
+        <script>
+            function toggleChatbox() {
+                var chatbox = document.getElementById("chatbox");
+                chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
+                // console.log("hi");
+            }
+
+            function closeChatBox() {
+                var chatbox = document.getElementById("chatbox");
+                chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
+            }
+        </script>
 </body>
 <script>
     $(document).ready(function() {
@@ -503,4 +612,5 @@
     });
 </script>
 </body>
+
 </html>

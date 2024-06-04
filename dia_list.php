@@ -7,11 +7,14 @@
             position: absolute;
             top: 10px;
             right: 15px;
+            color: #dc3545;
+            font-size: 20px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+
         }
 
         th,
@@ -19,6 +22,31 @@
             padding: 8px;
             text-align: left;
             border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            color: #212529;
+        }
+
+        td {
+            color: #dc3545;
+        }
+
+        .page-item.active .page-link {
+            background-color: #dc3545;
+            color: #fff;
+            border-color: #dc3545;
+        }
+
+        .page-item:not(.active) .page-link {
+            background-color: #fff;
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .page-link {
+            border: 1px solid #dc3545;
+            margin: 0 2px;
         }
 
         @media screen and (max-width: 600px) {
@@ -132,10 +160,39 @@
         if ($currentPage < $totalPages) {
             echo "<li class='page-item'><a class='page-link' href='#' data-page='" . ($currentPage + 1) . "'>Next</a></li>";
         }
+        echo "<div class='col-md-2'>";
+        echo "<input type='number' id='gotoPageD' class='form-control' min='1' max='$totalPages' placeholder='Page'>";
+        echo "</div>";
+        echo "<div class='col-md-1'>";
+        echo "<button class='btn btn-danger' id='goButtonD'>Go</button>";
+        echo "</div>";
 
         echo "</ul>";
         echo "</nav>";
         echo "</div>";
+
+        echo "<div class='row justify-content-center mt-2'>";
+
+        echo "</div>";
+
+        echo "<script>
+document.getElementById('goButtonD').addEventListener('click', function() {
+    var page = document.getElementById('gotoPageD').value;
+    if (page >= 1 && page <= $totalPages) {
+        loadDiaList(page);
+    } else {
+        alert('Please enter a valid page number between 1 and $totalPages');
+    }
+});
+
+document.querySelectorAll('.page-link').forEach(function(element) {
+    element.addEventListener('click', function(event) {
+        event.preventDefault();
+        var page = this.getAttribute('data-page');
+        loadDiaList(page);
+    });
+});
+</script>";
     } else {
         echo "0 results";
     }

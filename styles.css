@@ -151,7 +151,6 @@ body{
     border-radius: 10px;
     background-color: white;
     transform: scale(1);
-    
 }
 .product-box{
     position: relative;
@@ -292,7 +291,7 @@ body{
     fill: #FFFFFF;
 }
 .footer{
-    height: 100%;
+    max-height: 100%;
     width: 100%;
     background-color:#E29578;
     z-index: 1;
@@ -382,17 +381,11 @@ i{
     right: 100px;
     width: 500px;
     height: 300px;
-    background-color: #7692FF;
+    background-color: #dc3545;
     padding: 10px;
     display: none;
     border-radius: 10px;
     z-index: 6;
-}
-#chatbox a{
-    border: none;
-    position: absolute;
-    top :0;
-    right: 10px;
 }
 #chat_body {
     font-family: Arial, sans-serif;
@@ -403,14 +396,14 @@ i{
     width: 450px;
     margin: 10px auto;
     border: 1px solid #ccc;
-    background-color: #ABD2FA;
+    background-color: #fff ;
     padding: 10px;
     border-radius: 10px;
     height: 260px;
 }
 .chat-container h2 {
     margin-top: 0;
-    color: #046865;
+    color: #dc3545;
 }
 #chat-form{
     position: absolute;
@@ -423,13 +416,13 @@ i{
 #chat-form button{
     border: 1px solid #ccc;
     color : white;
-    background-color: #37393A;
+    background-color: #212529;
 }
 
 #chat-form input{
     width: 87%;
     color: black;
-    background-color: #D6C9C9;
+    background-color: #EE9AA2;
 }
 
 .chat-messages {
@@ -441,20 +434,20 @@ i{
 .user-message {
     margin-bottom: 10px;
     font-weight: bold;
-    color: blue;
+    color: #212529;
 }
 
 .bot-message {
     margin-bottom: 10px;
     font-style: italic;
-    color: #2C6E49;
+    color: #dc3545;
 }
 #med_list {
     position: fixed;
     top: 13%;
     left: 13%;
     z-index: 5; /* Add this line */
-    background-color: #7692FF;
+    background-color: #fff;
     width: 73vw;
     height: 75vh;
     border-radius: 10px;
@@ -464,7 +457,7 @@ i{
     top: 13%;
     left: 13%;
     z-index: 5; /* Add this line */
-    background-color: #7692FF;
+    background-color: #fff;
     width: 73vw;
     height: 75vh;
     border-radius: 10px;
@@ -474,7 +467,7 @@ i{
     top: 13%;
     left: 13%;
     z-index: 5; /* Add this line */
-    background-color: #7692FF;
+    background-color: #fff;
     width: 73vw;
     height: 75vh;
     border-radius: 10px;
@@ -484,7 +477,7 @@ i{
     top: 13%;
     left: 13%;
     z-index: 5; /* Add this line */
-    background-color: #7692FF;
+    background-color: #fff;
     width: 73vw;
     height: 75vh;
     border-radius: 10px;
@@ -494,7 +487,7 @@ i{
     top: 13%;
     left: 13%;
     z-index: 5; /* Add this line */
-    background-color: #7692FF;
+    background-color: #fff;
     width: 73vw;
     height: 75vh;
     border-radius: 10px;
@@ -515,17 +508,19 @@ i{
     right: 100px;
     width: 500px;
     height: 300px;
-    background-color: #7692FF;
+    background-color: #dc3545;
     padding: 10px;
     display: none;
     border-radius: 10px;
     z-index: 6;
 }
-#chatbox a{
-    border: none;
+#chat_close{
     position: absolute;
-    top :0;
-    right: 10px;
+        top: 3px;
+        right: 8px;
+        color: #fff;
+        font-size: 20px;
+
 }
 #chat_body {
     font-family: Arial, sans-serif;
@@ -536,14 +531,14 @@ i{
     width: 450px;
     margin: 10px auto;
     border: 1px solid #ccc;
-    background-color: #ABD2FA;
+    background-color: #fff;
     padding: 10px;
     border-radius: 10px;
     height: 260px;
 }
 .chat-container h2 {
     margin-top: 0;
-    color: #046865;
+    color: #dc3545;
 }
 #chat-form{
     position: absolute;
@@ -556,13 +551,13 @@ i{
 #chat-form button{
     border: 1px solid #ccc;
     color : white;
-    background-color: #37393A;
+    background-color: #212529;
 }
 
 #chat-form input{
     width: 88%;
     color: black;
-    background-color: #D6C9C9;
+    background-color: #EE9AA2;
 }
 
 .chat-messages {
@@ -574,20 +569,20 @@ i{
 .user-message {
     margin-bottom: 10px;
     font-weight: bold;
-    color: blue;
+    color: #212529;
 }
 
 .bot-message {
     margin-bottom: 10px;
     font-style: italic;
-    color: #2C6E49;
+    color: #dc3545;
 }
 #med_list {
     position: fixed;
     top: 13%;
     left: 13%;
     z-index: 5; /* Add this line */
-    background-color: #7692FF;
+    background-color: #fff;
     width: 73vw;
     height: 75vh;
     border-radius: 10px;
@@ -712,7 +707,7 @@ i{
         right: 50px;
         width: 300px;
         height: 400px;
-        background-color: #7692FF;
+        background-color: #dc3545;
         padding: 10px;
         display: none;
         border-radius: 10px;
