@@ -1,5 +1,5 @@
 <?php
-session_start();
+include '../../actions/session_check.php';
 include '../../actions/admin_midware.php';
 
 $host = "localhost";

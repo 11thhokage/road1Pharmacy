@@ -1,6 +1,6 @@
 <?php
 include '../../database/config.php';
-session_start();
+include '../../actions/session_check.php';
 
 //middleware
 include '../../actions/admin_midware.php';
