@@ -60,8 +60,8 @@ if (isset($_GET['warehouse_code']) && isset($_GET['item_name']) && isset($_GET['
                                     <h6 for="qty">Current Quantity: <?php echo $item_qty; ?></h6>
                                     <input type="hidden" class="form-control" name="curr_qty" required placeholder="Enter Quantity" min="1" value="<?php echo $item_qty; ?>">
                                     <select name="process" id="">
-                                        <option value="Add">+</option>
-                                        <option value="Sub">-</option>
+                                        <option value="Add">+ ADD</option>
+                                        <option value="Sub">- Subtract</option>
                                     </select>
                                     <input type="number" class="form-control" name="qty" required placeholder="Enter Quantity" min="1">
 

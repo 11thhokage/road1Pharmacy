@@ -51,6 +51,7 @@ include '../../actions/user_midware.php';
                                             <th scope='col'>Item Name</th>
                                             <th scope='col'>Item Qty</th>
                                             <th scope='col'>Expiry Date</th>
+                                            <th scope='col'>Batch No.</th>
                                             <th scope='col'>Vendor Name</th>
                                             
                                         </tr>
@@ -62,6 +63,7 @@ include '../../actions/user_midware.php';
                         $item_qty = $row['item_qty'];
                         $expiry_date = $row['expiry_date'];
                         $vendor_name = $row['vendor_name'];
+                        $batch_no = $row['batch_no'];
 
 
 
@@ -70,6 +72,7 @@ include '../../actions/user_midware.php';
                         echo "<td>" . $item_name_warehouse . "</td>";
                         echo "<td>" . $item_qty . "</td>";
                         echo "<td>" . $expiry_date . "</td>";
+                        echo "<td>" . $batch_no . "</td>";
                         echo "<td>" . $vendor_name . "</td>";
                         echo "</tr>";
                     }

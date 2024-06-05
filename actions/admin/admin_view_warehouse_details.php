@@ -45,6 +45,7 @@ include '../../database/config.php';
                                                     <th scope='col'>Item Name</th>
                                                     <th scope='col'>QTY</th>
                                                     <th scope='col'>Expiry Date</th>
+                                                    <th scope='col'>Batch No</th>
                                                     <th scope='col'>Actions</th>
                                                 </tr>
                                             </thead>
@@ -55,6 +56,7 @@ include '../../database/config.php';
                 $item_name = $row['item_name'];
                 $item_qty = $row['item_qty'];
                 $expiry_date = $row['expiry_date'];
+                $batch_no = $row['batch_no'];
 
                 echo "<tr>
                         <td scope='col' class='id'> $warehouse_code</td>
@@ -69,6 +71,7 @@ include '../../database/config.php';
                 } else {
                     echo "<td scope='col' class='expiry_date'> $expiry_date</td>";
                 }
+                echo "<td scope='col' class='date'> $batch_no</td>";
                 echo "<td scope='col'>
                         <a href='../../pages/admin/adjust_item_with.php?warehouse_code=$warehouse_code&item_name=$item_name&item_qty=$item_qty&expiry_date=$expiry_date' class='btn btn-success'>Adjust</a>
                       </td>

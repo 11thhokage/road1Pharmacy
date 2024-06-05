@@ -27,13 +27,14 @@ include '../../actions/session_check.php'; ?>
         $item_name = $_POST['item_name'];
         $qty = $_POST['qty'];
         $expiry_date = $_POST['expiry_date'];
+        $batch_no = $_POST['batch_no'];
         $date_received = $_POST['date_received'];
         $time = $_POST['time'];
         $vendor = $_POST['vendor_name'];
         $reason = $_POST['reason'] . " " . $date_received . "-" . $time;
 
-        $insertQuery = "INSERT INTO warehouse (item_name, item_qty, expiry_date, vendor_name) VALUES 
-            ('$item_name', '$qty', '$expiry_date', '$vendor')";
+        $insertQuery = "INSERT INTO warehouse (item_name, item_qty, expiry_date,batch_no, vendor_name) VALUES 
+            ('$item_name', '$qty', '$expiry_date','$batch_no', '$vendor')";
         $insertResult = mysqli_query($conn, $insertQuery);
         if ($insertResult) {
             $insertQuery2 = "INSERT INTO deliver_received (receipt_trans_number, vendor_name, date_received, received_by) VALUES 
@@ -41,8 +42,8 @@ include '../../actions/session_check.php'; ?>
             $insertResult2 = mysqli_query($conn, $insertQuery2);
             if ($insertQuery2) {
                 $last_id = $conn->insert_id;
-                $insertQuery4 = "INSERT INTO delivered_items (last_id,receipt_trans_number, item_name,  item_qty, expiry_date) VALUES (
-                            '$last_id','$reason', '$item_name',  '$qty', '$expiry_date')";
+                $insertQuery4 = "INSERT INTO delivered_items (last_id,receipt_trans_number, item_name,  item_qty, expiry_date, batch_no) VALUES (
+                            '$last_id','$reason', '$item_name',  '$qty', '$expiry_date','$batch_no')";
                 $insertResult4 = mysqli_query($conn, $insertQuery4);
                 if ($insertResult4) {
                     echo "<script>
@@ -71,6 +72,7 @@ include '../../actions/session_check.php'; ?>
         $qty = $_POST['qty'];
         $expiry_date = $_POST['expiry_date'];
         $date_received = $_POST['date_received'];
+        $batch_no = $_POST['batch_no'];
         $time = $_POST['time'];
         $vendor = $_POST['vendor_name'];
         $reason = $_POST['reason'] . " " . $date_received . "-" . $time;
@@ -92,8 +94,8 @@ include '../../actions/session_check.php'; ?>
                     });
                 </script>";
         } else {
-            $insertQuery = "INSERT INTO warehouse (item_name, item_qty, expiry_date, vendor_name) VALUES
-    ('$item_name', '$qty', '$expiry_date', '$vendor')";
+            $insertQuery = "INSERT INTO warehouse (item_name, item_qty, expiry_date,batch_no, vendor_name) VALUES
+    ('$item_name', '$qty', '$expiry_date','$batch_no', '$vendor')";
             $insertResult = mysqli_query($conn, $insertQuery);
             if ($insertResult) {
                 $insertQuery2 = "INSERT INTO deliver_received (receipt_trans_number, vendor_name, date_received, received_by) VALUES
@@ -101,8 +103,8 @@ include '../../actions/session_check.php'; ?>
                 $insertResult2 = mysqli_query($conn, $insertQuery2);
                 if ($insertQuery2) {
                     $last_id = $conn->insert_id;
-                    $insertQuery4 = "INSERT INTO delivered_items (last_id,receipt_trans_number, item_name, item_qty, expiry_date) VALUES (
-    '$last_id','$reason', '$item_name', '$qty', '$expiry_date')";
+                    $insertQuery4 = "INSERT INTO delivered_items (last_id,receipt_trans_number, item_name, item_qty, expiry_date,batch_no) VALUES (
+    '$last_id','$reason', '$item_name', '$qty', '$expiry_date','$batch_no')";
                     $insertResult4 = mysqli_query($conn, $insertQuery4);
                     if ($insertResult4) {
                         echo "<script>

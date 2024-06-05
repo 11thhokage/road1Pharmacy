@@ -63,6 +63,10 @@ if (isset($_GET['item_name'])) {
                                     <label for="exp_date">Expiry Date:</label>
                                     <input type="date" class="form-control" name="expiry_date" required placeholder="Enter Expiry Date">
                                 </div>
+                                <div class="form-group col-md-12">
+                                    <label for="batch_no">Batch No</label>
+                                    <input type="text" class="form-control" name="batch_no" required placeholder="Batch/Lot no.">
+                                </div>
                                 <input type="hidden" class="form-control" name="date_received" value="<?php echo $today; ?>" required placeholder="Enter Expiry Date">
                                 <input type="hidden" class="form-control" name="time" value="<?php echo $time; ?>" required placeholder="Enter Expiry Date">
 

@@ -38,6 +38,7 @@ if (session_status() == PHP_SESSION_NONE) {
             $subtotal = $price * $receive_qty;
             $expiry_date = $_POST['expiry_date'];
             $date_received = $_POST['date_received_check'];
+            $batch_no = $_POST['batch_no'];
             // echo $receipt_no;
             // echo $vendor;
             // echo $date_received;
@@ -72,6 +73,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 'quantity' => $receive_qty,
                 'subtotal' => $subtotal,
                 'expiry_date' => $expiry_date,
+                'batch_no' => $batch_no,
             ];
             $found = false;
             foreach ($_SESSION['items'] as $key => $prodSessionItem) {
@@ -86,6 +88,7 @@ if (session_status() == PHP_SESSION_NONE) {
                         'quantity' => $new_qty,
                         'subtotal' => $new_subtotal,
                         'expiry_date' => $expiry_date,
+                        'batch_no' => $batch_no,
                     ];
                     break; // Item updated, no need to continue the loop
                 }

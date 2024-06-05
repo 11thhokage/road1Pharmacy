@@ -158,13 +158,17 @@ include '../../actions/user_midware.php';
                         <label>Subtotal:</label>
                         <b><span id="subtotal_display">0</span></b>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="date_received">Date Received:</label>
                         <input type="date" name="date_received_check" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="expiry_date">Expiry Date:</label>
                         <input type="date" name="expiry_date" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="batch_no">Batch/Lot No.</label>
+                        <input type="text" name="batch_no" required>
                     </div>
                     <div class="col-md-6 mb-3 text-end">
                         <br />
@@ -194,8 +198,8 @@ include '../../actions/user_midware.php';
                             <span id="errorSpan" style="color: red;"></span>
                             <p style="color:gray;">The number/letters on the sales invoice</p>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="vendor_name">Vendor Name:</label>
+                        <div class="col-md-5 mb-3">
+                            <label for="vendor_name">Vendor Name:</label><br>
                             <select name="vendor_name" class="my-select" id="" required>
                                 <?php
                                 $data = "SELECT DISTINCT vendor_name FROM items";
@@ -211,7 +215,7 @@ include '../../actions/user_midware.php';
                                 ?>
                             </select>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="date_received">Date Received:</label><br>
                             <input type="date" name="date_received" required>
                             <span id="errorSpan" style="color: red;"></span>
@@ -234,6 +238,7 @@ include '../../actions/user_midware.php';
                                                             <th scope='col'>Quantity</th>
                                                             <th scope='col'>Subtotal</th>
                                                             <th scope='col'>Expiry Date</th>
+                                                            <th scope='col'>Batch No</th>
                                                             <th scope='col'>Remove</th>
 
                                                         </tr>
@@ -258,6 +263,7 @@ include '../../actions/user_midware.php';
                                                                 <td scope='col' id='order_subtotal'><?= $item['price'] * $item['quantity']; ?></td>
 
                                                                 <td scope='col' id='expiry_date'><?= $item['expiry_date']; ?></td>
+                                                                <td scope='col' id='batch_no'><?= $item['batch_no']; ?></td>
                                                                 <td scope='col'>
                                                                     <a href="../../actions/user/order_void.php?index=<?= $key; ?>" class="btn btn-danger">🗑️Void</a>
                                                                 </td>
@@ -326,6 +332,7 @@ include '../../actions/user_midware.php';
                 var quantity = row.querySelector('.quantityInput').value; // Assuming class 'quantityInput' is unique within the row
                 var subtotal = row.querySelector('#order_subtotal').textContent;
                 var expiryDate = row.querySelector('#expiry_date').textContent;
+                var batchNo = row.querySelector('#batch_no').textContent;
 
                 // Create hidden input elements for each data item
                 form.appendChild(createHiddenInput('items[' + index + '][id]', orderId));
@@ -334,6 +341,7 @@ include '../../actions/user_midware.php';
                 form.appendChild(createHiddenInput('items[' + index + '][quantity]', quantity));
                 form.appendChild(createHiddenInput('items[' + index + '][subtotal]', subtotal));
                 form.appendChild(createHiddenInput('items[' + index + '][expiry_date]', expiryDate));
+                form.appendChild(createHiddenInput('items[' + index + '][batch_no]', batchNo));
             });
 
             // Get the total from the summary section
