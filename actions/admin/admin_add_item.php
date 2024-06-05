@@ -16,6 +16,7 @@ include '../../database/config.php'; ?>
     <link rel="stylesheet" href="../../css/add_item.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>Add New Item - Admin</title>
+    <link rel="icon" href="../../img/icon copy.png" type="image/x-icon" />
 </head>
 
 <body>

@@ -55,6 +55,7 @@ if ($result->num_rows > 0) {   // output data of each row
     }
 </style>
 <title>User Page</title>
+<link rel="icon" href="../../img/icon copy.png" type="image/x-icon" />
 
 
 <!-- SweetAlert2 JS --> <!-- Bootstrap CSS -->

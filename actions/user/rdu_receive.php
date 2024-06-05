@@ -21,6 +21,8 @@ if (session_status() == PHP_SESSION_NONE) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="../../css/add_order.css">
     <title>Add Order</title>
+    <link rel="icon" href="../../img/icon copy.png" type="image/x-icon" />
+
 </head>
 
 <body>

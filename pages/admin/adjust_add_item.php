@@ -29,7 +29,8 @@ if (isset($_GET['item_name'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <title>Document</title>
+    <title>Adjust New</title>
+    <link rel="icon" href="../../img/icon copy.png" type="image/x-icon" />
     <style>
         body {
             background-color: #4723D9;
