@@ -76,7 +76,7 @@ session_start();
             <input type='password' id='new_pass' name='new_pass' style='width: 100px;' required ><br/>";
                 echo "<input type='hidden' name='id' value='$id'><br/>";
                 echo "<input type='submit' name='save_changes' class='btn btn-primary' value='Save Changes'><br/>
-            <a href='../../pages/admin/admin_view_profile.php' class='btn btn-danger mt-2'>Cancel</a>";
+            <a href='../../pages/user/user_view_profile.php' class='btn btn-danger mt-2'>Cancel</a>";
 
                 echo "</form";
             }
