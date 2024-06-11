@@ -7,8 +7,9 @@ function handleInput($input)
 {
     $input = strtoupper($input);
     $tokens = explode(' ', $input);
-
-    if (in_array('HI', $tokens) || in_array('HELLO', $tokens)) {
+    $sql = "SELECT * FROM greet_check WHERE greet IN ('" . implode("','", $tokens) . "')";
+    $result = query($sql);
+    if (mysqli_num_rows($result) > 0) {
         $sql = "SELECT response FROM greet_response";
         $result = query($sql);
         $greet_response = [];
@@ -60,7 +61,7 @@ function handleInput($input)
                     if (mysqli_num_rows($result) > 0) {
                         return "YES. The item " . $item_name . " is available";
                     } else {
-                        return "No. The item " . $item_name . " has no stocks";
+                        return "No. The item " . $item_name . " has no stocks. Need some alternative? type ALTERNATIVE plus the Medicine you are looking for.";
                     }
                 } else {
                     return "The item " . $result_values . " is not available";
@@ -82,7 +83,7 @@ function handleInput($input)
                     if (mysqli_num_rows($result) > 0) {
                         return "YES. The item " . $item_name . " is available";
                     } else {
-                        return "No. The item " . $item_name . " has no stocks";
+                        return "No. The item " . $item_name . " has no stocks. Need some alternative? type ALTERNATIVE plus the Medicine you are looking for.";
                     }
                 } else {
                     $sql = "SELECT * FROM items WHERE `item_name` = '$item_name2'";
@@ -95,7 +96,7 @@ function handleInput($input)
                         if (mysqli_num_rows($result) > 0) {
                             return "YES. The item " . $item_name . " is available";
                         } else {
-                            return "No. The item " . $item_name . " has no stocks";
+                            return "No. The item " . $item_name . " has no stocks. Need some alternative? type ALTERNATIVE plus the Medicine you are looking for.";
                         }
                     } else {
                         $lengthOfTokens = count($tokens);
@@ -124,7 +125,7 @@ function handleInput($input)
                     if (mysqli_num_rows($result) > 0) {
                         return "YES. The item " . $item_name . " is available";
                     } else {
-                        return "No. The item " . $item_name . " has no stocks";
+                        return "No. The item " . $item_name . " has no stocks. Need some alternative? type ALTERNATIVE plus the Medicine you are looking for.";
                     }
                 } else {
                     $sql = "SELECT * FROM items WHERE `item_name` = '$item_name2'";
@@ -137,7 +138,7 @@ function handleInput($input)
                         if (mysqli_num_rows($result) > 0) {
                             return "YES. The item " . $item_name . " is available";
                         } else {
-                            return "No. The item " . $item_name . " has no stocks";
+                            return "No. The item " . $item_name . " has no stocks. Need some alternative? type ALTERNATIVE plus the Medicine you are looking for.";
                         }
                     } else {
                         $sql = "SELECT * FROM items WHERE `item_name` = '$item_name3'";
@@ -150,7 +151,7 @@ function handleInput($input)
                             if (mysqli_num_rows($result) > 0) {
                                 return "YES. The item " . $item_name . " is available";
                             } else {
-                                return "No. The item " . $item_name . " has no stocks";
+                                return "No. The item " . $item_name . " has no stocks. Need some alternative? type ALTERNATIVE plus the Medicine you are looking for.";
                             }
                         } else {
                             $sql = "SELECT * FROM items WHERE `item_name` = '$item_name4'";
@@ -163,7 +164,7 @@ function handleInput($input)
                                 if (mysqli_num_rows($result) > 0) {
                                     return "YES. The item " . $item_name . " is available";
                                 } else {
-                                    return "No. The item " . $item_name . " has no stocks";
+                                    return "No. The item " . $item_name . " has no stocks. Need some alternative? type ALTERNATIVE plus the Medicine you are looking for.";
                                 }
                             } else {
                                 $sql = "SELECT * FROM items WHERE `item_name` = '$item_name5'";
@@ -176,7 +177,7 @@ function handleInput($input)
                                     if (mysqli_num_rows($result) > 0) {
                                         return "YES. The item " . $item_name . " is available";
                                     } else {
-                                        return "No. The item " . $item_name . " has no stocks";
+                                        return "No. The item " . $item_name . " has no stocks. Need some alternative? type ALTERNATIVE plus the Medicine you are looking for.";
                                     }
                                 } else {
                                     $sql = "SELECT * FROM items WHERE `item_name` = '$item_name6'";
@@ -189,7 +190,7 @@ function handleInput($input)
                                         if (mysqli_num_rows($result) > 0) {
                                             return "YES. The item " . $item_name . " is available";
                                         } else {
-                                            return "No. The item " . $item_name . " has no stocks";
+                                            return "No. The item " . $item_name . " has no stocks. Need some alternative? type ALTERNATIVE plus the Medicine you are looking for. ";
                                         }
                                     } else {
                                         $lengthOfTokens = count($tokens);
@@ -202,7 +203,17 @@ function handleInput($input)
                     }
                 }
             } else {
-                return "Currently, the medicine you are looking for is not available in our pharmacy."; // add, switch the else in check algo
+                $sql = "SELECT not_available FROM not_present";
+                $result = query($sql);
+                $not_available = [];
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $not_available[] = $row['not_available'];
+                }
+                $randomIndex = array_rand($not_available);
+                $randomValue = $not_available[$randomIndex];
+
+
+                return $randomValue; // add, switch the else in check algo
             }
         } else {
             $sql = "SELECT * FROM training_words WHERE words IN ('" . implode("','", $tokens) . "')";
@@ -227,7 +238,7 @@ function handleInput($input)
                         }
                         return $for_warehouse;
                     } else {
-                        return "Currently, there is no alternative yet for the medicine you are looking for that is available in our pharmacy.";
+                        return "Currently, there is no alternative yet for the medicine you are looking for that is available in our pharmacy."; ///
                     }
                 } else {
                     $sql = "SELECT * FROM training_items WHERE words IN ('" . implode("','", $tokens) . "')";
@@ -239,7 +250,7 @@ function handleInput($input)
                         }
                         $sql = "SELECT * FROM items WHERE `item_name` = '$result_values'";
                         $result = query($sql);
-                        if (mysqli_num_rows($result) > 0) {
+                        if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_assoc($result);
                             $what_for = $row['what_for'];
                             $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$result_values'";
@@ -277,7 +288,7 @@ function handleInput($input)
                             if (mysqli_num_rows($result) > 0) {
                                 $row = mysqli_fetch_assoc($result);
                                 $what_for = $row['what_for'];
-                                $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name2'";
                                 $result = query($sql);
                                 $for_warehouse = [];
                                 while ($row = mysqli_fetch_assoc($result)) {
@@ -323,7 +334,7 @@ function handleInput($input)
                                 if (mysqli_num_rows($result) > 0) {
                                     $row = mysqli_fetch_assoc($result);
                                     $what_for = $row['what_for'];
-                                    $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                    $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name2'";
                                     $result = query($sql);
                                     $for_warehouse = [];
                                     while ($row = mysqli_fetch_assoc($result)) {
@@ -336,7 +347,7 @@ function handleInput($input)
                                     if (mysqli_num_rows($result) > 0) {
                                         $row = mysqli_fetch_assoc($result);
                                         $what_for = $row['what_for'];
-                                        $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                        $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name3'";
                                         $result = query($sql);
                                         $for_warehouse = [];
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -349,7 +360,7 @@ function handleInput($input)
                                         if (mysqli_num_rows($result) > 0) {
                                             $row = mysqli_fetch_assoc($result);
                                             $what_for = $row['what_for'];
-                                            $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                            $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name4'";
                                             $result = query($sql);
                                             $for_warehouse = [];
                                             while ($row = mysqli_fetch_assoc($result)) {
@@ -362,7 +373,7 @@ function handleInput($input)
                                             if (mysqli_num_rows($result) > 0) {
                                                 $row = mysqli_fetch_assoc($result);
                                                 $what_for = $row['what_for'];
-                                                $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                                $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name5'";
                                                 $result = query($sql);
                                                 $for_warehouse = [];
                                                 while ($row = mysqli_fetch_assoc($result)) {
@@ -375,7 +386,7 @@ function handleInput($input)
                                                 if (mysqli_num_rows($result) > 0) {
                                                     $row = mysqli_fetch_assoc($result);
                                                     $what_for = $row['what_for'];
-                                                    $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name1'";
+                                                    $sql = "SELECT item_name FROM items WHERE what_for = '$what_for' AND item_name != '$item_name6'";
                                                     $result = query($sql);
                                                     $for_warehouse = [];
                                                     while ($row = mysqli_fetch_assoc($result)) {
@@ -394,11 +405,38 @@ function handleInput($input)
                             }
                         }
                     } else {
-                        return "Currently, there is no alternative yet for the medicine you are looking for that is available in our pharmacy.";
+                        $sql = "SELECT response FROM no_alt";
+                        $result = query($sql);
+                        $no_alt = [];
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $no_alt[] = $row['response'];
+                        }
+                        $randomIndex = array_rand($no_alt);
+                        $randomValue = $no_alt[$randomIndex];
+
+                        return $randomValue;
                     }
                 }
             } else {
-                return "I don't understand that."; // add intructions for next step 
+                $sql = "SELECT response FROM not_know";
+                $result = query($sql);
+                $not_response = [];
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $not_response[] = $row['response'];
+                }
+                $randomIndex = array_rand($not_response);
+                $randomValue = $not_response[$randomIndex];
+                if ($randomValue) {
+                    $sql = "SELECT instructions FROM instruction_response";
+                    $result = query($sql);
+                    $inst_response = [];
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $inst_response[] = $row['instructions'];
+                    }
+                    $randomIndex = array_rand($inst_response);
+                    $random_inst = $inst_response[$randomIndex];
+                    return $randomValue . " " . $random_inst . "Or greet me again to start over";
+                }
             }
         }
     }

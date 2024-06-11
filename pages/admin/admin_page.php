@@ -147,6 +147,7 @@ if (isset($_POST['submit'])) {
    } else {
       echo "No session found. Please log in.";
    }
+   //echo $username;
    ?>
    <div class="height-500 bg-light">
       <div class="container-fluid px-4" id="dashboard">
