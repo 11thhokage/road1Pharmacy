@@ -8,7 +8,7 @@ include '../session_check.php';
 <head>
 
     <?php
-    include '../../pages/admin/ham.php';
+    include 'action_ham.php';
 
     $curr_user = $_SESSION['role_as'];
     echo "<u>Results: </u>&nbsp";
@@ -39,7 +39,7 @@ include '../session_check.php';
 
                 echo "$num result(s) found for <b>$search</b>!";
 
-                echo "  <h2><center>Item List</center></h2>
+                echo "  <h2><center>Warehouse List</center></h2>
         <button id='exportExcelBtn' class='btn btn-primary mb-2'>Export to Excel</button>
     <section class='intro'>
         <div class='gradient-custom-2 h-100'>
@@ -91,18 +91,95 @@ include '../session_check.php';
     <br/>
         ";
             } else {
-                echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
+
+
+                $search = $_GET['search'];
+                $terms = explode(" ", $search);
+                $data = "SELECT * FROM items WHERE ";
+
+                if (!empty($terms)) {
+                    $i = 0;
+                    foreach ($terms as $each) {
+                        $i++;
+                        if ($i == 1) {
+                            $data .= "item_name LIKE '%$each%' ";
+                        } else {
+                            $data .= "OR item_name LIKE '%$each%' ";
+                        }
+                    }
+
+                    $query = mysqli_query($conn, $data);
+                    if (!$query) {
+                        die('Error in SQL query: ' . mysqli_error($conn));
+                    }
+                    $num = mysqli_num_rows($query);
+                    if ($num > 0 && $search != "") {
+
+                        echo "$num result(s) found for <b>$search</b>!";
+
+                        echo "  <h2><center>Warehouse List</center></h2>
+        <button id='exportExcelBtn' class='btn btn-primary mb-2'>Export to Excel</button>
+    <section class='intro'>
+        <div class='gradient-custom-2 h-100'>
+            <div class='mask d-flex align-items-center h-100'>
+                <div class='container'>
+                    <div class='row justify-content-center'>
+                        <div class='col-12'>
+                            <div class='table-responsive'>
+                                <table class='table table-dark table-bordered mb-0'>
+                                    <thead>
+                                        <tr>
+                                            <th scope='col'>Item Name</th>
+                                            <th scope='col'>Item Qty</th>
+                                            <th scope='col'>Vendor Name</th>
+                                            <th scope='col'> Actions </th>
+
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+
+                        while ($row = mysqli_fetch_assoc($query)) {
+
+                            $item_name = $row['item_name'];
+                            $item_qty = 0;
+                            $vendor_name = "-";
+
+                            echo "<tr>";
+                            echo "<td class ='item_name'>" . $item_name . "</td>";
+                            echo "<td style= 'color:red;'>" . $item_qty . "</td>";
+                            echo "<td>" . $vendor_name . "</td>";
+                            echo "<td scope='col' class=''>" . "<a href='#' class='btn btn-success' onclick='sendItemName(this)'>Adjust</a>" . "</td>";
+                            echo "</tr>";
+                        }
+                        echo "</tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br/>
+        ";
+                    } else {
+                        echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
            <div class='content'>
                <script>
                Swal.fire({
                    title: 'Error!',
                    text: 'No results found',
                    icon: 'warning',
-                   confirmButtonText: 'Back To Warehouse'
+                   confirmButtonText: 'Back To Warehouse List'
                }).then(() =>{window.location.href = '../../pages/admin/admin_view_warehouse.php';});
                </script>
            </div>
        </main>";
+                    }
+                } else {
+                    echo "Please type any Word";
+                }
             }
         } else {
             echo "Please type any Word";
@@ -363,4 +440,13 @@ include '../session_check.php';
             location.reload();
         });
     });
+</script>
+<script>
+    function sendItemName(button) {
+        var row = button.closest('tr'); // Assuming the button is inside a table row (tr)
+        var itemName = row.querySelector('.item_name').innerHTML; // Assuming the item name is in a column with the class "item_name"
+
+        // Redirect to adjust_item.php with the item_name as a parameter
+        window.location.href = '../../pages/admin/adjust_item.php?item_name=' + encodeURIComponent(itemName);
+    }
 </script>
