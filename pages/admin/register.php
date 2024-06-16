@@ -36,9 +36,9 @@ include '../../actions/admin_midware.php';
    use PHPMailer\PHPMailer\PHPMailer;
    use PHPMailer\PHPMailer\Exception;
 
-   require 'phpmailer/src/Exception.php';
-   require 'phpmailer/src/PHPMailer.php';
-   require 'phpmailer/src/SMTP.php';
+   require 'phpMailer/src/Exception.php';
+   require 'phpMailer/src/PHPMailer.php';
+   require 'phpMailer/src/SMTP.php';
 
    if (isset($_POST['submit'])) {
       $mypic = $_FILES['picture']['name'];
