@@ -11,6 +11,9 @@ include '../../actions/admin_midware.php';
         <h2>
             <left style="padding-left: 10px;"><img src="../../img/IMG_5789__1_-removebg-preview.png" class="logo-image-navbar h1" alt="logo">Reports</left>
         </h2>
+        <div class="d-flex flex-row-reverse mt-2">
+            <button id='exportExcelBtn' class='btn btn-success mb-2'>Export to Excel</button>
+        </div>
 
         <center>
             <select name="form" id="formSelector" class="mb-5">
@@ -49,6 +52,7 @@ include '../../actions/admin_midware.php';
 
     <!-- Load the full jQuery build first -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
     <!-- Then load Popper.js and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -131,6 +135,47 @@ include '../../actions/admin_midware.php';
                     }
                 });
             });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Export to Excel button click event
+            $('#exportExcelBtn').click(function() {
+                // Get the table headers
+                var tableHeaders = [];
+                $('table thead th').each(function(index) {
+                    // Exclude the "Actions" column (assuming it is the last column)
+                    if (index !== $('table thead th').length - 1) {
+                        tableHeaders.push($(this).text());
+                    }
+                });
+
+                // Get the table data
+                var tableData = [tableHeaders]; // Start with the headers
+                $('table tbody tr').each(function() {
+                    var rowData = [];
+                    $(this).find('td').each(function(index) {
+                        // Exclude the "Actions" column (assuming it is the last column)
+                        if (index !== $(this).parent().find('td').length - 1) {
+                            rowData.push($(this).text());
+                        }
+                    });
+                    tableData.push(rowData);
+                });
+
+                // Create a new Excel workbook
+                var workbook = XLSX.utils.book_new();
+
+                // Add the table data to a new worksheet
+                var worksheet = XLSX.utils.aoa_to_sheet(tableData);
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+                // Save the workbook as an Excel file
+                XLSX.writeFile(workbook, 'reports_list.xlsx');
+            });
+
+            // Export to PDF button click event
+
         });
     </script>
 

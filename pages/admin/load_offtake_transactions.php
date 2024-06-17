@@ -55,7 +55,7 @@ $gcash_row = mysqli_fetch_assoc($gcash_result);
 $gcash = $gcash_row['gcash_amount'];
 $fgcash = number_format($gcash, 2, '.', '');
 
-echo "<h2>Total ₱: $ftotal &nbsp&nbsp&nbspCash ₱: $fcash &nbsp&nbsp&nbspGcash ₱: $fgcash</h2>";
+echo "<h2>Total :₱$ftotal &nbsp&nbsp&nbspCash :₱$fcash &nbsp&nbsp&nbspGcash :₱$fgcash</h2>";
 
 $transaction_query = "SELECT * FROM transactions $whereClause ORDER BY id DESC LIMIT $offset, $limit";
 $transaction_result = mysqli_query($conn, $transaction_query);

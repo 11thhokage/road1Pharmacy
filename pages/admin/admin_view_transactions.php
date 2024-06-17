@@ -17,6 +17,7 @@ include '../../actions/admin_midware.php';
         </div>
         <!-- Filter Dropdowns -->
         <center>
+            <label for="transact_by"><b>Transacted By:</b></label>
             <select name="transact_by" id="transact_by" class="mb-2 form-select my-select" style="width:15%;">
                 <option value='all'>All</option>
                 <?php
@@ -32,6 +33,7 @@ include '../../actions/admin_midware.php';
                 }
                 ?>
             </select>
+            <label for="payment_mode"><b>Payment Mode:</b></label>
             <select name="payment_mode" id="payment_mode" class="mb-2 form-select my-select" style="width:15%;">
                 <option value='all'>All</option>
                 <option value='Cash'>Cash</option>

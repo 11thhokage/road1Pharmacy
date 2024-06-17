@@ -20,6 +20,7 @@ include '../../actions/admin_midware.php';
         </div>
         <!-- Filter Dropdown -->
         <center>
+            <label for="receivd_by">Received By:</label>
             <select id="received_by" class="mb-2 form-select my-select" style="width:30%;">
                 <option value='all'>All</option>
                 <?php

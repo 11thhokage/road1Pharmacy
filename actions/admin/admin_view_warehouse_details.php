@@ -29,7 +29,8 @@ include '../../database/config.php';
         }
         if (mysqli_num_rows($result) > 0) {
             echo "
-            <center><a href='../../pages/admin/adjust_add_item.php?item_name=$item_name' class='btn btn-primary'>Add</a></center>
+            <center><a href='../../pages/admin/adjust_add_item.php?item_name=$item_name' class='btn btn-primary'>Add new $item_name</a></center>
+
             <br>
             <section class='intro'>
                 <div class='gradient-custom-2 h-100'>

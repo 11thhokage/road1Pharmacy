@@ -92,7 +92,7 @@
     <div class="d-flex align-items-start">
         <form id="searchForm" class="text-start mt-3" method='GET' action=''>
             <input type='text' name='search' placeholder="Search Medicine">
-            <input type='submit' class="btn btn-primary" name='item_search' value='Search'>
+            <input type='submit' class="btn btn-success" name='item_search' value='Search'>
         </form>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <p class="text-center fs-1 mx-1">Medicine Lists</p>
@@ -184,7 +184,7 @@
         echo "</nav>";
         echo "</div>";
     } else {
-        echo "0 results";
+        echo "0 result found for <b>$search</b>!";
     }
     ?>
 

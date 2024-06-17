@@ -22,7 +22,7 @@ $total_row = mysqli_fetch_assoc($total_result);
 $total = $total_row['total_amount'];
 $ftotal = number_format($total, 2, '.', '');
 
-echo "<h2>Total ₱: $ftotal</h2>";
+echo "<h2>Total :₱$ftotal</h2>";
 
 $transaction = "SELECT * FROM deliver_received $whereClause ORDER BY post_trans_number DESC LIMIT $offset, $limit";
 $result = mysqli_query($conn, $transaction);

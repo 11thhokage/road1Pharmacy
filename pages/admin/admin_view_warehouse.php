@@ -17,11 +17,13 @@ include '../../actions/admin_midware.php';
         <center>
             <form method='GET' action='../../actions/admin/admin_search_item.php'>
 
-                <input type='text' name='search'>
-                <input type='submit' name='submit' value='Search'>
+                <input type='text' name='search' placeholder="Search Item">
+                <input type='submit' class="btn btn-primary" name='submit' value='Search'>
             </form>
         </center>
-        <button id='exportExcelBtn' class='btn btn-primary mb-2'>Export to Excel</button>
+        <div class="d-flex flex-row-reverse">
+            <button id='exportExcelBtn' class='btn btn-success mb-2'>Export to Excel</button>
+        </div>
         <form id='pdfForm' action='../../actions/admin/admin_generate_pdf.php' method='post'>
             <input type='hidden' id='tableContent' name='table_content'>
             <!-- <button type='submit' name='generate_pdf' class='btn btn-primary'>Export to PDF</button> -->
@@ -34,8 +36,6 @@ include '../../actions/admin_midware.php';
                 document.getElementById('tableContent').value = tableContent;
             });
         </script>
-        <hr />
-
         <div class='container'>
 
             <div class='row'>

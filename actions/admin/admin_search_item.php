@@ -11,6 +11,11 @@ include '../session_check.php';
     include 'action_ham.php';
 
     $curr_user = $_SESSION['role_as'];
+    if ($curr_user === '1') {
+        echo "<center><a href='../../pages/admin/admin_view_warehouse.php' class='btn btn-info'>Back to Stock View</a></center>";
+    } else {
+        echo "error";
+    }
     echo "<u>Results: </u>&nbsp";
 
 
@@ -39,8 +44,10 @@ include '../session_check.php';
 
                 echo "$num result(s) found for <b>$search</b>!";
 
-                echo "  <h2><center>Warehouse List</center></h2>
-        <button id='exportExcelBtn' class='btn btn-primary mb-2'>Export to Excel</button>
+                echo "  <h2><center>Warehouse List</center></h2>        
+        <div class='d-flex flex-row-reverse'>
+    <button id='exportExcelBtn' class='btn btn-success mb-2'>Export to Excel</button>
+</div>
     <section class='intro'>
         <div class='gradient-custom-2 h-100'>
             <div class='mask d-flex align-items-center h-100'>
@@ -118,7 +125,9 @@ include '../session_check.php';
                         echo "$num result(s) found for <b>$search</b>!";
 
                         echo "  <h2><center>Warehouse List</center></h2>
-        <button id='exportExcelBtn' class='btn btn-primary mb-2'>Export to Excel</button>
+        <div class='d-flex flex-row-reverse'>
+    <button id='exportExcelBtn' class='btn btn-success mb-2'>Export to Excel</button>
+</div>
     <section class='intro'>
         <div class='gradient-custom-2 h-100'>
             <div class='mask d-flex align-items-center h-100'>
@@ -184,15 +193,6 @@ include '../session_check.php';
         } else {
             echo "Please type any Word";
         }
-
-
-
-
-        if ($curr_user === '1') {
-            echo "<center><a href='../../pages/admin/admin_view_warehouse.php' class='btn btn-info'>Back to Stock View</a></center>";
-        } else {
-            echo "error";
-        }
     }
 
     if (isset($_REQUEST['item_search'])) {
@@ -221,11 +221,9 @@ include '../session_check.php';
                 echo "$num result(s) found for <b>$search</b>!";
 
                 echo "  <h2><center>Item List</center></h2>
-        <button id='exportExcelBtn' class='btn btn-primary mb-2'>Export to Excel</button>
-        <form id='pdfForm' action='../../actions/admin/admin_generate_pdf.php' method='post' class='mb-2'>
-            <input type='hidden' id='tableContent' name='table_content'>
-            <button type='submit' name='generate_pdf' class='btn btn-primary'>Export to PDF</button>
-        </form>
+       <div class='d-flex flex-row-reverse'>
+    <button id='exportExcelBtn' class='btn btn-success mb-2'>Export to Excel</button>
+</div>
     <section class='intro'>
         <div class='gradient-custom-2 h-100'>
             <div class='mask d-flex align-items-center h-100'>
@@ -301,13 +299,6 @@ include '../session_check.php';
             }
         } else {
             echo "Please type any Word";
-        }
-
-
-        if ($curr_user === '1') {
-            echo "<center><a href='../../pages/admin/admin_view_items.php' class='btn btn-info'>Back to Items List</a></center>";
-        } else {
-            echo "error";
         }
     }
 
