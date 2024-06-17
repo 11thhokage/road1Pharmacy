@@ -17,8 +17,8 @@ include '../../actions/user_midware.php';
         <center>
             <form method='GET' action='user_search_item.php'>
 
-                <input type='text' name='search'>
-                <input type='submit' name='submit' value='search Warehouse'>
+                <input type='text' name='search' placeholder="Search Item">
+                <input type='submit' class="btn btn-primary" name='submit' value='Search'>
             </form>
         </center>
         <hr />

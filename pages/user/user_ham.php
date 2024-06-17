@@ -286,7 +286,7 @@ if ($_SESSION['role_as'] == '2') {
                 
                   <a href='user_frontend_view_transaction.php' class='nav_link' title='Transactions'> <i class='bx bx-folder nav_icon'></i> <span class='nav_name'>View Transactions</span> </a> 
             </div>
-            </div> <a href='../../actions/logout.php' class='nav_link' title='logOut'> <i class='bx bx-log-out nav_icon'></i> <span class='nav_name'>SignOut</span> </a>
+            </div> <a href='../../actions/logout.php' class='nav_link' title='logOut'> <i class='bx bx-log-out nav_icon'></i> <span class='nav_name'>Sign Out</span> </a>
         </nav>
     </div>
     ";
@@ -315,7 +315,7 @@ if ($_SESSION['role_as'] == '3') {
                   
                   <a href='user_rdu_view_stock.php' class='nav_link' title='Stocks'> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class='nav_name'>View Stocks</span> </a> 
             </div>
-            </div> <a href='../../actions/logout.php' class='nav_link' title='logOut'> <i class='bx bx-log-out nav_icon'></i> <span class='nav_name'>SignOut</span> </a>
+            </div> <a href='../../actions/logout.php' class='nav_link' title='logOut'> <i class='bx bx-log-out nav_icon'></i> <span class='nav_name'>Sign Out</span> </a>
         </nav>
     </div>
     ";
