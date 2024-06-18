@@ -28,7 +28,7 @@ $time = date('H:i:s');
     <link rel="icon" href="../../img/icon copy.png" type="image/x-icon" />
     <style>
         body {
-            background-color: #4723D9;
+            background-color: #ED3C5A;
         }
 
         .card {

@@ -15,7 +15,7 @@ include '../../actions/admin_midware.php'; ?>
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
     </link>
-    <link rel="stylesheet" href="../../css/add_item.css">
+    <link rel="stylesheet" href="../../css/add_items.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>Add New Item - Admin</title>
     <link rel="icon" href="../../img/icon copy.png" type="image/x-icon" />
@@ -24,16 +24,12 @@ include '../../actions/admin_midware.php'; ?>
 <body>
     <!-- Push Order Form -->
     <br>
-    <center><select name="form" id="formSelector" class=" mb-5">
+    <center>
+        <select name="form" id="formSelector" class="form-control mb-5" style="width:10%;">
             <option value="medicine">Medicine</option>
-            <option value="ampules_vials">Ampules and Vials</option>
-            <option value="alcohol">Alcohol</option>
-            <option value="milk">Milk</option>
-            <option value="diaper">Diaper</option>
-            <option value="creams_ointment">Creams and Ointment</option>
-            <option value="medical_supp">Medical supplies</option>
-            <option value="medicine_misc">Medicine Misc</option>
-        </select></center>
+            <option value="alcohol">Others</option>
+        </select>
+    </center>
     <div id="main">
         <div id="formContent">
             <!-- The included form will be displayed here -->

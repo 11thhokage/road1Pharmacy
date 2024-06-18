@@ -33,7 +33,7 @@ if (isset($_GET['warehouse_code']) && isset($_GET['item_name']) && isset($_GET['
     <link rel="icon" href="../../img/icon copy.png" type="image/x-icon" />
     <style>
         body {
-            background-color: #4723D9;
+            background-color: #ED3C5A;
         }
 
         .card {

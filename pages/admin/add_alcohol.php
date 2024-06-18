@@ -9,7 +9,7 @@ include '../../actions/admin_midware.php';
                 <div class="card-body">
                     <h5 class="text-center">Road 1 Pharmacy</h5>
                     <form ENCTYPE="multipart/form-data" action="../../actions/admin/admin_add_item.php" method="post">
-                        <h3 class="text-center">Add New Item Alcohol</h3>
+                        <h3 class="text-center">Add New Item</h3>
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="item_name">Item Name</label>
@@ -33,8 +33,12 @@ include '../../actions/admin_midware.php';
                                 <label for="mark_up">Mark up %</label>
                                 <input type="number" class="form-control" name="mark_up" required placeholder="Enter Mark up" min="1" step=".01">
                             </div>
-                            <input type="hidden" name="class" value="alcohol">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
+                                <label for="class">Classification</label>
+                                <input type="text" class="form-control" name="class" required placeholder="Classification">
+                            </div>
+
+                            <div class="form-group col-md-6">
                                 <label for="vendor_name">Vendor Name</label>
                                 <input type="text" class="form-control" name="vendor_name" required placeholder="Enter Vendor Name">
                             </div>

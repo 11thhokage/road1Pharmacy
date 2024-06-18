@@ -55,15 +55,26 @@ include '../../actions/admin_midware.php';
         echo "
 
                 <div class='col-md-4'>
-                    <div class='card' style='height:80vh; width: 18rem;'>
-                        <img src='../../img/$picture' class='card-img-top' alt='Profile Picture' style= 'width:100%; height:50%'>
+                    <div class='card' style='height:65vh; width: 18rem;'>
+                        <img src='../../img/$picture' class='card-img-top' alt='Profile Picture' style= 'width:100%; height:60%'>
                         <div class='card-body'>
-                            <h5 class='card-title '>$username</h5>
-                            ID: <p class='card-text id'>  $id</p>
-                            <p class='card-text'>Email: $email</p>
-                            <p class='card-text'>Role: $role</p>
-                            <a href='#' class='btn btn-secondary edit_user'>📝Edit</a>
-                            <a href='#' class='btn btn-danger delete_user'>🗑️Delete</a>
+                          <div class='container'>
+                              <div class='row'>
+                                <div class='col-md-1'>
+                                <p class='id' style='font-size:70px;'>  $id</p>
+                                </div>
+                                <div class='col-md-8 ml-3'>
+                                <p class='card-text '>$username</p>
+                                <p class='card-text'> $email</p>
+                                <p class='card-text'>$role</p>
+                                </div>
+                                </div>
+                            </div>
+                            
+                              <center>
+                              <a href='#' class='btn btn-secondary edit_user'style='width:49%;'>📝Edit</a>
+                              <a href='#' class='btn btn-danger delete_user'style='width:49%;'>🗑️Delete</a>
+                              </center>
                         </div>
                     </div>
                 </div>";

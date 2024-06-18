@@ -179,7 +179,8 @@ include '../../database/config.php'; ?>
         $unit_qty = $_POST['unit_qty'];
         $item_name = $input_name . " " . $unit_qty . $unit_type;
         $item_name = strtoupper($item_name);
-        $classification = $_POST['class'];
+        $class = $_POST['class'];
+        $classification = strtolower($class);
         $vendor_name = $_POST['vendor_name'];
         $select = "SELECT * FROM items WHERE item_name = '$item_name'";
 
