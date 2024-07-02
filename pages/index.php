@@ -23,7 +23,7 @@
 
 </head>
 
-<body class="bg-dark background " style="background-color:#873142 !important;">
+<body class="bg-dark background " style="background-color:#f64361 !important;">
    <div class="section ">
       <div class="container bg-dark background">
          <div class="image">
@@ -31,7 +31,7 @@
          </div>
          <div class="form-section bg-dark">
             <div class="logo">
-               <img class="logo-image" src="../img/IMG_5789__1_-removebg-preview.png" alt="logo">
+               <img class="logo-image mx-1" src="../img/IMG_5789__1_-removebg-preview.png" alt="logo">
                <h1>Road 1 Pharmacy</h1>
             </div>
             <p>Your One Stop Healthcare Pharmacy</p>

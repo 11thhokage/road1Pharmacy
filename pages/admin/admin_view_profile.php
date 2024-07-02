@@ -52,7 +52,7 @@ if ($result !== false) {
             <img src='../../img/<?= $_SESSION['picture']; ?>' class='card-img-top' alt='Profile Picture'>
             <div class='card-body'>
               ID: <p class='card-text id'><?= $_SESSION['id']; ?></p>
-              <p class='card-text'><a href="#" class="btn btn-primary edit_password">📝ChangePassword</a></p>
+              <p class='card-text'><a href="#" class="btn btn-primary edit_password">📝Change Password</a></p>
               <p class='card-text'>Email: <?= $_SESSION['email']; ?></p>
             </div>
           </div>

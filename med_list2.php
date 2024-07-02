@@ -47,6 +47,7 @@
             border: 1px solid #dc3545;
             margin: 0 2px;
         }
+  
 
         @media screen and (max-width: 600px) {
             table {
@@ -89,6 +90,20 @@
         }
     </script>
 
+    <div class="container-fluid">
+        <div class="row" style=" height:80px">
+            <div class="col-3 col-lg-4  container-fluid ">
+                <form id="searchForm" class="mt-1 mt-md-2 mt-lg-3 container-xs row"method='GET' action=''>
+                    <input type='text' class="col-10 col-lg-7 col-md-7" id="search" name='search' placeholder="Search Medicine">
+                    <input type='submit' class="btn btn-success col-10 col-md-7 col-lg-5 col-xl-3" name='item_search' value='Search'>
+                </form>
+            </div>
+            <div class="col-9 col-lg-8">
+                <p class="mx-0 mx-sm-5 fs-1 ">Medicine Lists</p>
+            </div> 
+        </div>
+    </div>
+    <!--
     <div class="d-flex align-items-start">
         <form id="searchForm" class="text-start mt-3" method='GET' action=''>
             <input type='text' name='search' placeholder="Search Medicine">
@@ -97,7 +112,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <p class="text-center fs-1 mx-1">Medicine Lists</p>
     </div>
-
+    -->
     <?php
     include 'database/config.php';
 

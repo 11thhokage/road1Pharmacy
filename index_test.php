@@ -229,12 +229,13 @@
                     <div class="col-lg-2 col-md-3 col-sm-6 ">
                         <div class="card " style=" box-shadow: 0px 0px 10px 2px #888888;  margin-bottom:30px; height:250px;">
                             <div class="card-body justify-content-center ">
-                                <center><i class="fa-solid fa-tablets text-danger products"></i></center>
+                                <center><i class="fa-solid fa-tablets text-danger products"></i>
                                 <h5 class="card-title">VITAMINS</h5>
                                 <button class="card-button" onclick="vitDisplay()">View more</button>
                                 <div class="container-fluid" style="display: none;" id="vit_list">
                                     <?php include 'vit_list.php'; ?>
                                 </div>
+                                </center>
                                 <script>
                                     function vitDisplay() {
                                         var vit_list = document.getElementById("vit_list");
@@ -294,12 +295,13 @@
                     <div class="col-lg-2 col-md-3 col-sm-6">
                         <div class="card " style=" box-shadow: 0px 0px 10px 2px #888888;  margin-bottom:30px; height:250px;">
                             <div class="card-body ">
-                                <center><i class="fa-solid fa-virus text-danger products "></i></center>
+                                <center><i class="fa-solid fa-virus text-danger products "></i>
                                 <h5 class="card-title">FLU REMEDIES</h5>
                                 <button class="card-button" onclick="fluDisplay()">View more</button>
                                 <div class="container-fluid" style="display: none;" id="flu_list">
                                     <?php include 'flu_list.php'; ?>
                                 </div>
+                                </center>
                                 <script>
                                     function fluDisplay() {
                                         var flu_list = document.getElementById("flu_list");
@@ -359,12 +361,13 @@
                     <div class="col-lg-2 col-md-3 col-sm-6">
                         <div class="card " style=" box-shadow: 0px 0px 10px 2px #888888;  margin-bottom:30px; height:250px;">
                             <div class="card-body ">
-                                <center><i class="fa-solid fa-child text-danger products"></i></center>
+                                <center><i class="fa-solid fa-child text-danger products"></i>
                                 <h5 class="card-title">KIDS NUTRITION</h5>
                                 <button class="card-button" onclick="kidDisplay()">View more</button>
                                 <div class="container-fluid" style="display: none;" id="kid_list">
                                     <?php include 'kid_list.php'; ?>
                                 </div>
+                                </center>
                                 <script>
                                     function kidDisplay() {
                                         var kid_list = document.getElementById("kid_list");
@@ -424,12 +427,13 @@
                     <div class="col-lg-2 col-md-3 col-sm-6">
                         <div class="card " style=" box-shadow: 0px 0px 10px 2px #888888; margin-bottom:30px; height:250px;">
                             <div class="card-body">
-                                <center><i class="fa-solid fa-baby text-danger products"></i></center>
+                                <center><i class="fa-solid fa-baby text-danger products"></i><
                                 <h5 class="card-title">ABSORBENT HYGIENE PRODUCTS</h5>
                                 <button class="card-button" onclick="diaDisplay()">View more</button>
                                 <div class="container-fluid" style="display: none;" id="dia_list">
                                     <?php include 'dia_list.php'; ?>
                                 </div>
+                                </center>
                                 <script>
                                     function diaDisplay() {
                                         var dia_list = document.getElementById("dia_list");
@@ -500,7 +504,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 footer-maps">
                     <h2>Location:</h2>
-                    <p style="padding: 10px 50px 0 50px;">
+                    <p style="padding: 10px 10px 0 10px;">
                         <iframe class="gmaps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.6919732709853!2d121.07851119999998!3d14.8425359!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397af55773a7a17%3A0xfe00da48e36d6f5c!2sRoad%201%20Pharmacy%20Convenience%20Store!5e0!3m2!1sfil!2sph!4v1715661497604!5m2!1sfil!2sph" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
                     <p><a href="https://maps.app.goo.gl/T6Y8MSbjgEYKvnnf7">Unit 2, Ipo Road cor, Road 1 , Minuyan Proper, City of San Jose del Monte, Bulacan</a></p>
@@ -508,10 +512,10 @@
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-12 footer-contacts">
                     <h2>Contact us:</h2>
-                    <p style="padding: 50px 50px 0 50px;">
+                    <p style="padding: 10px 10px 0 10px;">
                         Cellphone no. : #09123456789 <br>
                     </p>
-                    <p style="padding: 0px 50px 0 50px;">
+                    <p style="padding: 0px 50px 0 10px;">
                         Email: <br>
                         <a href="mailto:road1pharmacy@gmail.com"> road1pharmacy@gmail.com</a>
                     </p>

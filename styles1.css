@@ -9,7 +9,7 @@ body{
     overflow-x: hidden;
 }
 .navbar-title{
-
+    padding-top: 5px;
     height: 50px;
 }
 .logo-image-navbar{
@@ -32,7 +32,6 @@ body{
 }
 .headings{
     display: inline-block;
-    font-family: "arial";
     font-size: 24px;
     z-index: 3;
   }
@@ -160,15 +159,12 @@ body{
     margin-left: 10px;
 }
 .card-button{
-    position: absolute;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    bottom: 0;
     background-color: #6ACEF7;
     border-radius: 10px;
     border: none;
     height: 30px;
     width: 100px;
+    margin-top: 10px;
 }
 .card-button:hover{
     background-color: #e0f4fc;
@@ -230,6 +226,7 @@ body{
 }
 
 .captions{
+    margin-bottom: 50px;
     margin-top: 100px;
     z-index: 0;
 }
@@ -250,6 +247,7 @@ body{
     margin-top: 50px;
 }
 .box-button{
+    border: solid red !important;
     position: relative;
     background-color:white;
     border: none;
@@ -294,6 +292,10 @@ body{
     padding-top: 50px;
 
 }
+
+footer a{
+    color: white;
+}
 .inner-footer{
     border-top: outset 1px white !important;
     padding-top: 10px;
@@ -309,6 +311,7 @@ body{
 .footer-logo{
     width: 80px;
     height: 80px;
+    margin-right: 10px;
     filter: brightness(1.53) contrast(1.5);
 }
 .gmaps{
@@ -463,15 +466,15 @@ i{
     display: flex;
     position: absolute;
     bottom: 25px;
-    right: 0;
-    width: 100%;
+    width: 95%;
     margin-top: 20px;
 }
 #chat-form button{
-    width: 10%;
+    width: 20%;
     border: 1px solid #ccc;
     color : white;
     background-color: #37393A;
+    border-radius: 5px;
 }
 
 #chat-form input{
@@ -583,7 +586,7 @@ i{
     }
 
     .section2{
-        height: 700px;
+        height: 800px;
     }
     .about-us1{
         height: 600px;
@@ -678,6 +681,10 @@ i{
         position: relative;
     }
 
+    .gmaps{
+        width: 500px;
+    }
+
 @media only screen and (max-width: 576px) {
     .firstboxes{
         height: 250px;
@@ -702,6 +709,9 @@ i{
     }
     .footer{
         justify-content: center;
+    }
+    .gmaps{
+        width: 300px;
     }
     
 }
@@ -790,5 +800,6 @@ i{
     #chat-form input{
         width: 80%;
     }
+   
 }
 }

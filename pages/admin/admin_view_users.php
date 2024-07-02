@@ -55,7 +55,7 @@ include '../../actions/admin_midware.php';
         echo "
 
                 <div class='col-md-4'>
-                    <div class='card' style='height:65vh; width: 18rem;'>
+                    <div class='card' style='height:70vh; width: 18rem;'>
                         <img src='../../img/$picture' class='card-img-top' alt='Profile Picture' style= 'width:100%; height:60%'>
                         <div class='card-body'>
                           <div class='container'>
