@@ -30,6 +30,8 @@ include '../../actions/admin_midware.php';
     // Get total number of items
     $total_items = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM items"));
 
+    //     <a href='add_medicine2.php' class='btn btn-primary my-2'>➕Add med</a>
+    // <a href='add_others.php' class='btn btn-primary my-2'>➕Add othters</a>
     // Calculate total number of pages
     $total_pages = ceil($total_items / $limit);
 
@@ -39,8 +41,7 @@ include '../../actions/admin_midware.php';
     echo "<div class='row justify-content-between'>
         <div class='col-2'> <h2><img src='../../img/IMG_5789__1_-removebg-preview.png' class='logo-image-navbar h1' alt='logo'>Item List</h2></div>
         <div class='col-2'>
-        <a href='add_medicine2.php' class='btn btn-primary my-2'>➕Add med</a>
-        <a href='add_others.php' class='btn btn-primary my-2'>➕Add othters</a>
+
         <a href='admin_add_item.php' class='btn btn-primary my-2'>➕Add Item</a>
         </div>
     </div>
