@@ -81,7 +81,10 @@ include '../../actions/admin_midware.php';
                $mail->addAddress($email);
                $mail->isHTML(true);
                $mail->Subject = 'Welcome to Road 1 Pharmacy';
-               $mail->Body = 'Welcome to Road 1 Pharmacy! <br> Your account has been created. <br> You can now login to your account.';
+               $mail->Body = 'Welcome to Road 1 Pharmacy! <br> Your account has been created. 
+               <br> You can now login to your account.
+               <br> Please proceed to this website to login: 
+               <br> https://road1pharmacy.com/pages/index.php';
                $mail->send();
 
                echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
