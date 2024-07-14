@@ -3,41 +3,41 @@ include '../../database/config.php';
 session_start();
 include '../../actions/admin_midware.php';
 
-$transact_by = $_POST['transact_by'];
-$payment_mode = $_POST['payment_mode'];
-$page = isset($_POST['page']) ? $_POST['page'] : 1;
-$limit = 7; // Number of items per page
+$transact_by = $_POST['transact_by'] ?? 'all';
+$payment_mode = $_POST['payment_mode'] ?? 'all';
+$startDate = $_POST['startDate'] ?? '';
+$endDate = $_POST['endDate'] ?? '';
+$page = $_POST['page'] ?? 1;
+$limit = 10;
 $offset = ($page - 1) * $limit;
 
-// Construct the where clause based on the filters
 $whereClauses = [];
 if ($transact_by !== 'all') {
-    $whereClauses[] = "transact_by='$transact_by'";
+    $whereClauses[] = "transact_by = '$transact_by'";
 }
 if ($payment_mode !== 'all') {
-    $whereClauses[] = "payment_mode='$payment_mode'";
+    $whereClauses[] = "payment_mode = '$payment_mode'";
 }
-$whereClause = !empty($whereClauses) ? "WHERE " . implode(' AND ', $whereClauses) : "";
+if (!empty($startDate) && !empty($endDate)) {
+    $whereClauses[] = "date_transacted BETWEEN '$startDate' AND '$endDate'";
+}
 
-// Get total number of items
-$total_items_query = "SELECT COUNT(*) as count FROM transactions $whereClause";
-$total_items_result = mysqli_query($conn, $total_items_query);
-$total_items_row = mysqli_fetch_assoc($total_items_result);
-$total_items = $total_items_row['count'];
+$whereClause = "";
+if (count($whereClauses) > 0) {
+    $whereClause = "WHERE " . implode(" AND ", $whereClauses);
+}
 
-// Calculate total number of pages
-$total_pages = ceil($total_items / $limit);
-
-$total_query = "SELECT SUM(amount) as total_amount FROM transactions $whereClause";
-$total_result = mysqli_query($conn, $total_query);
-$total_row = mysqli_fetch_assoc($total_result);
-$total = $total_row['total_amount'];
-$ftotal = number_format($total, 2, '.', '');
+// Query for total transactions
+$totalQuery = "SELECT SUM(amount) AS total_transactions FROM transactions $whereClause";
+$totalResult = mysqli_query($conn, $totalQuery);
+$totalRow = mysqli_fetch_assoc($totalResult);
+$totalTransactions = $totalRow['total_transactions'];
+$ftotal = number_format($totalTransactions, 2, '.', '');
 
 // Adjust the cash and gcash queries
 $cash_query = "SELECT SUM(amount) as cash_amount FROM transactions ";
 $gcash_query = "SELECT SUM(amount) as gcash_amount FROM transactions ";
-if (!empty($whereClauses)) {
+if (!empty($whereClause)) {
     $cash_query .= $whereClause . " AND payment_mode = 'Cash'";
     $gcash_query .= $whereClause . " AND payment_mode = 'Gcash'";
 } else {
@@ -47,95 +47,83 @@ if (!empty($whereClauses)) {
 
 $cash_result = mysqli_query($conn, $cash_query);
 $cash_row = mysqli_fetch_assoc($cash_result);
-$cash = $cash_row['cash_amount'];
+$cash = $cash_row['cash_amount'] ?? 0;
 $fcash = number_format($cash, 2, '.', '');
 
 $gcash_result = mysqli_query($conn, $gcash_query);
 $gcash_row = mysqli_fetch_assoc($gcash_result);
-$gcash = $gcash_row['gcash_amount'];
+$gcash = $gcash_row['gcash_amount'] ?? 0;
 $fgcash = number_format($gcash, 2, '.', '');
 
-echo "<h2>Total :₱$ftotal &nbsp&nbsp&nbspCash :₱$fcash &nbsp&nbsp&nbspGcash :₱$fgcash</h2>";
+$data = "SELECT * FROM transactions $whereClause ORDER BY id DESC LIMIT $limit OFFSET $offset";
+$result = mysqli_query($conn, $data);
+$count = mysqli_num_rows($result);
 
-$transaction_query = "SELECT * FROM transactions $whereClause ORDER BY id DESC LIMIT $offset, $limit";
-$transaction_result = mysqli_query($conn, $transaction_query);
-if (!$transaction_result) {
-    die('Error: ' . mysqli_error($conn));
-}
+$output = '<div class="summary">
+                <h2>Total Transactions: ₱ ' . $ftotal . ' &nbsp&nbsp&nbsp Cash: ₱' . $fcash . ' &nbsp&nbsp&nbsp GCash: ₱' . $fgcash . '</h2>
+            </div>';
 
-if (mysqli_num_rows($transaction_result) > 0) {
-    echo "<section class='intro'>
-            <div class='gradient-custom-2 h-100'>
-                <div class='mask d-flex align-items-center h-100'>
-                    <div class='container'>
-                        <div class='row justify-content-center'>
-                            <div class='col-12'>
-                                <div class='table-responsive'>
-                                    <table class='table table-dark table-bordered mb-0'>
-                                        <thead>
-                                            <tr>
-                                                <th scope='col'>Transaction #</th>
-                                                <th scope='col'>Amount</th>
-                                                <th scope='col'>Amount Tendered</th>
-                                                <th scope='col'>Date Of Transaction</th>
-                                                <th scope='col'>Time</th>
-                                                <th scope='col'>Payment Mode</th>
-                                                <th scope='col'>Transacted By</th>
-                                                <th scope='col'>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>";
-    while ($row = mysqli_fetch_assoc($transaction_result)) {
-        $id = $row['id'];
-        $amount = $row['amount'];
-        $tender_amount = $row['tender_amount'];
-        $date = $row['date_transacted'];
-        $time = $row['time_transacted'];
-        $payment_mode = $row['payment_mode'];
-        $transact_by = $row['transact_by'];
-        echo "<tr>
-                <td scope='col' class='id'>$id</td>
-                <td scope='col' class='amount'>$amount</td>
-                <td scope='col' class='amount_tendered'>$tender_amount</td>
-                <td scope='col' class='date'>$date</td>
-                <td scope='col' class='time'>$time</td>
-                <td scope='col' class='payment_mode'>$payment_mode</td>
-                <td scope='col' class='transact_by'>$transact_by</td>
-                <td scope='col'><a href='#' class='btn btn-info view_details'>🔍View Details</a></td>
-              </tr>";
+if ($count > 0) {
+    $output .= '<table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Amount</th>
+                        <th>Amount Tendered</th>
+                        <th>Date Transacted</th>
+                        <th>Time Transacted</th>
+                        <th>Payment Mode</th>
+                        <th>Transacted By</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>';
+    while ($row = mysqli_fetch_assoc($result)) {
+        $output .= '<tr>
+                        <td class="id">' . $row['id'] . '</td>
+                        <td class="amount">' . $row['amount'] . '</td>
+                        <td class="amount_tendered">' . $row['tender_amount'] . '</td>
+                        <td class="date">' . $row['date_transacted'] . '</td>
+                        <td class="time">' . $row['time_transacted'] . '</td>
+                        <td class="payment_mode">' . $row['payment_mode'] . '</td>
+                        <td class="transact_by">' . $row['transact_by'] . '</td>
+                        <td>
+                            <button class="btn btn-info view_details">🔍View Details</button>
+                        </td>
+                    </tr>';
     }
-    echo "</tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-</section>";
+    $output .= '</tbody></table>';
 
     // Pagination
-    echo "<div class='row justify-content-center mt-4'>
-            <nav aria-label='Page navigation example'>
-                <ul class='pagination'>";
+    $paginationQuery = "SELECT COUNT(*) AS total FROM transactions $whereClause";
+    $paginationResult = mysqli_query($conn, $paginationQuery);
+    $paginationRow = mysqli_fetch_assoc($paginationResult);
+    $totalItems = $paginationRow['total'];
+    $totalPages = ceil($totalItems / $limit);
+
+    $paginationOutput = '<nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">';
+
     if ($page > 1) {
-        echo "<li class='page-item'><a class='page-link' href='#' data-page='" . ($page - 1) . "'>Previous</a></li>";
+        $paginationOutput .= "<li class='page-item'><a class='page-link' href='#' data-page='" . ($page - 1) . "'>Previous</a></li>";
     }
 
     $startPage = max(1, $page - 1);
-    $endPage = min($startPage + 2, $total_pages);
+    $endPage = min($startPage + 2, $totalPages);
 
     for ($i = $startPage; $i <= $endPage; $i++) {
-        echo "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='#' data-page='$i'>$i</a></li>";
+        $paginationOutput .= "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='#' data-page='$i'>$i</a></li>";
     }
 
-    if ($page < $total_pages) {
-        echo "<li class='page-item'><a class='page-link' href='#' data-page='" . ($page + 1) . "'>Next</a></li>";
+    if ($page < $totalPages) {
+        $paginationOutput .= "<li class='page-item'><a class='page-link' href='#' data-page='" . ($page + 1) . "'>Next</a></li>";
     }
 
-    echo "</ul>
-            </nav>
-          </div>";
+    $paginationOutput .= "</ul></nav>";
+
+    $output .= $paginationOutput;
 } else {
-    echo "<p>No transactions found.</p>";
+    $output .= '<p class="text-center">No transactions found.</p>';
 }
+
+echo $output;

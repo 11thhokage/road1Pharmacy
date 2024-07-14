@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="text-end">
                                 <?php echo "<h4>" . htmlspecialchars($total) . "</h4>"; ?>
                                 <div class="form-group">
-                                    <form action="process_checkout2.php" method="post">
+                                    <form action="process_checkout.php" method="post">
                                         <label for="mode_of_payment">Payment Mode</label>
                                         <select class="form-control" id="mode_of_payment" name="mode_of_payment" style='width:20%;'>
                                             <option value="Cash">Cash</option>

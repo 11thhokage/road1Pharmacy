@@ -35,7 +35,18 @@ include '../../actions/admin_midware.php';
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="class">Classification</label>
-                                <input type="text" class="form-control" name="class" required placeholder="Classification">
+                                <select class="form-control" name="class" id="">
+                                    <?php
+                                    $query = "SELECT DISTINCT classification FROM items WHERE classification !='medicine' AND classification !='others'";
+
+                                    $result = mysqli_query($conn, $query);
+
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<option value='" . $row['classification'] . "'>" . $row['classification'] . "</option>";
+                                    }
+                                    ?>
+                                    <option value="others">Others</option>
+                                </select>
                             </div>
 
                             <div class="form-group col-md-6">

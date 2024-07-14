@@ -160,11 +160,21 @@ include '../../actions/user_midware.php';
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="date_received">Date Received:</label>
-                        <input type="date" name="date_received_check" required>
+                        <?php
+                        $today =  date("Y-m-d");
+                        $minDate = "2024-03-06";
+                        ?>
+                        <input type="date" name="date_received_check" required min="<?php echo $minDate; ?>" max="<?php echo $today ?>">
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="expiry_date">Expiry Date:</label>
-                        <input type="date" name="expiry_date" required>
+                        <?php
+                        $today =  date("Y-m-d");
+                        $maxDate = (new DateTime($today))->modify('+5 years')->format('Y-m-d');
+                        $minDate = (new DateTime($today))->modify('+1 year')->format('Y-m-d');
+                        ?>
+                        <input type="date" name="expiry_date" required min="<?php echo $minDate; ?>" max="<?php echo $maxDate; ?>">
+
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="batch_no">Batch/Lot No.</label>
@@ -217,7 +227,11 @@ include '../../actions/user_midware.php';
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="date_received">Date Received:</label><br>
-                            <input type="date" name="date_received" required>
+                            <?php
+                            $today =  date("Y-m-d");
+                            $minDate = "2024-03-06";
+                            ?>
+                            <input type="date" name="date_received" required min="<?php echo $minDate; ?>" max="<?php echo $today ?>">
                             <span id="errorSpan" style="color: red;"></span>
                         </div>
                     </div>

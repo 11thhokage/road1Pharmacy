@@ -1,8 +1,3 @@
-<?php
-include '../../database/config.php';
-session_start();
-include '../../actions/admin_midware.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +34,31 @@ include '../../actions/admin_midware.php';
                 <option value='Cash'>Cash</option>
                 <option value='Gcash'>Gcash</option>
             </select>
+
+            <div class="card-body mid income" id="content">
+                <p class="class-title text-center fs-3">
+                    <?php
+                    if (isset($_POST['submit'])) {
+                        echo "The sales from " . $_POST['startDate'] . " to " . $_POST['endDate'] . ":";
+                    }
+                    ?>
+                </p>
+                <form id="dateRangeForm" method="post">
+                    <label for="startDate">Start Date</label>
+                    <?php
+                    $sql = "SELECT MIN(date_transacted) AS earliest_date FROM transactions";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    $earliest_date = $row['earliest_date'];
+                    $today = date('Y-m-d');
+                    ?>
+                    <input type="date" id="startDate" name="startDate" placeholder="Start Date (YYYY/MM/DD)" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate" name="endDate" placeholder="End Date (YYYY/MM/DD)" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>">
+                    <input type="submit" name="submit" class="btn btn-primary"></input>
+                </form>
+            </div>
+
         </center>
 
         <div id="main">
@@ -74,13 +94,15 @@ include '../../actions/admin_midware.php';
     <!-- AJAX Script -->
     <script>
         $(document).ready(function() {
-            function loadTransactions(transact_by, payment_mode, page) {
+            function loadTransactions(transact_by, payment_mode, startDate, endDate, page) {
                 $.ajax({
                     url: 'load_offtake_transactions.php',
                     type: 'POST',
                     data: {
                         transact_by: transact_by,
                         payment_mode: payment_mode,
+                        startDate: startDate,
+                        endDate: endDate,
                         page: page
                     },
                     success: function(data) {
@@ -92,19 +114,32 @@ include '../../actions/admin_midware.php';
             $('#transact_by, #payment_mode').change(function() {
                 var transact_by = $('#transact_by').val();
                 var payment_mode = $('#payment_mode').val();
-                loadTransactions(transact_by, payment_mode, 1);
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
+                loadTransactions(transact_by, payment_mode, startDate, endDate, 1);
+            });
+
+            $('#dateRangeForm').submit(function(e) {
+                e.preventDefault();
+                var transact_by = $('#transact_by').val();
+                var payment_mode = $('#payment_mode').val();
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
+                loadTransactions(transact_by, payment_mode, startDate, endDate, 1);
             });
 
             $('body').on('click', '.pagination a', function(e) {
                 e.preventDefault();
                 var transact_by = $('#transact_by').val();
                 var payment_mode = $('#payment_mode').val();
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
                 var page = $(this).attr('data-page');
-                loadTransactions(transact_by, payment_mode, page);
+                loadTransactions(transact_by, payment_mode, startDate, endDate, page);
             });
 
             // Initial load
-            loadTransactions('all', 'all', 1);
+            loadTransactions('all', 'all', '', '', 1);
 
             // View Details
             $('body').on('click', '.view_details', function(e) {
@@ -151,31 +186,42 @@ include '../../actions/admin_midware.php';
                     }
                 });
 
-                // Get the table data
-                var tableData = [tableHeaders]; // Start with the headers
+                // Get the table rows data
+                var tableData = [];
                 $('table tbody tr').each(function() {
-                    var rowData = [];
+                    var rowData = {};
                     $(this).find('td').each(function(index) {
                         // Exclude the "Actions" column (assuming it is the last column)
-                        if (index !== $(this).parent().find('td').length - 1) {
-                            rowData.push($(this).text());
+                        if (index !== $('table thead th').length - 1) {
+                            rowData[tableHeaders[index]] = $(this).text();
                         }
                     });
                     tableData.push(rowData);
                 });
 
-                // Create a new Excel workbook
+                // Generate the Excel file
+                var worksheet = XLSX.utils.json_to_sheet(tableData, {
+                    header: tableHeaders
+                });
                 var workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Transactions');
+                var excelBuffer = XLSX.write(workbook, {
+                    bookType: 'xlsx',
+                    type: 'array'
+                });
 
-                // Add the table data to a new worksheet
-                var worksheet = XLSX.utils.aoa_to_sheet(tableData);
-                XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-
-                // Save the workbook as an Excel file
-                XLSX.writeFile(workbook, 'offtake_trans_table.xlsx');
+                // Create a Blob from the Excel buffer and initiate download
+                var blob = new Blob([excelBuffer], {
+                    type: 'application/octet-stream'
+                });
+                var downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = 'offtake_transactions.xlsx';
+                downloadLink.click();
             });
         });
     </script>
+
     </body>
 
 </html>

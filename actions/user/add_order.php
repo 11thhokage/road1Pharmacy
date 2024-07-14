@@ -36,8 +36,9 @@ if (session_status() == PHP_SESSION_NONE) {
         if (isset($_POST['item_name']) && isset($_POST['item_qty'])) {
             $item_name = $_POST['item_name'];
             $requested_qty = $_POST['item_qty'];
-            $priceQuery = mysqli_query($conn, "SELECT price FROM items WHERE item_name = '$item_name'");
+            $priceQuery = mysqli_query($conn, "SELECT * FROM items WHERE item_name = '$item_name'");
             $priceResult = mysqli_fetch_assoc($priceQuery);
+            $type = $priceResult['type'];
             $price = $priceResult['price'];
             $subtotal = $price * $requested_qty;
 
@@ -59,6 +60,7 @@ if (session_status() == PHP_SESSION_NONE) {
                             'item_name' => $item_name,
                             'price' => $price,
                             'quantity' => $requested_qty,
+                            'type' => $type,
                             'subtotal' => $subtotal,
                         ];
                         $found = false;
@@ -73,6 +75,7 @@ if (session_status() == PHP_SESSION_NONE) {
                                     'price' => $price,
                                     'quantity' => $new_qty,
                                     'subtotal' => $new_subtotal,
+                                    'type' => $type
                                 ];
                                 break; // Item updated, no need to continue the loop
 
@@ -120,7 +123,7 @@ if (session_status() == PHP_SESSION_NONE) {
                <script>
                Swal.fire({
                    title: 'No item Found',
-                   text: 'Not Found";
+                   text: 'No Stocks Available";
                     echo "',
                    icon: 'warning',
                    confirmButtonText: 'Ok'

@@ -1,0 +1,24 @@
+-----------------------------------------
+Road 1 Pharmacy
+Proprietor: Ronaldo Borbon
+Unit 2 Ipo road, Minuyan, Sjdm, Bulacan
+Contact: Contact Number
+-----------------------------------------
+Transaction Date: 2024-07-05
+Transaction Time: 13:53:40
+-----------------------------------------
+Transacted By: frontend2
+-----------------------------------------
+Items:
+ACYCLOVIR 100MG - 1 x 15
+-----------------------------------------
+Mode of Payment: Gcash
+Amount Tendered: 20
+-----------------------------------------
+Total: 15.00
+Change: 5
+-----------------------------------------
+Receipt is valid for 30 days.
+-----------------------------------------
+-----------------------------------------
+-----------------------------------------

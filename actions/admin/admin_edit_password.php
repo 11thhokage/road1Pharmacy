@@ -70,9 +70,9 @@ include '../../database/config.php';
                 echo "<h5>" . "Username: " . $row['username'] . "</h5>";
                 echo "<h6>" . "<b>Current Email: </b>" . $row['email'] . "</h6>";
                 echo "<label for='new_email'>New Email: </label><br/>
-            <input type='email' id='new_email' name='new_email' style='width: 100px; !important;' required ><br />";
+            <input type='email' id='new_email' name='new_email' style='width: 200px; !important;' required ><br />";
                 echo "<label for='new_pass'>New Password: </label><br />
-            <input type='password' id='new_pass' name='new_pass' style='width: 100px;' required ><br/>";
+            <input type='password' id='new_pass' name='new_pass' style='width: 200px;' required ><br/>";
                 echo "<input type='hidden' name='id' value='$id'><br/>";
                 echo "<input type='submit' name='save_changes' class='btn btn-primary' value='Save Changes'><br/>
             <a href='../../pages/admin/admin_view_profile.php' class='btn btn-danger mt-2'>Cancel</a>";

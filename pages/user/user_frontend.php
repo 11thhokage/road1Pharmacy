@@ -24,7 +24,7 @@ include '../../actions/user_midware.php';
                 </h2>
             </div>
             <div class="card-body">
-                <form action="../../actions/user/add_order2.php" method="post">
+                <form action="../../actions/user/add_order.php" method="post">
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="">Item Name</label>

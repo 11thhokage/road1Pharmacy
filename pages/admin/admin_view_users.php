@@ -60,10 +60,10 @@ include '../../actions/admin_midware.php';
                         <div class='card-body'>
                           <div class='container'>
                               <div class='row'>
-                                <div class='col-md-1'>
-                                <p class='id' style='font-size:70px;'>  $id</p>
+                                <div class='col-md-5'>
+                                <p class='id' style='font-size:65px;'>  $id</p>
                                 </div>
-                                <div class='col-md-8 ml-3'>
+                                <div class='col-md-7'>
                                 <p class='card-text '>$username</p>
                                 <p class='card-text'> $email</p>
                                 <p class='card-text'>$role</p>

@@ -39,16 +39,18 @@ include '../../actions/user_midware.php';
         // Check if all fields are filled out
         if (!empty($_POST['item_name']) && !empty($_POST['reason']) && !empty($_POST['qty'])) {
             // Prepare an insert statement
-            $sql = "INSERT INTO push_orders (item_name, reason, qty,status) VALUES (?, ?, ?,?)";
+            $sql = "INSERT INTO push_orders (item_name, reason, qty,date_reported,status) VALUES (?, ?, ?, ?, ?)";
 
             if ($stmt = $conn->prepare($sql)) {
                 // Bind variables to the prepared statement as parameters
-                $stmt->bind_param("ssis", $item_name, $reason, $qty, $status);
+                $stmt->bind_param("ssiss", $item_name, $reason, $qty, $today, $status);
 
                 // Set parameters and execute
                 $item_name = $_POST['item_name'];
                 $reason = $_POST['reason'];
                 $qty = $_POST['qty'];
+                $today =  date("Y-m-d");
+
                 $status = $_POST['status'];
 
                 if ($stmt->execute()) {

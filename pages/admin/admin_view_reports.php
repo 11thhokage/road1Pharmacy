@@ -12,12 +12,29 @@ $limit = 3; // Limit of records per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $start = ($page - 1) * $limit;
 
-// Get the total number of records
-$totalQuery = $pdo->query("SELECT COUNT(*) FROM reports");
+// Fetch the earliest date from the reports table
+$earliestDateQuery = $pdo->query("SELECT MIN(date_reported) AS earliest_date FROM reports");
+$earliestDateRow = $earliestDateQuery->fetch(PDO::FETCH_ASSOC);
+$earliest_date = $earliestDateRow['earliest_date'];
+
+// Default today's date
+$today = date("Y-m-d");
+
+// Get the date range from the form submission or set default values
+$startDate = isset($_POST['startDate']) ? $_POST['startDate'] : $earliest_date;
+$endDate = isset($_POST['endDate']) ? $_POST['endDate'] : $today;
+
+// Get the total number of records within the date range
+$totalQuery = $pdo->prepare("SELECT COUNT(*) FROM reports WHERE date_reported BETWEEN :startDate AND :endDate");
+$totalQuery->bindParam(':startDate', $startDate);
+$totalQuery->bindParam(':endDate', $endDate);
+$totalQuery->execute();
 $totalRows = $totalQuery->fetchColumn();
 $totalPages = ceil($totalRows / $limit);
 
-$query = $pdo->prepare("SELECT * FROM reports LIMIT :start, :limit");
+$query = $pdo->prepare("SELECT * FROM reports WHERE date_reported BETWEEN :startDate AND :endDate ORDER BY date_reported DESC LIMIT :start, :limit");
+$query->bindParam(':startDate', $startDate);
+$query->bindParam(':endDate', $endDate);
 $query->bindParam(':start', $start, PDO::PARAM_INT);
 $query->bindParam(':limit', $limit, PDO::PARAM_INT);
 $query->execute();
@@ -34,6 +51,17 @@ $rows = $query->fetchAll(PDO::FETCH_ASSOC);
                     <div class='row justify-content-center'>
                         <div class='col-12'>
                             <div class='table-responsive'>
+                                <!-- <form action="" method="post">
+                                    <div class="form-group">
+                                        <label for="startDate">Start Date</label>
+                                        <input type="date" id="startDate" name="startDate" placeholder="Start Date (YYYY-MM-DD)" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>" value="<?php echo $startDate; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="endDate">End Date</label>
+                                        <input type="date" id="endDate" name="endDate" placeholder="End Date (YYYY-MM-DD)" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>" value="<?php echo $endDate; ?>">
+                                    </div>
+                                    <input type="submit" name="submit" class="btn btn-primary" value="Filter">
+                                </form> -->
                                 <table class='table table-dark table-bordered mb-0'>
                                     <thead>
                                         <tr>
@@ -41,6 +69,7 @@ $rows = $query->fetchAll(PDO::FETCH_ASSOC);
                                             <th scope='col'>Item Name</th>
                                             <th scope='col'>Reason</th>
                                             <th scope='col'>Quantity</th>
+                                            <th scope='col'>Date</th>
                                             <th scope='col'>Status</th>
                                             <th scope='col'>Action</th>
                                         </tr>
@@ -52,6 +81,7 @@ $rows = $query->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $row['item_name']; ?></td>
                                                 <td><?php echo $row['reason']; ?></td>
                                                 <td><?php echo $row['qty']; ?></td>
+                                                <td><?php echo $row['date_reported']; ?></td>
                                                 <td <?php if ($row['status'] == 'unread') {
                                                         echo "style='color: red;'";
                                                     } ?>><?php echo $row['status']; ?></td>
@@ -70,7 +100,7 @@ $rows = $query->fetchAll(PDO::FETCH_ASSOC);
                                 <nav aria-label='Page navigation example'>
                                     <ul class='pagination'>
                                         <?php if ($page > 1) : ?>
-                                            <li class='page-item'><a class='page-link' href='#' data-page='<?php echo $page - 1; ?>'>Previous</a></li>
+                                            <li class='page-item'><a class='page-link' href='?page=<?php echo $page - 1; ?>'>Previous</a></li>
                                         <?php endif; ?>
 
                                         <?php
@@ -78,11 +108,11 @@ $rows = $query->fetchAll(PDO::FETCH_ASSOC);
                                         $endPage = min($startPage + 2, $totalPages);
 
                                         for ($i = $startPage; $i <= $endPage; $i++) : ?>
-                                            <li class='page-item <?php if ($page == $i) echo 'active'; ?>'><a class='page-link' href='#' data-page='<?php echo $i; ?>'><?php echo $i; ?></a></li>
+                                            <li class='page-item <?php if ($page == $i) echo 'active'; ?>'><a class='page-link' href='?page=<?php echo $i; ?>'><?php echo $i; ?></a></li>
                                         <?php endfor; ?>
 
                                         <?php if ($page < $totalPages) : ?>
-                                            <li class='page-item'><a class='page-link' href='#' data-page='<?php echo $page + 1; ?>'>Next</a></li>
+                                            <li class='page-item'><a class='page-link' href='?page=<?php echo $page + 1; ?>'>Next</a></li>
                                         <?php endif; ?>
                                     </ul>
                                 </nav>
@@ -106,8 +136,7 @@ $rows = $query->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="modal-body">
                 <div class="edit_form">
-
-
+                    <!-- Edit form content -->
                 </div>
             </div>
         </div>

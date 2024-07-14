@@ -44,8 +44,9 @@ include '../../actions/user_midware.php';
             $reason = mysqli_real_escape_string($conn, $_POST['reason']);
             $qty = mysqli_real_escape_string($conn, $_POST['qty']);
             $status = mysqli_real_escape_string($conn, $_POST['status']);
+            $today =  date("Y-m-d");
             $expiry_date = isset($_POST['expiry_date']) ? mysqli_real_escape_string($conn, $_POST['expiry_date']) : NULL;
-            $sql = "INSERT INTO reports (item_name, reason, qty, expiry_date, status) VALUES ('$item_name', '$reason', '$qty', '$expiry_date','$status')";
+            $sql = "INSERT INTO reports (item_name, reason, qty, date_reported,expiry_date, status) VALUES ('$item_name', '$reason', '$qty','$today', '$expiry_date','$status')";
             // Execute SQL query and handle potential errors
             if ($conn->query($sql) === TRUE) {
                 echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>

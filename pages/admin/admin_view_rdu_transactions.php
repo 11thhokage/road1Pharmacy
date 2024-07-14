@@ -20,7 +20,7 @@ include '../../actions/admin_midware.php';
         </div>
         <!-- Filter Dropdown -->
         <center>
-            <label for="receivd_by">Received By:</label>
+            <label for="received_by">Received By:</label>
             <select id="received_by" class="mb-2 form-select my-select" style="width:30%;">
                 <option value='all'>All</option>
                 <?php
@@ -36,6 +36,29 @@ include '../../actions/admin_midware.php';
                 }
                 ?>
             </select>
+            <div class="card-body mid income" id="content">
+                <p class="class-title text-center fs-3">
+                    <?php
+                    if (isset($_POST['submit'])) {
+                        echo "The sales from " . $_POST['startDate'] . " to " . $_POST['endDate'] . ":";
+                    }
+                    ?>
+                </p>
+                <form id="dateRangeForm" method="post">
+                    <label for="startDate">Start Date</label>
+                    <?php
+                    $sql = "SELECT MIN(date_received) AS earliest_date FROM deliver_received";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    $earliest_date = $row['earliest_date'];
+                    $today = date('Y-m-d');
+                    ?>
+                    <input type="date" id="startDate" name="startDate" placeholder="Start Date (YYYY/MM/DD)" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate" name="endDate" placeholder="End Date (YYYY/MM/DD)" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>">
+                    <input type="submit" name="submit" class="btn btn-primary"></input>
+                </form>
+            </div>
         </center>
 
         <div id="main">
@@ -72,12 +95,14 @@ include '../../actions/admin_midware.php';
     <!-- AJAX Script -->
     <script>
         $(document).ready(function() {
-            function loadTransactions(received_by, page) {
+            function loadTransactions(received_by, startDate, endDate, page) {
                 $.ajax({
                     url: 'load_transactions.php',
                     type: 'POST',
                     data: {
                         received_by: received_by,
+                        startDate: startDate,
+                        endDate: endDate,
                         page: page
                     },
                     success: function(data) {
@@ -88,18 +113,30 @@ include '../../actions/admin_midware.php';
 
             $('#received_by').change(function() {
                 var received_by = $(this).val();
-                loadTransactions(received_by, 1);
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
+                loadTransactions(received_by, startDate, endDate, 1);
+            });
+
+            $('#dateRangeForm').submit(function(e) {
+                e.preventDefault();
+                var received_by = $('#received_by').val();
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
+                loadTransactions(received_by, startDate, endDate, 1);
             });
 
             $('body').on('click', '.pagination a', function(e) {
                 e.preventDefault();
                 var received_by = $('#received_by').val();
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
                 var page = $(this).attr('data-page');
-                loadTransactions(received_by, page);
+                loadTransactions(received_by, startDate, endDate, page);
             });
 
             // Initial load
-            loadTransactions('all', 1);
+            loadTransactions('all', '', '', 1);
 
             // View Details
             $('body').on('click', '.view_details', function(e) {
@@ -142,35 +179,41 @@ include '../../actions/admin_midware.php';
                     }
                 });
 
-                // Get the table data
-                var tableData = [tableHeaders]; // Start with the headers
+                // Get the table rows data
+                var tableData = [];
                 $('table tbody tr').each(function() {
-                    var rowData = [];
+                    var rowData = {};
                     $(this).find('td').each(function(index) {
                         // Exclude the "Actions" column (assuming it is the last column)
-                        if (index !== $(this).parent().find('td').length - 1) {
-                            rowData.push($(this).text());
+                        if (index !== $('table thead th').length - 1) {
+                            rowData[tableHeaders[index]] = $(this).text();
                         }
                     });
                     tableData.push(rowData);
                 });
 
-                // Create a new Excel workbook
+                // Generate the Excel file
+                var worksheet = XLSX.utils.json_to_sheet(tableData, {
+                    header: tableHeaders
+                });
                 var workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Transactions');
+                var excelBuffer = XLSX.write(workbook, {
+                    bookType: 'xlsx',
+                    type: 'array'
+                });
 
-                // Add the table data to a new worksheet
-                var worksheet = XLSX.utils.aoa_to_sheet(tableData);
-                XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-
-                // Save the workbook as an Excel file
-                XLSX.writeFile(workbook, 'rdu_trans_table.xlsx');
+                // Create a Blob from the Excel buffer and initiate download
+                var blob = new Blob([excelBuffer], {
+                    type: 'application/octet-stream'
+                });
+                var downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = 'transactions.xlsx';
+                downloadLink.click();
             });
-
-            // Export to PDF button click event
-
         });
     </script>
-
 </body>
 
 </html>

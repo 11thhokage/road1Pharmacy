@@ -3,13 +3,24 @@ include '../../database/config.php';
 session_start();
 include '../../actions/admin_midware.php';
 
-$received_by = $_POST['received_by'];
-$page = isset($_POST['page']) ? $_POST['page'] : 1;
-$limit = 7; // Number of items per page
+$received_by = $_POST['received_by'] ?? 'all';
+$startDate = $_POST['startDate'] ?? '';
+$endDate = $_POST['endDate'] ?? '';
+$page = $_POST['page'] ?? 1;
+$limit = 10;
 $offset = ($page - 1) * $limit;
 
-$whereClause = ($received_by === 'all') ? "" : "WHERE received_by='$received_by'";
-
+$whereClauses = [];
+if ($received_by !== 'all') {
+    $whereClauses[] = "received_by = '$received_by'";
+}
+if (!empty($startDate) && !empty($endDate)) {
+    $whereClauses[] = "date_received BETWEEN '$startDate' AND '$endDate'";
+}
+$whereClause = "";
+if (count($whereClauses) > 0) {
+    $whereClause = "WHERE " . implode(" AND ", $whereClauses);
+}
 // Get total number of items
 $total_items = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM deliver_received $whereClause"));
 
@@ -22,80 +33,70 @@ $total_row = mysqli_fetch_assoc($total_result);
 $total = $total_row['total_amount'];
 $ftotal = number_format($total, 2, '.', '');
 
-echo "<h2>Total :₱$ftotal</h2>";
+echo "<h2>Total: ₱$ftotal</h2>";
 
-$transaction = "SELECT * FROM deliver_received $whereClause ORDER BY post_trans_number DESC LIMIT $offset, $limit";
-$result = mysqli_query($conn, $transaction);
-if (!$result) {
-    die('Error: ' . mysqli_error($conn));
-}
-if (mysqli_num_rows($result) > 0) {
+$data = "SELECT * FROM deliver_received $whereClause ORDER BY post_trans_number DESC LIMIT $limit OFFSET $offset";
+$result = mysqli_query($conn, $data);
+$count = mysqli_num_rows($result);
 
-    echo "<section class='intro'>
-            <div class='gradient-custom-2 h-100'>
-                <div class='mask d-flex align-items-center h-100'>
-                    <div class='container'>
-                        <div class='row justify-content-center'>
-                            <div class='col-12'>
-                                <div class='table-responsive'>
-                                    <table class='table table-dark table-bordered mb-0'>
-                                        <thead>
-                                            <tr>
-                                                <th scope='col'>System #</th>
-                                                <th scope='col'>Transaction #</th>
-                                                <th scope='col'>Total</th>
-                                                <th scope='col'>Date Received</th>
-                                                <th scope='col'>Received By</th>
-                                                <th scope='col'>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>";
+if ($count > 0) {
+    $output = '<table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>System #</th>
+                        <th>Transaction #</th>
+                        <th>Total</th>
+                        <th>Date received</th>
+                        <th>Received By</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>';
     while ($row = mysqli_fetch_assoc($result)) {
-        $system = $row['post_trans_number'];
-        $id = $row['receipt_trans_number'];
-        $total = $row['total'];
-        $date = $row['date_received'];
-        $received_by = $row['received_by'];
-        echo "<tr>
-                <td scope='col' class='system'>$system</td>
-                <td scope='col' class='id'>$id</td>
-                <td scope='col' class='total'>$total</td>
-                <td scope='col' class='date'>$date</td>
-                <td scope='col' class='received_by'>$received_by</td>
-                <td scope='col'><a href='#' class='btn btn-info view_details'>🔍View Details</a></td>
-              </tr>";
+        $output .= '<tr>
+                        <td class="system">' . $row['post_trans_number'] . '</td>
+                        <td class="id">' . $row['receipt_trans_number'] . '</td>
+                        <td class="total">' . $row['total'] . '</td>
+                        <td class="date">' . $row['date_received'] . '</td>
+                        <td class="received_by">' . $row['received_by'] . '</td>
+                        <td>
+                            <button class="btn btn-info view_details">🔍View Details</button>
+                        </td>
+                    </tr>';
     }
-    echo "</tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>";
+    $output .= '</tbody></table>';
 
-    echo "<div class='row justify-content-center mt-4'>
-            <nav aria-label='Page navigation example'>
-                <ul class='pagination'>";
+    // Pagination
+    $paginationQuery = "SELECT COUNT(*) AS total FROM deliver_received $whereClause";
+    $paginationResult = mysqli_query($conn, $paginationQuery);
+    $paginationRow = mysqli_fetch_assoc($paginationResult);
+    $totalItems = $paginationRow['total'];
+    $totalPages = ceil($totalItems / $limit);
+
+    $paginationOutput = '<nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">';
+
     if ($page > 1) {
-        echo "<li class='page-item'><a class='page-link' href='#' data-page='" . ($page - 1) . "'>Previous</a></li>";
+        $paginationOutput .= "<li class='page-item'><a class='page-link' href='#' data-page='" . ($page - 1) . "'>Previous</a></li>";
     }
 
     $startPage = max(1, $page - 1);
-    $endPage = min($startPage + 2, $total_pages);
+    $endPage = min($startPage + 2, $totalPages);
 
     for ($i = $startPage; $i <= $endPage; $i++) {
-        echo "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='#' data-page='$i'>$i</a></li>";
+        $paginationOutput .= "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='#' data-page='$i'>$i</a></li>";
     }
 
-    if ($page < $total_pages) {
-        echo "<li class='page-item'><a class='page-link' href='#' data-page='" . ($page + 1) . "'>Next</a></li>";
+    if ($page < $totalPages) {
+        $paginationOutput .= "<li class='page-item'><a class='page-link' href='#' data-page='" . ($page + 1) . "'>Next</a></li>";
     }
 
-    echo "</ul>
-            </nav>
-          </div>";
+    $paginationOutput .= "</ul></nav>";
+
+    $output .= $paginationOutput;
 } else {
-    echo "<p>No transactions found.</p>";
+    $output = '';
+    $output .= '<p class="text-center">No transactions found.</p>';
 }
+
+echo $output;

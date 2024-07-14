@@ -326,10 +326,18 @@ if (isset($_POST['submit'])) {
                               ?>
                            </p>
                            <form action="" method="post">
-                              <label for="">From</label>
-                              <input type="date" id="startDate" name="startDate" placeholder="Start Date (YYYY/MM/DD)" pattern="\d{4}/\d{2}/\d{2}" required>
-                              <label for="">To</label>
-                              <input type="date" id="endDate" name="endDate" placeholder="End Date (YYYY/MM/DD)" pattern="\d{4}/\d{2}/\d{2}" required max="<?php echo $today; ?>">
+                              <label for="">Start Date</label>
+                              <?php
+                              $sql = "SELECT MIN(date_transacted) AS earliest_date FROM transactions";
+                              $result = mysqli_query($conn, $sql);
+                              $row = mysqli_fetch_assoc($result);
+                              $earliest_date = $row['earliest_date'];
+
+
+                              ?>
+                              <input type="date" id="startDate" name="startDate" placeholder="Start Date (YYYY/MM/DD)" pattern="\d{4}/\d{2}/\d{2}" required min="<?php echo $earliest_date; ?>" max="<?php echo $today ?>">
+                              <label for="">End Date</label>
+                              <input type="date" id="endDate" name="endDate" placeholder="End Date (YYYY/MM/DD)" pattern="\d{4}/\d{2}/\d{2}" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>">
                               <input type="submit" name="submit" class="btn btn-primary"></input>
                            </form>
                            <div id="chartContainer" style="height: 43vh; width: 95%;"></div>
