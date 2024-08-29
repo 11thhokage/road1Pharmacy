@@ -29,7 +29,7 @@ include '../../actions/admin_midware.php';
 
 </head>
 
-<body class="bg-dark background" style="background-color:#f64361 !important;">
+<body class="bg-dark background" style="background-color:#A41623 !important;">
 
    <?php
 
@@ -46,15 +46,23 @@ include '../../actions/admin_midware.php';
       $type = $_FILES['picture']['type'];
       $size = $_FILES['picture']['size'];
 
-      $username = mysqli_real_escape_string($conn, $_POST['username']); //"mysqli_real_escape_string() for anti-sql injection in strings"
+      $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
+      $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
       $email = mysqli_real_escape_string($conn, $_POST['email']);
+      $raw_pass = mysqli_real_escape_string($conn, $_POST['password']);
       $pass = hash('sha256', $_POST['password']);
       $cpass = hash('sha256', $_POST['cpassword']);
       $role_as = $_POST['role_as'];
+      if ($role_as = 2) {
+         $role = 'Frontend';
+      } elseif ($role_as = 3) {
+         $role = 'RDU';
+      } else {
+         $role = 'Not a staff';
+      }
       $status = $_POST['status'];
 
-      $select = "SELECT * FROM accounts WHERE username = '$username' AND email = '$email'";
-
+      $select = "SELECT * FROM accounts WHERE firstname = '$firstname' AND lastname = '$lastname' AND email = '$email'";
       $result = mysqli_query($conn, $select);
 
       if (mysqli_num_rows($result) > 0) {
@@ -65,40 +73,61 @@ include '../../actions/admin_midware.php';
          } else {
             if (($type == "image/jpeg" || $type == "image/jpg" || $type == "image/png") && ($size <= 2097152)) {
                move_uploaded_file($temp, "../../img/$mypic");
-               $insert = "INSERT INTO accounts(username, email, password, role_as, picture, status) VALUES('$username','$email','$pass','$role_as', '$mypic','$status')";
+               $insert = "INSERT INTO accounts(firstname,lastname, email, password, role_as, picture, status) VALUES('$firstname','$lastname','$email','$pass','$role_as', '$mypic','$status')";
                mysqli_query($conn, $insert);
-               $mail = new PHPMailer(true);
 
-               $mail->isSMTP();
-               $mail->Host = 'smtp.gmail.com';
-               $mail->SMTPAuth = true;
-               $mail->Username = 'road1pharmacy@gmail.com';
-               $mail->Password = 'zaetfsdqvnefbvqj';
-               $mail->SMTPSecure = 'ssl';
-               $mail->Port = 465;
+               if ($insert) {
+                  $last_insert_id = mysqli_insert_id($conn);
 
-               $mail->setFrom('road1pharmacy@gmail.com', 'Road 1 Pharmacy');
-               $mail->addAddress($email);
-               $mail->isHTML(true);
-               $mail->Subject = 'Welcome to Road 1 Pharmacy';
-               $mail->Body = 'Welcome to Road 1 Pharmacy! <br> Your account has been created. 
-               <br> You can now login to your account.
-               <br> Please proceed to this website to login: 
-               <br> https://road1pharmacy.com/pages/index.php';
-               $mail->send();
+                  // Generate username
+                  $username = $last_insert_id . '-' . $lastname . $firstname;
 
-               echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
-           <div class='content'>
-               <script>
-               Swal.fire({
-                   title: 'Success!',
-                   text: 'Added New User',
-                   icon: 'success',
-                   confirmButtonText: 'Back To Users'
-               }).then(() =>{window.location.href = 'admin_view_users.php';});
-               </script>
-           </div>
-       </main>";
+                  // Update the inserted row with the generated username
+                  $update_username = "UPDATE accounts SET username = '$username' WHERE id = '$last_insert_id'";
+                  mysqli_query($conn, $update_username);
+
+                  $mail = new PHPMailer(true);
+
+                  try {
+                     $mail->isSMTP();
+                     $mail->Host = 'smtp.gmail.com';
+                     $mail->SMTPAuth = true;
+                     $mail->Username = 'road1pharmacy@gmail.com';
+                     $mail->Password = 'zaetfsdqvnefbvqj';
+                     $mail->SMTPSecure = 'ssl';
+                     $mail->Port = 465;
+
+                     $mail->setFrom('road1pharmacy@gmail.com', 'Road 1 Pharmacy');
+                     $mail->addAddress($email);
+                     $mail->isHTML(true);
+                     $mail->Subject = 'Welcome to Road 1 Pharmacy';
+                     $mail->Body = 'Welcome to Road 1 Pharmacy! 
+                            <br> Your account has been created. 
+                            <br> You are assigned in the ' . $role . ' department.
+                            <br> You can now login to your account.
+                            <br>Your username is ' . $username . '.
+                            <br> Your password is ' . $raw_pass . ' .
+                            <br> Please proceed to this website to login: 
+                            <br> https://road1pharmacy.com/pages/index.php';
+
+                     $mail->send();
+                  } catch (Exception $e) {
+                     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                  }
+
+                  echo "<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4 content-wrapper'>
+                        <div class='content'>
+                            <script>
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Added New User',
+                                icon: 'success',
+                                confirmButtonText: 'Back To Users'
+                            }).then(() =>{window.location.href = 'admin_view_users.php';});
+                            </script>
+                        </div>
+                    </main>";
+               }
             } else {
                if ($size > 2097152) {
                   $error[] = 'File size must be less than 2MB!';
@@ -110,17 +139,18 @@ include '../../actions/admin_midware.php';
       }
    };
    ?>
+
    <div class="section ">
-      <div class="container bg-dark background ">
-         <div class="image">
+      <div class="container bg-light background ">
+         <!-- <div class="image">
             <a href="admin_view_users.php" class="return"><img width="50" height="50" src="https://img.icons8.com/ios/50/008BF8/circled-left--v1.png" alt="circled-left--v1" /></a>
-         </div>
-         <div class="form-section bg-dark">
+         </div> -->
+         <div class="form-section bg-light">
             <div class="logo">
                <img class="logo-image mx-1" src="../../img/IMG_5789__1_-removebg-preview.png" alt="logo">
-               <h1>Road 1 Pharmacy</h1>
+               <h1 style="color:black;">Road 1 Pharmacy</h1>
             </div>
-            <p>Your One Stop Healthcare Pharmacy</p>
+            <p style="color:black;">Your One Stop Healthcare Pharmacy</p>
             <form ENCTYPE="multipart/form-data" action="" method="post">
                <?php
                if (isset($error) && !empty($error)) {
@@ -131,33 +161,59 @@ include '../../actions/admin_midware.php';
                   echo '</div>';
                }
                ?>
-               <div class="input-form">
-                  <input type="text" class="input bg-dark" name="username" required placeholder="Username">
-                  <label class="hidden-label" for="username">Username</label>
-               </div>
-               <div class="input-form">
-                  <input type="password" class="input bg-dark" name="password" required placeholder="Password">
-                  <label class="hidden-label" for="password">Password</label>
-               </div>
-               <div class="input-form">
-                  <input type="password" class="input bg-dark" name="cpassword" required placeholder="Confirm Password">
-                  <label class="hidden-label" for="cpassword">Confirm Password</label>
-               </div>
-               <div class="input-form">
-                  <input type="email" class="input bg-dark" name="email" required placeholder="Enter your email">
-                  <label class="hidden-label" for="email">Email</label>
-               </div>
-               <div class="input-form">
-                  <input type="file" id="myFile" name="picture" required>
-                  <label class="picture" for="picture">Profile Picture</label>
-               </div>
-               <div class="input-form">
+               <div class="row">
+                  <div class="form-group col-md-6">
+                     <input type="text" class="input bg-dark" name="firstname" required placeholder="First Name">
+                     <label class="hidden-label" for="username">Firstname</label>
+                  </div>
+                  <div class="form-group col-md-6">
+                     <input type="text" class="input bg-dark" name="lastname" required placeholder="Last Name">
+                     <label class="hidden-label" for="username">Last name</label>
+                  </div>
+                  <!-- <div class="form-group col-md-6">
+                     <input type="text" class="input bg-dark" name="username" required placeholder="Username">
+                     <label class="hidden-label" for="username">Username</label>
+                  </div> -->
+                  <div class="form-group col-md-12">
+                     <input type="email" class="input bg-dark" name="email" required placeholder="Enter your email">
+                     <label class="hidden-label" for="email">Email</label>
+                  </div>
+                  <div class="form-group col-md-6">
+                     <input type="password" class="input bg-dark" id="password" name="password" required placeholder="Password" oninput="validatePassword()">
+                     <label class="hidden-label" for="password">Password</label>
+                  </div>
+                  <script>
+                     function validatePassword() {
+                        var password = document.getElementById('password').value;
 
-                  <select name="role_as" id="role_as" class="input bg-dark">
-                     <option value="2">Frontend</option>
-                     <option value="3">RDU</option>
-                  </select>
-                  <label for="role_as">Role</label>
+                        // Regular expression to validate password
+                        var strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+                        if (strongRegex.test(password)) {
+                           document.getElementById('password').setCustomValidity('');
+                        } else {
+                           document.getElementById('password').setCustomValidity('Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.');
+                        }
+                     }
+                  </script>
+
+                  <div class="form-group col-md-6">
+                     <input type="password" class="input bg-dark" name="cpassword" required placeholder="Confirm Password">
+                     <label class="hidden-label" for="cpassword">Confirm Password</label>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                     <input type="file" id="myFile" name="picture" required style="color:black;">
+                     <label class="picture" for="picture" style="color:black;">Profile Picture</label>
+                  </div>
+                  <div class="form-group col-md-6">
+
+                     <select name="role_as" id="role_as" class="input bg-dark">
+                        <option value="2">Frontend</option>
+                        <option value="3">RDU</option>
+                     </select>
+                     <label for="role_as">Role</label>
+                  </div>
                </div>
                <input type="hidden" name="status" value="out">
                <input type="submit" name="submit" value="Register Now" class="btn btn-primary btn-block">

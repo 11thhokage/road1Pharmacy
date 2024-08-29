@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['date_received'])) {
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="../../css/user.css">
     <?php include "user_ham.php"; ?>
     <!-- Container Main start -->
     <div class="height-100 bg-light">
@@ -161,6 +162,74 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['date_received'])) {
             </div>
         </div>
     </div>
+    <div class="chatbot">
+        <a class="chatbot" onclick="toggleChatbox()">
+            <?php
+            $randomValue = "Hello there! I'm here to help you monitor stocks.
+            Just type: Near Expriy items or Check Expiry + the item name";
+            ?>
+            <div class="chatbot-circle">
+                <img src="../../img/chatbot_icon.gif" alt="">
+            </div>
+        </a>
+    </div>
+    <div id="chatbox" style="display:none;">
+        <a onclick="closeChatBox()"><i class="fas fa-times" id="chat_close"></i></a>
+        <div class="chat-container">
+            <h3>Stock Expiry Monitoring Chatbot</h3>
+            <div class="chat-messages" id="chat-messages">
+                <div class="bot-message"><?php echo $randomValue; ?></div>
+            </div>
+            <form id="chat-form">
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        <script>
+            document.getElementById('chat-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                sendMessage();
+                document.getElementById("user-input").value = "";
+            });
+
+            function sendMessage() {
+                var userInput = document.getElementById('user-input').value;
+                appendMessage('user', userInput);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '../../chatbotkuno/index2.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var botResponse = xhr.responseText;
+                        appendMessage('bot', botResponse);
+                    }
+                };
+                xhr.send('input=' + userInput);
+            }
+
+            function appendMessage(sender, message) {
+                var chatMessages = document.getElementById('chat-messages');
+                var messageDiv = document.createElement('div');
+                messageDiv.className = sender + '-message';
+                messageDiv.textContent = message;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        </script>
+    </div>
+    <script>
+        function toggleChatbox() {
+            var chatbox = document.getElementById("chatbox");
+            chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
+            // console.log("hi");
+        }
+
+        function closeChatBox() {
+            var chatbox = document.getElementById("chatbox");
+            chatbox.style.display = chatbox.style.display === "none" ? "block" : "none";
+        }
+    </script>
     <!-- Container Main end -->
 
     <!-- Main content -->

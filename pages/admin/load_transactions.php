@@ -33,14 +33,22 @@ $total_row = mysqli_fetch_assoc($total_result);
 $total = $total_row['total_amount'];
 $ftotal = number_format($total, 2, '.', '');
 
-echo "<h2>Total: ₱$ftotal</h2>";
+// Get data for the graph
+$graphQuery = "SELECT DATE(date_received) AS date, SUM(total) AS total_amount FROM deliver_received $whereClause GROUP BY DATE(date_received)";
+$graphResult = mysqli_query($conn, $graphQuery);
+$graphData = [];
+while ($row = mysqli_fetch_assoc($graphResult)) {
+    $graphData[] = ['date' => $row['date'], 'total_amount' => $row['total_amount']];
+}
+
+$output = '<h2>Total: ₱' . $ftotal . '</h2>';
 
 $data = "SELECT * FROM deliver_received $whereClause ORDER BY post_trans_number DESC LIMIT $limit OFFSET $offset";
 $result = mysqli_query($conn, $data);
 $count = mysqli_num_rows($result);
 
 if ($count > 0) {
-    $output = '<table class="table table-bordered table-striped">
+    $output .= '<table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>System #</th>
@@ -99,4 +107,4 @@ if ($count > 0) {
     $output .= '<p class="text-center">No transactions found.</p>';
 }
 
-echo $output;
+echo json_encode(['table' => $output, 'graphData' => $graphData]);

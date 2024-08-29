@@ -23,18 +23,18 @@
 
 </head>
 
-<body class="bg-dark background " style="background-color:#f64361 !important;">
+<body class="bg-light background " style="background-color:#A41623 !important;">
    <div class="section ">
-      <div class="container bg-dark background">
+      <div class="container bg-light background">
          <div class="image">
             <!--<a href="index.php" class="return"><img width="50" height="50" src="https://img.icons8.com/ios/50/FFFFFF/circled-left--v1.png" alt="circled-left--v1"/></a>-->
          </div>
-         <div class="form-section bg-dark">
+         <div class="form-section bg-light">
             <div class="logo">
                <img class="logo-image mx-1" src="../img/IMG_5789__1_-removebg-preview.png" alt="logo">
-               <h1>Road 1 Pharmacy</h1>
+               <h1 style="color:black;">Road 1 Pharmacy</h1>
             </div>
-            <p>Your One Stop Healthcare Pharmacy</p>
+            <p style="color:black;">Your One Stop Healthcare Pharmacy</p>
             <form method="post" action="../actions/login.php">
                <div class="input-form">
                   <input type="text" class="input bg-dark" name="username" required placeholder="Username">
@@ -44,7 +44,9 @@
                   <input type="password" class="input bg-dark" name="password" required placeholder="Password">
                   <label class="hidden-label" for="password">Password</label>
                </div>
-               <button type="submit" name="submit" class="btn btn-primary button">Login</button>
+               <button type="submit" name="submit" class="btn btn-primary button">
+                  <p style="color:black;">Login</p>
+               </button>
             </form>
             <div class="other-sign-in">
                <!--<p>Fast sign up with your favorite social profile</p>

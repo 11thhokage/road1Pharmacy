@@ -41,6 +41,7 @@ session_start(); ?>
                 $_SESSION['role_as'] = $row['role_as'];
                 $_SESSION['authenticated'] = true; // Set session variable on success
                 $_SESSION['username'] = $row['username'];
+                $_SESSION['name'] = $row['lastname'] . ',' . $row['firstname'];
                 $_SESSION['status'] = $row['status'];
 
                 if ($_SESSION['status'] == 'out') {

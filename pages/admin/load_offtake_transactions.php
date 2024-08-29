@@ -55,6 +55,14 @@ $gcash_row = mysqli_fetch_assoc($gcash_result);
 $gcash = $gcash_row['gcash_amount'] ?? 0;
 $fgcash = number_format($gcash, 2, '.', '');
 
+// Get data for the graph
+$graphQuery = "SELECT DATE(date_transacted) AS date, SUM(amount) AS total_amount FROM transactions $whereClause GROUP BY DATE(date_transacted)";
+$graphResult = mysqli_query($conn, $graphQuery);
+$graphData = [];
+while ($row = mysqli_fetch_assoc($graphResult)) {
+    $graphData[] = ['date' => $row['date'], 'total_amount' => $row['total_amount']];
+}
+
 $data = "SELECT * FROM transactions $whereClause ORDER BY id DESC LIMIT $limit OFFSET $offset";
 $result = mysqli_query($conn, $data);
 $count = mysqli_num_rows($result);
@@ -126,4 +134,4 @@ if ($count > 0) {
     $output .= '<p class="text-center">No transactions found.</p>';
 }
 
-echo $output;
+echo json_encode(['table' => $output, 'graphData' => $graphData]);

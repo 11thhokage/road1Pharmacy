@@ -10,9 +10,10 @@ include '../../actions/user_midware.php';
 <head>
     <link rel="stylesheet" href="../../css/add_order.css">
     <?php include 'user_ham.php';
-    if (isset($_SESSION['username'])) {
+    if (isset($_SESSION['username']) && isset($_SESSION['name'])) {
         $username = $_SESSION['username'];
-        echo "<p id ='user'> " . htmlspecialchars($username) . "</p>";
+        $name = $_SESSION['name'];
+        echo "<p id ='user'> " . htmlspecialchars($name) . "</p>";
     } else {
         echo "No session found. Please log in.";
     }

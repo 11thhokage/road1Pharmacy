@@ -20,44 +20,57 @@ include '../../actions/admin_midware.php';
         </div>
         <!-- Filter Dropdown -->
         <center>
-            <label for="received_by">Received By:</label>
-            <select id="received_by" class="mb-2 form-select my-select" style="width:30%;">
-                <option value='all'>All</option>
-                <?php
-                $data = "SELECT username FROM accounts WHERE role_as = '3'";
-                $result = mysqli_query($conn, $data);
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $username = $row['username'];
-                        echo "<option value='$username'>$username</option>";
-                    }
-                } else {
-                    echo "<option value=''>No data found!</option>";
-                }
-                ?>
-            </select>
-            <div class="card-body mid income" id="content">
-                <p class="class-title text-center fs-3">
-                    <?php
-                    if (isset($_POST['submit'])) {
-                        echo "The sales from " . $_POST['startDate'] . " to " . $_POST['endDate'] . ":";
-                    }
-                    ?>
-                </p>
-                <form id="dateRangeForm" method="post">
-                    <label for="startDate">Start Date</label>
-                    <?php
-                    $sql = "SELECT MIN(date_received) AS earliest_date FROM deliver_received";
-                    $result = mysqli_query($conn, $sql);
-                    $row = mysqli_fetch_assoc($result);
-                    $earliest_date = $row['earliest_date'];
-                    $today = date('Y-m-d');
-                    ?>
-                    <input type="date" id="startDate" name="startDate" placeholder="Start Date (YYYY/MM/DD)" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>">
-                    <label for="endDate">End Date</label>
-                    <input type="date" id="endDate" name="endDate" placeholder="End Date (YYYY/MM/DD)" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>">
-                    <input type="submit" name="submit" class="btn btn-primary"></input>
-                </form>
+            <div class="container mb-5">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="received_by">Received By:</label>
+                        <select id="received_by" class="mb-2 form-select my-select" style="width:100%;">
+                            <option value='all'>All</option>
+                            <?php
+                            $data = "SELECT username FROM accounts WHERE role_as = '3'";
+                            $result = mysqli_query($conn, $data);
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    $username = $row['username'];
+                                    echo "<option value='$username'>$username</option>";
+                                }
+                            } else {
+                                echo "<option value=''>No data found!</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <div class="card-body mid income" id="content">
+                            <p class="class-title text-center fs-3">
+                                <?php
+                                if (isset($_POST['submit'])) {
+                                    echo "The sales from " . $_POST['startDate'] . " to " . $_POST['endDate'] . ":";
+                                }
+                                ?>
+                            </p>
+                            <form id="dateRangeForm" method="post">
+                                <label for="startDate">Start Date</label>
+                                <?php
+                                $sql = "SELECT MIN(date_received) AS earliest_date FROM deliver_received";
+                                $result = mysqli_query($conn, $sql);
+                                $row = mysqli_fetch_assoc($result);
+                                $earliest_date = $row['earliest_date'];
+                                $today = date('Y-m-d');
+                                ?>
+                                <input type="date" id="startDate" name="startDate" placeholder="Start Date (YYYY/MM/DD)" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>">
+                                <label for="endDate">End Date</label>
+                                <input type="date" id="endDate" name="endDate" placeholder="End Date (YYYY/MM/DD)" required min="<?php echo $earliest_date; ?>" max="<?php echo $today; ?>">
+                                <input type="submit" name="submit" class="btn btn-primary"></input>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div id="graphContainer" style="width: 100%; height: 400px;">
+                            <canvas id="transactionsGraph"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </center>
 
@@ -92,6 +105,9 @@ include '../../actions/admin_midware.php';
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
     <!-- AJAX Script -->
     <script>
         $(document).ready(function() {
@@ -105,8 +121,10 @@ include '../../actions/admin_midware.php';
                         endDate: endDate,
                         page: page
                     },
-                    success: function(data) {
-                        $('#formContent').html(data);
+                    success: function(response) {
+                        var data = JSON.parse(response);
+                        $('#formContent').html(data.table);
+                        updateGraph(data.graphData);
                     }
                 });
             }
@@ -137,6 +155,52 @@ include '../../actions/admin_midware.php';
 
             // Initial load
             loadTransactions('all', '', '', 1);
+            // Chart.js setup
+            var ctx = document.getElementById('transactionsGraph').getContext('2d');
+            var transactionsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Total Amount',
+                        data: [],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Total Amount (₱)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            function updateGraph(graphData) {
+                var dates = graphData.map(item => item.date);
+                var amounts = graphData.map(item => item.total_amount);
+
+                transactionsChart.data.labels = dates;
+                transactionsChart.data.datasets[0].data = amounts;
+                transactionsChart.update();
+            }
+
 
             // View Details
             $('body').on('click', '.view_details', function(e) {
